@@ -1,0 +1,18 @@
+Bu Hafta Yapılanlar 23 Mart:
+Bu hafta, projemizin yapay zeka bileşeninin temelini oluşturan çalışmaları tamamladım. Amacımız, kullanıcının girdiği İngilizce ilaç adı ve Türkçe sorusuna, FDA (Amerikan Gıda ve İlaç Dairesi) kaynaklarından elde edilen bilgilerle Türkçe olarak cevap verebilen bir AI asistanı geliştirmek.
+
+Bu doğrultuda aşağıdaki adımları gerçekleştirdim:
+
+OpenAI Entegrasyonu (ai.py): OpenAI'nin gpt-3.5-turbo modelini kullanarak doğal dil işleme yeteneklerini projeye dahil ettim. Bu kapsamda, FDA ilaç bilgilerini ve kullanıcının Türkçe sorusunu alıp, modeli en iyi şekilde yönlendirecek İngilizce bir prompt oluşturan bir mekanizma geliştirdim. Ayrıca, modelden dönen cevabı alıp kullanıcıya sunacak fonksiyonları yazdım. API hatalarını da ele alacak temel bir yapı oluşturdum.
+
+FDA Veri Çekme ve İşleme (Bilac.py / ilac.py): Kullanıcının girdiği İngilizce ilaç adına göre FDA web sitesinden ilgili bilgileri çekebilecek ve bu bilgileri işleyerek (temizleyerek) AI modelinin anlayabileceği bir formata dönüştürebilecek bir modül oluşturdum. Bu modül, requests, BeautifulSoup ve re gibi kütüphaneleri kullanarak web scraping ve veri ayıklama işlemlerini gerçekleştiriyor.
+
+Ana Uygulama (main.py): Kullanıcının ilaç adını ve sorusunu etkileşimli bir şekilde alıp, bu bilgileri kullanarak ilaç verilerini çeken, prompt oluşturan ve AI modelinden cevap alan ana iş akışını yöneten bir script yazdım. Ayrıca, OpenAI API anahtarının güvenli bir şekilde ortam değişkenlerinden alınmasını sağladım ve temel hata durumları için bilgilendirme mesajları ekledim.
+
+Özetle, bu hafta AI asistanımızın temel işlevlerini yerine getirebilmesi için gerekli olan altyapıyı ve ana modülleri başarıyla geliştirdim. Kullanıcı artık İngilizce bir ilaç adı girip Türkçe bir soru sorarak, FDA kaynaklarına dayalı cevaplar alabiliyor. Bu, projenin yapay zeka odaklı kısımlarının ilk ve önemli bir adımıdır
+
+
+
+
+
+
