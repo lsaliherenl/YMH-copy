@@ -15,7 +15,7 @@ Bu klasör, FDA verileriyle desteklenen yapay zeka modülünü içerir.
 - `requirements.txt`: Gerekli kütüphaneler
 
 ## Not:
-Bu klasör, projenin **Yapay Zeka** bileşeninden sorumlu kişi [@berkayhsrt](https://github.com/berkayhsrt) tarafından geliştirilmiştir.
+Bu klasör, projenin **Yapay Zeka** bileşeninden sorumlu kişi [@berkayhsrt](https://github.com/berkay123001) tarafından geliştirilmiştir.
 
 ## Geliştirme Günlüğü 📓
 
