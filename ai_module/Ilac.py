@@ -2,70 +2,120 @@ import requests
 import json
 from bs4 import BeautifulSoup
 import re
+from typing import Optional, Dict
+
 
 class Drug:
-    def __init__(self, drug_name):
-        self.drug_name = drug_name  # İngilizce etken madde/ilaç adı
-        self.brand_name = None
-        self.generic_name = None
-        self.substance_name = None
-        self.indications_and_usage = None
-        self.warnings = None
-        self.dosage_and_administration = None
-        self.adverse_reactions = None
-        # ... İsteğe bağlı diğer özellikler ...
+    """
+    FDA'dan ilaç bilgilerini çeken ve bu bilgileri temizleyen sınıf.
+    """
 
-    def get_fda_info(self):
-        """FDA openFDA API'sinden ilaç bilgilerini çeker ve sınıf özelliklerine kaydeder."""
-        url = "https://api.fda.gov/drug/label.json"
-        params = {
-            "search": f'openfda.substance_name:"{self.drug_name}"',  # SADECE etken madde
+    def __init__(self, drug_name: str):
+        """
+        Drug sınıfının yapıcısı.
+
+        Args:
+            drug_name (str): İngilizce etken madde/ilaç adı.
+        """
+        self.drug_name: str = drug_name  # İngilizce etken madde/ilaç adı
+        self.brand_name: Optional[str] = None
+        self.generic_name: Optional[str] = None
+        self.substance_name: Optional[str] = None
+        self.indications_and_usage: Optional[str] = None
+        self.warnings: Optional[str] = None
+        self.dosage_and_administration: Optional[str] = None
+        self.adverse_reactions: Optional[str] = None
+
+    def _fetch_fda_data(self) -> Optional[Dict]:
+        """
+        FDA openFDA API'sinden ilaç bilgilerini çeker.
+
+        Returns:
+            Optional[Dict]: API'den dönen JSON verisi veya None (hata durumunda).
+        """
+        url: str = "https://api.fda.gov/drug/label.json"
+        params: Dict[str, str] = {
+            "search": f'openfda.substance_name:"{self.drug_name}"',
             "limit": 1
-        }
+        }  # Sadece bir sonuç al
         try:
             response = requests.get(url, params=params)
-            response.raise_for_status()
-            data = response.json()
+            print(f"API URL: {response.url}")  # Tam URL'yi yazdır
+            response.raise_for_status()  # Hatalı durumlar için HTTPError yükselt
+            print(f"API Yanıtı: {response.text}")  # Yanıtı yazdır (DEBUG)
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"FDA API'sine erişimde hata: {e}")
+            print(f"Hata Detayı: {e.response.text if e.response else None}")  # Hata detayını yazdır (DEBUG)
+            return None
+        except json.JSONDecodeError as e:
+            print(f"FDA API yanıtını işlerken hata: {e}")
+            return None
 
-            if 'results' not in data or not data['results']:
-                print(f"'{self.drug_name}' için bilgi bulunamadı.")
-                return False  # Başarısız
+    def get_fda_info(self) -> bool:
+        """
+        FDA verilerini çeker ve sınıf özelliklerine kaydeder.
 
-            result = data['results'][0]
+        Returns:
+            bool: Başarılı ise True, başarısız ise False.
+        """
+        fda_data: Optional[Dict] = self._fetch_fda_data()  # Veriyi çek
+        if not fda_data or 'results' not in fda_data or not fda_data['results']:
+            print(f"FDA'da '{self.drug_name}' için bilgi bulunamadı.")
+            return False
+
+        try:
+            result: Dict = fda_data['results'][0]
+            openfda: Dict = result.get('openfda', {})  # openfda verisine güvenli erişim
 
             # Bilgileri sınıfın özniteliklerine kaydet
-            self.brand_name = result.get('openfda', {}).get('brand_name', [None])[0]
-            self.generic_name = result.get('openfda', {}).get('generic_name', [None])[0]
-            self.substance_name = result.get('openfda', {}).get('substance_name', [None])[0]
-            self.indications_and_usage = result.get('indications_and_usage', [None])[0]
-            self.warnings = result.get('warnings', [None])[0]
-            self.dosage_and_administration = result.get('dosage_and_administration', [None])[0]
-            self.adverse_reactions = result.get('adverse_reactions', [None])[0]
-            # ... Diğer alanları da ekle ...
-            return True  # Başarılı
+            self.brand_name = openfda.get('brand_name', [None])[0] if openfda.get('brand_name') else None
+            self.generic_name = openfda.get('generic_name', [None])[0] if openfda.get('generic_name') else None
+            self.substance_name = openfda.get('substance_name', [None])[0] if openfda.get('substance_name') else None
+            self.indications_and_usage = result.get('indications_and_usage', [None])[0] if result.get('indications_and_usage') else None
+            self.warnings = result.get('warnings', [None])[0] if result.get('warnings') else None
+            self.dosage_and_administration = result.get('dosage_and_administration', [None])[0] if result.get('dosage_and_administration') else None
+            self.adverse_reactions = result.get('adverse_reactions', [None])[0] if result.get('adverse_reactions') else None
+            return True
 
-        except (requests.exceptions.RequestException, json.JSONDecodeError, KeyError, IndexError) as e:
-            print(f"Hata: {e}")
+        except (KeyError, IndexError, TypeError) as e:
+            print(f"FDA verisini işlerken hata: {e}")
             return False
+
+    def _clean_text(self, text: Optional[str]) -> Optional[str]:
+        """
+        Metni temizleyen yardımcı fonksiyon.
+
+        Args:
+            text (Optional[str]): Temizlenecek metin.
+
+        Returns:
+            Optional[str]: Temizlenmiş metin veya None.
+        """
+        if text:
+            soup: BeautifulSoup = BeautifulSoup(text, 'html.parser')
+            text: str = soup.get_text(separator=" ")  # Metin parçalarını boşlukla birleştir
+            text: str = re.sub(r'\s+', ' ', text).strip()
+            return text
+        return None
 
     def clean_data(self):
         """Çekilen ilaç bilgilerini temizler (HTML etiketleri, vb.)."""
 
-        def clean_string(text):
-            """Metin temizleme işlemini yapan yardımcı fonksiyon (private)."""
-            if text:
-                soup = BeautifulSoup(text, 'html.parser')
-                text = soup.get_text(separator=" ")
-                text = re.sub(r'\s+', ' ', text).strip()
-            return text
-
-        # Sınıfın metin türündeki özniteliklerini temizle
-        if self.indications_and_usage:
-            self.indications_and_usage = clean_string(self.indications_and_usage)
-        if self.warnings:
-            self.warnings = clean_string(self.warnings)
-        if self.dosage_and_administration:
-            self.dosage_and_administration = clean_string(self.dosage_and_administration)
-        if self.adverse_reactions:
-            self.adverse_reactions = clean_string(self.adverse_reactions)
+        self.indications_and_usage = self._clean_text(self.indications_and_usage)
+        self.warnings = self._clean_text(self.warnings)
+        self.dosage_and_administration = self._clean_text(self.dosage_and_administration)
+        self.adverse_reactions = self._clean_text(self.adverse_reactions)
         # ... Diğer metin türündeki öznitelikleri de temizle ...
+
+
+if __name__ == '__main__':
+    # Örnek kullanım
+    drug = Drug("Enalapril")  # Örnek ilaç adı
+    if drug.get_fda_info():
+        print(f"İlaç Adı: {drug.substance_name}")
+        print(f"Endikasyonları: {drug.indications_and_usage}")
+        drug.clean_data()
+        print(f"Temizlenmiş Endikasyonları: {drug.indications_and_usage}")
+    else:
+        print("İlaç bilgisi alınamadı.")
