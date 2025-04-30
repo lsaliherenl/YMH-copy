@@ -25,14 +25,21 @@
                         <input type="password" id="password" name="password" placeholder="Şifrenizi giriniz" required>
                     </div>
                     <div class="form-group remember-me">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">Beni hatırla</label>
+                        <div class="remember-forgot">
+                            <div class="remember">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember">Beni hatırla</label>
+                            </div>
+                            <a href="#" class="forgot-link">Şifremi Unuttum</a>
+                        </div>
                     </div>
                     <button type="submit" class="login-button">Giriş Yap</button>
-                    <div class="forgot-password">
-                        <a href="#">Şifremi Unuttum</a>
-                        <span class="separator">|</span>
-                        <a href="register.html" class="register-link">Kayıt Ol</a>
+                    <div class="guest-section">
+                        <a href="main_page.html" class="guest-button">Misafir Olarak Devam Et</a>
+                        <div class="register-section">
+                            <span class="separator">|</span>
+                            <a href="register.html" class="register-link">Kayıt Ol</a>
+                        </div>
                     </div>
                 </form>
             </div>

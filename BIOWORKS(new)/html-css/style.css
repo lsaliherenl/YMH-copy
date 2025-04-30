@@ -225,3 +225,72 @@ body {
     border-color: #4CAF50;
     background: #fff;
 }
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.forgot-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.forgot-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.guest-section {
+    margin-top: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.guest-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.guest-button:hover {
+    background-color: #e0e0e0;
+}
+
+.register-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.register-section .separator {
+    color: #666;
+    font-size: 14px;
+}
+
+.register-section .register-link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.register-section .register-link:hover {
+    color: #45a049;
+}
