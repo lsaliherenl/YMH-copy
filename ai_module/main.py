@@ -1,7 +1,9 @@
 import os
 from Ilac import Drug
 from ai import AIAssistant
-from typing import Dict, Optional
+from typing import Dict, Optional, List  # List'i ekledik
+from google_research.google_search import GoogleSearch  # Yeni modülü içe aktar
+
 
 def get_openai_api_key() -> str:
     """
@@ -17,6 +19,27 @@ def get_openai_api_key() -> str:
         raise ValueError("OpenAI API anahtarı bulunamadı. Lütfen OPENAI_API_KEY ortam değişkenini ayarlayın.")
     return api_key
 
+
+def get_google_api_keys() -> tuple[str, str]:
+    """
+    Google API anahtarlarını ortam değişkenlerinden alır.
+
+    Returns:
+        tuple[str, str]: Google API anahtarı ve CSE ID.
+        Raises:
+            ValueError: Eğer GOOGLE_API_KEY veya GOOGLE_CSE_ID ortam değişkenleri bulunamazsa.
+    """
+    google_api_key: str = os.environ.get("GOOGLE_API_KEY")
+    cse_id: str = os.environ.get("GOOGLE_CSE_ID")
+
+    if not google_api_key:
+        raise ValueError("Google API anahtarı bulunamadı. Lütfen GOOGLE_API_KEY ortam değişkenini ayarlayın.")
+    if not cse_id:
+        raise ValueError("Google CSE ID bulunamadı. Lütfen GOOGLE_CSE_ID ortam değişkenini ayarlayın.")
+
+    return google_api_key, cse_id
+
+
 def get_drug_and_question() -> tuple[str, str]:
     """
     Kullanıcıdan ilaç adını ve soruyu alır.
@@ -30,13 +53,17 @@ def get_drug_and_question() -> tuple[str, str]:
     user_question_tr: str = input("Lütfen sorunuzu Türkçe olarak girin: ")
     return drug_name_en, user_question_tr
 
+
 def main():
     """
     Ana uygulama akışı.
     """
     try:
-        api_key: str = get_openai_api_key()
-        ai_assistant: AIAssistant = AIAssistant(api_key)
+        api_key_openai: str = get_openai_api_key()
+        ai_assistant: AIAssistant = AIAssistant(api_key_openai)
+
+        api_key_google, cse_id_google = get_google_api_keys()  # Google API anahtarlarını al
+        google_search: GoogleSearch = GoogleSearch(api_key_google, cse_id_google)  # GoogleSearch nesnesi oluştur
 
         while True:
             drug_name_en, user_question_tr = get_drug_and_question()
@@ -55,21 +82,40 @@ def main():
                 }
 
                 prompt: str = AIAssistant.create_prompt(drug_info, user_question_tr)
-                response: Optional[str] = ai_assistant.get_response(prompt)
+                response_fda: Optional[str] = ai_assistant.get_response(prompt)
 
-                print("\n--- CEVAP ---")
-                if response:
-                    print(response)
+                print("\n--- FDA CEVABI ---")
+                if response_fda:
+                    print(response_fda)
                 else:
-                    print("GPT-3.5-turbo'dan cevap alınamadı.")
+                    print("FDA verilerinden cevap alınamadı.")
 
             else:
-                print(f"FDA'da '{drug_name_en}' için bilgi bulunamadı.")
+                print(f"FDA'da '{drug_name_en}' için bilgi bulunamadı. Web'de aranıyor...")
+                try:
+                    search_queries: List[str] = google_search.create_search_queries(user_question_tr)
+                    all_results: List[Dict] = []
+                    for query in search_queries:
+                        results: List[Dict] = google_search.search_web(query)
+                        all_results.extend(results)
+
+                    if all_results:
+                        answer_google: Optional[str] = google_search.analyze_and_summarize(user_question_tr, all_results)
+                        print("\n--- WEB ARAMA CEVABI ---")
+                        if answer_google:
+                            print(answer_google)
+                        else:
+                            print("Web arama sonuçlarından cevap oluşturulamadı.")
+                    else:
+                        print("\nÜzgünüm, web'de arama sonuçları bulunamadı.")
+                except Exception as e:
+                    print(f"Web arama sırasında hata oluştu: {e}")
 
     except ValueError as ve:
         print(f"HATA: {ve}")
     except Exception as e:
         print(f"Bilinmeyen bir hata oluştu: {e}")
+
 
 if __name__ == "__main__":
     main()
