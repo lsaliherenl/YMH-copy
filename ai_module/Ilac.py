@@ -3,6 +3,7 @@ import json
 from bs4 import BeautifulSoup
 import re
 from typing import Optional, Dict
+import logging
 
 
 class Drug:
@@ -37,19 +38,19 @@ class Drug:
         params: Dict[str, str] = {
             "search": f'openfda.substance_name:"{self.drug_name}"',
             "limit": 1
-        }  # Sadece bir sonuç al
+        }
         try:
             response = requests.get(url, params=params)
-            print(f"API URL: {response.url}")  # Tam URL'yi yazdır
-            response.raise_for_status()  # Hatalı durumlar için HTTPError yükselt
-            print(f"API Yanıtı: {response.text}")  # Yanıtı yazdır (DEBUG)
+            logging.info(f"API URL: {response.url}")  # Log olarak kaydet
+            response.raise_for_status()
+            logging.info(f"API Yanıtı: {response.text}")  # Log olarak kaydet
             return response.json()
         except requests.exceptions.RequestException as e:
-            print(f"FDA API'sine erişimde hata: {e}")
-            print(f"Hata Detayı: {e.response.text if e.response else None}")  # Hata detayını yazdır (DEBUG)
+            logging.error(f"FDA API'sine erişimde hata: {e}")
+            logging.error(f"Hata Detayı: {e.response.text if e.response else None}")
             return None
         except json.JSONDecodeError as e:
-            print(f"FDA API yanıtını işlerken hata: {e}")
+            logging.error(f"FDA API yanıtını işlerken hata: {e}")
             return None
 
     def get_fda_info(self) -> bool:
