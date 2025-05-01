@@ -46,17 +46,31 @@
         <nav class="top-panel">
             <div class="nav-container">
                 <div class="nav-right">
-                    <a href="main_page.html" class="nav-link">Ana Sayfa</a>
-                    <a href="about_us.html" class="nav-link">Hakkımızda</a>
-                    <a href="communication.html" class="nav-link">İletişim</a>
-                    <a href="profile.html" class="nav-link">Profil</a>
+                    <a href="main_page.html" class="nav-link"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
+                    <a href="about_us.html" class="nav-link"><i class="fa-solid fa-people-group"></i> Hakkımızda</a>
+                    <a href="communication.html" class="nav-link"><i class="fa-solid fa-envelope"></i> İletişim</a>
+                    <a href="profile.html" class="nav-link"><i class="fa-solid fa-circle-user"></i> Profil</a>
                 </div>
             </div>
         </nav>
 
         <!-- Ana İçerik -->
         <div class="content-area">
-            <!-- Ana içerik buraya gelecek -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Mesajlar buraya gelecek -->
+                </div>
+                <div class="chat-input-container">
+                    <textarea 
+                        class="chat-input" 
+                        placeholder="Mesajınızı yazın..." 
+                        id="messageInput"
+                    ></textarea>
+                    <button class="send-button">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </main>
 </body>

@@ -159,6 +159,7 @@ body {
 .register-link {
     color: #4CAF50 !important;
     font-weight: 500;
+    text-decoration: none;
 }
 
 .register-link:hover {
@@ -262,6 +263,10 @@ body {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+}
+
+.register-section {
+    margin-top: 15px;
 }
 
 .guest-button:hover {
