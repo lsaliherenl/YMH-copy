@@ -99,16 +99,15 @@ Proje aşağıdaki dosyaları içermektedir:
 
 ## Ekran Görüntüleri
 
-_(Buraya ilgili sayfaların ekran görüntülerini ekleyebilirsiniz. Örneğin: )_
-
 * **Giriş Sayfası:**
-    ![Giriş Sayfası Ekran Görüntüsü](screenshots/login.png)
+    ![Giriş Sayfası Ekran Görüntüsü](/photos/z-site_preview/giris-yap_v1.png)
 * **Kayıt Sayfası:**
-    ![Kayıt Sayfası Ekran Görüntüsü](screenshots/register.png)
+    ![Kayıt Sayfası Ekran Görüntüsü](/photos/z-site_preview/kayit-ol_v1.png)
+**Şifremi Unuttum Sayfası:**
+    ![Şifremi Unuttum Sayfası Ekran Görüntüsü](/photos/z-site_preview/sifremi-unuttum_v1.png)
 * **Ana Sayfa:**
-    ![Ana Sayfa Ekran Görüntüsü](screenshots/main_page.png)
-* **Şifremi Unuttum Sayfası:**
-    ![Şifremi Unuttum Sayfası Ekran Görüntüsü](screenshots/forgot_password.png)
+    ![Ana Sayfa Ekran Görüntüsü](/photos/z-site_preview/ana-sayfa_v1.png)
+
 
 ---
 
