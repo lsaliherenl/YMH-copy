@@ -41,9 +41,8 @@ class Drug:
         }
         try:
             response = requests.get(url, params=params)
-            logging.info(f"API URL: {response.url}")  # Log olarak kaydet
+            logging.info(f"API URL: {response.url}")
             response.raise_for_status()
-            logging.info(f"API Yanıtı: {response.text}")  # Log olarak kaydet
             return response.json()
         except requests.exceptions.RequestException as e:
             logging.error(f"FDA API'sine erişimde hata: {e}")
@@ -60,19 +59,20 @@ class Drug:
         Returns:
             bool: Başarılı ise True, başarısız ise False.
         """
-        fda_data: Optional[Dict] = self._fetch_fda_data()  # Veriyi çek
+        fda_data: Optional[Dict] = self._fetch_fda_data()
         if not fda_data or 'results' not in fda_data or not fda_data['results']:
             print(f"FDA'da '{self.drug_name}' için bilgi bulunamadı.")
             return False
 
         try:
             result: Dict = fda_data['results'][0]
-            openfda: Dict = result.get('openfda', {})  # openfda verisine güvenli erişim
+            openfda: Dict = result.get('openfda', {})
 
             # Bilgileri sınıfın özniteliklerine kaydet
             self.brand_name = openfda.get('brand_name', [None])[0] if openfda.get('brand_name') else None
             self.generic_name = openfda.get('generic_name', [None])[0] if openfda.get('generic_name') else None
             self.substance_name = openfda.get('substance_name', [None])[0] if openfda.get('substance_name') else None
+            # Aşağıdaki satırları GÜNCELLEDİK
             self.indications_and_usage = result.get('indications_and_usage', [None])[0] if result.get('indications_and_usage') else None
             self.warnings = result.get('warnings', [None])[0] if result.get('warnings') else None
             self.dosage_and_administration = result.get('dosage_and_administration', [None])[0] if result.get('dosage_and_administration') else None
@@ -95,7 +95,7 @@ class Drug:
         """
         if text:
             soup: BeautifulSoup = BeautifulSoup(text, 'html.parser')
-            text: str = soup.get_text(separator=" ")  # Metin parçalarını boşlukla birleştir
+            text: str = soup.get_text(separator=" ")
             text: str = re.sub(r'\s+', ' ', text).strip()
             return text
         return None

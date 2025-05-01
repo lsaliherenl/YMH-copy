@@ -1,8 +1,8 @@
 import os
 from Ilac import Drug
 from ai import AIAssistant
-from typing import Dict, Optional, List  # List'i ekledik
-from google_research.google_search import GoogleSearch  # Yeni modülü içe aktar
+from typing import Dict, Optional, List
+from google_research.google_search import GoogleSearch
 
 
 def get_openai_api_key() -> str:
@@ -62,8 +62,8 @@ def main():
         api_key_openai: str = get_openai_api_key()
         ai_assistant: AIAssistant = AIAssistant(api_key_openai)
 
-        api_key_google, cse_id_google = get_google_api_keys()  # Google API anahtarlarını al
-        google_search: GoogleSearch = GoogleSearch(api_key_google, cse_id_google)  # GoogleSearch nesnesi oluştur
+        api_key_google, cse_id_google = get_google_api_keys()
+        google_search: GoogleSearch = GoogleSearch(api_key_google, cse_id_google)
 
         while True:
             drug_name_en, user_question_tr = get_drug_and_question()
@@ -93,14 +93,23 @@ def main():
             else:
                 print(f"FDA'da '{drug_name_en}' için bilgi bulunamadı. Web'de aranıyor...")
                 try:
-                    search_queries: List[str] = google_search.create_search_queries(user_question_tr)
+                    # drug_name parametresini ekliyoruz
+                    search_queries: List[str] = google_search.create_search_queries(user_question_tr, drug_name_en)
                     all_results: List[Dict] = []
                     for query in search_queries:
                         results: List[Dict] = google_search.search_web(query)
                         all_results.extend(results)
 
                     if all_results:
-                        answer_google: Optional[str] = google_search.analyze_and_summarize(user_question_tr, all_results)
+                        print("\n--- HAM ARAMA SONUÇLARI ---")
+                        for result in all_results:
+                            print(f"Başlık: {result['title']}")
+                            print(f"URL: {result['url']}")
+                            print(f"Özet: {result['snippet']}")
+                            print("-" * 20)
+
+                        # drug_name parametresini ekliyoruz
+                        answer_google: Optional[str] = google_search.analyze_and_summarize(user_question_tr, all_results, drug_name_en)
                         print("\n--- WEB ARAMA CEVABI ---")
                         if answer_google:
                             print(answer_google)
