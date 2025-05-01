@@ -1,40 +1,140 @@
-<h2># BIOWORKS Web Uygulaması - Giriş ve Kayıt Sayfaları</h2>
+# BIOWORKS Web Uygulaması
 
-Bu proje, kullanıcıların giriş yapabileceği ve yeni hesap oluşturabileceği web sayfalarını içermektedir.
+Bu proje, kullanıcıların etkileşimde bulunabileceği çeşitli web sayfalarını içermektedir. Giriş, kayıt, şifremi unuttum gibi temel kullanıcı kimlik doğrulama işlemlerinin yanı sıra, ana sayfa, profil, hakkında ve iletişim sayfalarını da içermektedir.
 
-<h3> ## Proje Açıklaması  </h3>
+---
 
-Bu web uygulaması, kullanıcıların kimlik doğrulama işlemlerini gerçekleştirmesi için gerekli olan giriş (login) ve kayıt (register) sayfalarını sunar. Temel olarak, kullanıcıların sisteme erişimini yönetmek için tasarlanmıştır.
+## Proje Açıklaması
 
-<hr>
-<h3> ## İçerik </h3>
+Bu web uygulaması, kullanıcıların hesaplarını yönetmelerine ve çeşitli bilgilere erişmelerine olanak tanır. Kullanıcıların sisteme güvenli bir şekilde erişim sağlaması ve etkileşimde bulunması için tasarlanmıştır.
+
+---
+
+## İçerik
 
 Proje aşağıdaki dosyaları içermektedir:
 
-* **`index.html` (veya `login.html`):** Kullanıcıların e-posta ve şifrelerini girerek sisteme giriş yapmalarını sağlayan giriş sayfası.
-* **`register.html`:** Kullanıcıların ad, soyad, yaş, cinsiyet, e-posta ve şifre bilgilerini girerek yeni bir hesap oluşturmalarını sağlayan kayıt sayfası.
-* **`main_page.html`:** (Şu anda boş) Kullanıcı başarıyla giriş yaptıktan sonra yönlendirileceği ana sayfa. Bu dosya, giriş yaptıktan sonraki içeriğinizi oluşturacağınız yerdir.
-* **`style.css`:** Tüm sayfaların görünümünü ve düzenini kontrol eden CSS stil dosyası.
-<hr>
-<h3> ## Özellikler </h3>
+* `index.html` (veya `login.html`): Kullanıcıların e-posta ve şifrelerini girerek sisteme giriş yapmalarını sağlayan giriş sayfası. Misafir olarak devam etme ve şifremi unuttum seçenekleri de bulunur.
+* `register.html` : Kullanıcıların ad, soyad, yaş, cinsiyet, e-posta ve şifre bilgilerini girerek yeni bir hesap oluşturmalarını sağlayan kayıt sayfası.
+* `forgot_password.html` : Kullanıcıların şifrelerini sıfırlamak için e-posta adreslerini girebilecekleri şifremi unuttum sayfası.
+* `main_page.html` : Kullanıcıların giriş yaptıktan sonra yönlendirileceği ana sayfa. Sohbet geçmişi ve etkileşim alanı içerir.
+* `about_us.html` : Uygulama hakkında bilgi veren "Hakkımızda" sayfası.
+* `communication.html` : Kullanıcıların iletişim bilgilerine ulaşabileceği "İletişim" sayfası.
+* `profile.html` : Kullanıcıların kendi profillerini görüntüleyebileceği ve düzenleyebileceği "Profil" sayfası.
+* `style.css` : Tüm sayfaların genel görünümünü ve düzenini kontrol eden CSS stil dosyası.
+* `main_page.css`: Ana sayfaya özel stilleri içeren CSS dosyası.
+
+---
+
+## Özellikler
 
 * **Giriş Sayfası:**
     * E-posta ve şifre alanları.
     * "Beni Hatırla" seçeneği.
-    * Şifremi Unuttum bağlantısı.
-    * Kayıt sayfasına yönlendirme bağlantısı.
+    * "Şifremi Unuttum" bağlantısı.
+    * "Kayıt Ol" sayfasına yönlendirme bağlantısı.
+    * "Misafir Olarak Devam Et" seçeneği.
 * **Kayıt Sayfası:**
     * Ad, soyad, yaş, cinsiyet, e-posta ve şifre alanları.
     * Şifre doğrulama alanı.
-    * Giriş sayfasına yönlendirme bağlantısı.
+    * "Giriş Yap" sayfasına yönlendirme bağlantısı.
+* **Şifremi Unuttum Sayfası:**
+    * E-posta adresi alanı.
+    * Şifre sıfırlama bağlantısı gönderme butonu.
+    * "Giriş Yap" ve "Kayıt Ol" sayfalarına yönlendirme bağlantıları.
+* **Ana Sayfa:**
+    * Sohbet geçmişi bölümü.
+    * Mesaj gönderme alanı.
+    * Üst menüde "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" bağlantıları.
+* **Hakkımızda Sayfası:**
+    * Uygulama hakkında bilgilerin yer alacağı sayfa.
+* **İletişim Sayfası:**
+    * Kullanıcıların iletişim kurabileceği bilgilerin yer alacağı sayfa.
+* **Profil Sayfası:**
+    * Kullanıcıların profil bilgilerini görüntüleyebileceği ve düzenleyebileceği sayfa.
 * **Stil:**
     * Modern ve kullanıcı dostu tasarım.
     * Duyarlı (responsive) tasarım (farklı ekran boyutlarına uyum sağlar).
-    * `BIOWORKS` marka adı ve vurgulu renkler.
-<hr>
-<h3> ## Kurulum </h3>
+    * "BIOWORKS" marka adı ve vurgulu renkler.
+    * Ana sayfada bulanıklık efektli şeffaf tasarım öğeleri.
+
+---
+
+## Kurulum
 
 1.  Bu projeyi GitHub'dan klonlayın veya indirin.
 2.  Dosyaları bir web sunucusuna (örneğin, Apache, Nginx) veya yerel bir geliştirme ortamına (örneğin, XAMPP, WAMP) yerleştirin.
 3.  `index.html` veya `login.html` dosyasını bir tarayıcıda açarak uygulamayı başlatın.
-<hr>
+
+---
+
+## Kullanım
+
+* **Giriş Yapmak İçin:**
+    1.  `index.html` veya `login.html` sayfasına gidin.
+    2.  E-posta adresinizi ve şifrenizi girin.
+    3.  "Giriş Yap" düğmesine tıklayın.
+    4.  İsterseniz "Beni Hatırla" seçeneğini işaretleyebilirsiniz.
+    5.  Şifrenizi unuttuysanız, "Şifremi Unuttum" bağlantısına tıklayarak şifre sıfırlama sayfasına gidebilirsiniz.
+    6.  Hesabınız yoksa, "Kayıt Ol" bağlantısına tıklayarak kayıt sayfasına gidebilirsiniz.
+    7.  Hesap oluşturmadan devam etmek isterseniz, "Misafir Olarak Devam Et" düğmesine tıklayabilirsiniz.
+* **Kayıt Olmak İçin:**
+    1.  `register.html` sayfasına gidin.
+    2.  Gerekli tüm bilgileri (ad, soyad, yaş, cinsiyet, e-posta, şifre, şifre tekrarı) girin.
+    3.  "Kayıt Ol" düğmesine tıklayın.
+    4.  Zaten bir hesabınız varsa, "Giriş Yap" bağlantısına tıklayarak giriş sayfasına gidebilirsiniz.
+* **Şifremi Unuttum:**
+    1.  `forgot_password.html` sayfasına gidin.
+    2.  E-posta adresinizi girin.
+    3.  "Şifre Sıfırlama Bağlantısı Gönder" düğmesine tıklayın.
+    4.  Giriş yapmak için "Giriş Yap" veya kayıt olmak için "Kayıt Ol" bağlantılarını kullanabilirsiniz.
+* **Ana Sayfa:**
+    1.  Sol tarafta sohbet geçmişinizi görüntüleyebilirsiniz.
+    2.  Alt kısımdaki metin alanına mesajınızı yazıp gönderebilirsiniz.
+    3.  Üst menüden "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına erişebilirsiniz.
+* **Diğer Sayfalar:**
+    * "Hakkımızda", "İletişim" ve "Profil" sayfalarını ilgili menü bağlantılarından ziyaret edebilirsiniz.
+
+---
+
+## Ekran Görüntüleri
+
+_(Buraya ilgili sayfaların ekran görüntülerini ekleyebilirsiniz. Örneğin: )_
+
+* **Giriş Sayfası:**
+    ![Giriş Sayfası Ekran Görüntüsü](screenshots/login.png)
+* **Kayıt Sayfası:**
+    ![Kayıt Sayfası Ekran Görüntüsü](screenshots/register.png)
+* **Ana Sayfa:**
+    ![Ana Sayfa Ekran Görüntüsü](screenshots/main_page.png)
+* **Şifremi Unuttum Sayfası:**
+    ![Şifremi Unuttum Sayfası Ekran Görüntüsü](screenshots/forgot_password.png)
+
+---
+
+## Teknolojiler
+
+* HTML5
+* CSS3
+* Font Awesome (ikonlar için)
+
+---
+
+## Geliştirme
+
+Bu projeye katkıda bulunmak isterseniz, lütfen aşağıdaki adımları izleyin:
+
+1.  Projeyi fork edin.
+2.  Yeni bir branch oluşturun (`git checkout -b yeni-ozellik`).
+3.  Değişikliklerinizi yapın.
+4.  Değişikliklerinizi commit'leyin (`git commit -m "Yeni özellik eklendi"`).
+5.  Branch'inizi push edin (`git push origin yeni-ozellik`).
+6.  Pull Request gönderin.
+
+---
+
+## İletişim
+
+Herhangi bir sorunuz veya öneriniz varsa, lütfen benimle iletişime geçmekten çekinmeyin.
+
+---
