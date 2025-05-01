@@ -5,9 +5,8 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
 body {
-    background-image: url(/photos/a-resim/black_grenn_gradients.png);/* arka plan resmi */
+    background-image: url(/photos/a-resim/black_grenn_gradients.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -160,6 +159,7 @@ body {
 .register-link {
     color: #4CAF50 !important;
     font-weight: 500;
+    text-decoration: none;
 }
 
 .register-link:hover {
@@ -253,10 +253,6 @@ body {
 .guest-section {
     margin-top: 15px;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
 }
 
 .guest-button {
@@ -269,28 +265,10 @@ body {
     transition: background-color 0.3s ease;
 }
 
+.register-section {
+    margin-top: 15px;
+}
+
 .guest-button:hover {
     background-color: #e0e0e0;
-}
-
-.register-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.register-section .separator {
-    color: #666;
-    font-size: 14px;
-}
-
-.register-section .register-link {
-    color: #4CAF50;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.register-section .register-link:hover {
-    color: #45a049;
 }

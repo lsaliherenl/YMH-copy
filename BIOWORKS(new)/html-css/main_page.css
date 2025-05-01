@@ -1,0 +1,338 @@
+/* Ana Layout */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* Sol Panel */
+.left-panel {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    background: transparent; 
+    background-color: rgba(58, 58, 58, 0.3); /* Yeni eklenen kısım */
+    backdrop-filter: blur(10px); /* İsteğe bağlı bulanıklık efekti */
+}
+
+/* Ana İçerik Alanı */
+.main-area {
+    flex: 1;
+    margin-left: 300px;
+    min-height: 100vh;
+    position: relative;
+    background-image: url(/photos/a-resim/grenn-grenn-black.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Üst Panel */
+.top-panel {
+    position: fixed;
+    top: 0;
+    left: 300px;
+    right: 0;
+    padding: 20px 0;
+    z-index: 1000;
+    background: transparent;
+}
+
+.nav-container {
+    padding: 0 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    width: fit-content;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.nav-link i {
+    font-size: 16px;
+}
+
+.nav-link:hover {
+    color: #fff;
+    background: rgba(76, 175, 80, 0.5);
+}
+
+/* İçerik Alanı */
+.content-area {
+    padding: 80px 30px 30px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Sohbet Kutusu */
+.chat-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 20px 20px;
+    align-items: center;
+}
+
+.chat-input {
+    flex: 1;
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 15px;
+    resize: none;
+    outline: none;
+    transition: all 0.3s ease;
+    line-height: 24px;
+}
+
+.chat-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5);
+}
+
+.chat-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.send-button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.send-button:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+.send-button i {
+    font-size: 20px;
+}
+
+/* Scrollbar Stilleri */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(76, 175, 80, 0.3);
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(76, 175, 80, 0.5);
+}
+
+/* Brand Bölümü */
+.brand-container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    justify-content: flex-start;
+    padding-bottom: 25px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.8);
+    margin-bottom: 35px;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.brand-section:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.nav-logo {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+}
+
+.company-name {
+    font-size: 24px;
+    margin: 0;
+    color: #fff;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: color 0.3s ease;
+}
+
+.brand-section:hover .company-name {
+    color: #4CAF50;
+}
+
+.brand-section:hover .nav-logo {
+    transform: scale(1.05);
+}
+
+/* Sohbet Bölümü */
+.chat-content {
+    padding: 0 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-header {
+    text-align: center;
+    margin: 45px 0 25px 0;
+}
+
+.chat-header h2 {
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: rgba(76, 175, 80, 0.2);
+    padding: 12px 20px;
+    border-radius: 30px;
+    display: inline-block;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+.chat-header h2:hover {
+    background: rgba(76, 175, 80, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-item {
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-item:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateX(5px);
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.chat-preview h3 {
+    font-size: 1em;
+    margin-bottom: 8px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.chat-preview p {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.chat-time {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
+    display: block;
+    margin-top: 8px;
+}
+
+/* Scrollbar Stilleri */
+.chat-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-content::-webkit-scrollbar-thumb {
+    background: rgba(76, 175, 80, 0.3);
+    border-radius: 3px;
+}
+
+.chat-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(76, 175, 80, 0.5);
+} 

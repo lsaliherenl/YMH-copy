@@ -4,9 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Ana Sayfa - BIOWORKS</title>
 </head>
 <body>
-    
+    <!-- Sol Panel -->
+    <aside class="left-panel">
+        <div class="brand-container">
+            <a href="main_page.html" class="brand-section">
+                <img src="/photos/a-resim/AI-logo.png" alt="Logo" class="nav-logo">
+                <h1 class="company-name">BIOWORKS</h1>
+            </a>
+        </div>
+        <div class="chat-content">
+            <div class="chat-header">
+                <h2><i class="fa-solid fa-clock-rotate-left"></i> Sohbet Geçmişi</h2>
+            </div>
+            <div class="chat-list">
+                <div class="chat-item">
+                    <div class="chat-preview">
+                        <h3>Sohbet 1</h3>
+                        <p>Son mesaj önizlemesi...</p>
+                    </div>
+                    <span class="chat-time">14:30</span>
+                </div>
+                <div class="chat-item">
+                    <div class="chat-preview">
+                        <h3>Sohbet 2</h3>
+                        <p>Son mesaj önizlemesi...</p>
+                    </div>
+                    <span class="chat-time">13:45</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Ana İçerik Alanı -->
+    <main class="main-area">
+        <!-- Üst Panel -->
+        <nav class="top-panel">
+            <div class="nav-container">
+                <div class="nav-right">
+                    <a href="main_page.html" class="nav-link"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
+                    <a href="about_us.html" class="nav-link"><i class="fa-solid fa-people-group"></i> Hakkımızda</a>
+                    <a href="communication.html" class="nav-link"><i class="fa-solid fa-envelope"></i> İletişim</a>
+                    <a href="profile.html" class="nav-link"><i class="fa-solid fa-circle-user"></i> Profil</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Ana İçerik -->
+        <div class="content-area">
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Mesajlar buraya gelecek -->
+                </div>
+                <div class="chat-input-container">
+                    <textarea 
+                        class="chat-input" 
+                        placeholder="Mesajınızı yazın..." 
+                        id="messageInput"
+                    ></textarea>
+                    <button class="send-button">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
