@@ -45,7 +45,6 @@ Bu hafta, BIOWORKS projesinin temel HTML ve CSS yapısı üzerine odaklanıldı.
 
 * Veritabanı entegrasyonuna başlanacak.
 * Kullanıcı etkileşimlerini yönetecek JavaScript kodları yazılacak.
-* Profil, Hakkımızda ve İletişim sayfalarının içeriği doldurulacak.
 * Duyarlılık (responsive) tasarım iyileştirmeleri yapılacak.
 
 ## Ek Notlar

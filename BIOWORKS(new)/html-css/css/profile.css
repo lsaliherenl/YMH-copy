@@ -1,0 +1,402 @@
+/* Profil Sayfası ve Navigasyon için Gerekli CSS */
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.left-panel {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    background: transparent; 
+    background-color: rgba(58, 58, 58, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.main-area {
+    flex: 1;
+    margin-left: 300px;
+    min-height: 100vh;
+    position: relative;
+    background-image: url(/photos/a-resim/grenn-grenn-black.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.top-panel {
+    position: fixed;
+    top: 0;
+    left: 300px;
+    right: 0;
+    padding: 20px 0;
+    z-index: 1000;
+    background: transparent;
+}
+
+.nav-container {
+    padding: 0 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    width: fit-content;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.nav-link i {
+    font-size: 16px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #fff;
+    background: rgba(76, 175, 80, 0.5);
+}
+
+.brand-container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    justify-content: flex-start;
+    padding-bottom: 25px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.8);
+    margin-bottom: 35px;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.brand-section:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.nav-logo {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+}
+
+.company-name {
+    font-size: 24px;
+    margin: 0;
+    color: #fff;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: color 0.3s ease;
+}
+
+.brand-section:hover .company-name {
+    color: #4CAF50;
+}
+
+.brand-section:hover .nav-logo {
+    transform: scale(1.05);
+}
+
+/* Profil Sayfası Bloklar (Card) Düzeni */
+.profile-blocks-area {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+    width: 100%;
+    align-items: center;
+    margin-top: 100px; /* Navigasyon barı yüksekliği kadar boşluk */
+}
+
+.profile-block {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255,255,255,0.13);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(76, 175, 80, 0.18);
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.logout-block {
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(220,53,69,0.10);
+    border: 1.5px solid rgba(220,53,69,0.18);
+    box-shadow: 0 2px 8px rgba(220,53,69,0.10);
+    margin-bottom: 100px;
+}
+
+.profile-main-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.profile-photo-wrapper-wide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 170px;
+}
+
+.profile-photo-wide {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.10);
+    background: #e0e0e0;
+}
+
+.change-photo-btn-wide {
+    margin-top: -36px;
+    margin-bottom: 8px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #4CAF50;
+    border: 2px solid #fff;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.15);
+    position: relative;
+    z-index: 2;
+}
+.change-photo-btn-wide:hover {
+    background: #388e3c;
+    border-color: #4CAF50;
+    transform: scale(1.08);
+}
+
+.profile-photo-label {
+    margin-top: 8px;
+    color: #4CAF50;
+    font-size: 1.08em;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.07);
+}
+
+.profile-form-wide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    min-width: 220px;
+}
+.profile-form-wide .form-group label {
+    color: #388e3c;
+    font-weight: 600;
+    font-size: 1.08em;
+    letter-spacing: 0.2px;
+}
+.profile-form-wide .form-group input {
+    background: rgba(255,255,255,0.7);
+    border: 1.5px solid #4CAF50;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 1em;
+    color: #222;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-top: 0.2rem;
+}
+.profile-form-wide .form-group input:focus {
+    outline: none;
+    border-color: #388e3c;
+    box-shadow: 0 0 0 2px rgba(76,175,80,0.13);
+}
+.profile-form-wide .save-btn {
+    background: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.10);
+    transition: all 0.3s;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+.profile-form-wide .save-btn:hover {
+    background: #388e3c;
+    transform: translateY(-2px);
+}
+
+.password-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+.password-form h3 {
+    color: #222;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.08em;
+    font-weight: 600;
+}
+.password-form h3 i {
+    color: #4CAF50;
+}
+.password-form .form-group label {
+    color: #388e3c;
+    font-weight: 600;
+    font-size: 1.05em;
+    letter-spacing: 0.2px;
+}
+.password-form .form-group input {
+    background: rgba(255,255,255,0.7);
+    border: 1.5px solid #4CAF50;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 1em;
+    color: #222;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.password-form .form-group input:focus {
+    outline: none;
+    border-color: #388e3c;
+    box-shadow: 0 0 0 2px rgba(76,175,80,0.13);
+}
+.password-form .save-btn {
+    background: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.10);
+    transition: all 0.3s;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+.password-form .save-btn:hover {
+    background: #388e3c;
+    transform: translateY(-2px);
+}
+
+.logout-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(220,53,69,0.10);
+    transition: all 0.3s;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+.logout-btn:hover {
+    background: #b71c1c;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+    .profile-card-wide, .profile-block {
+        padding: 1.2rem 0.5rem;
+        max-width: 98vw;
+    }
+    .profile-main-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+    }
+    .profile-photo-wrapper-wide {
+        min-width: 0;
+    }
+    .profile-photo-wide {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .profile-section {
+        padding: 1.5rem;
+    }
+
+    .profile-name {
+        font-size: 1.5rem;
+    }
+} 
