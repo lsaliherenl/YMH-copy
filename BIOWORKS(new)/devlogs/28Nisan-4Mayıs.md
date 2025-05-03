@@ -9,32 +9,63 @@ Bu hafta, BIOWORKS projesinin temel HTML ve CSS yapısı üzerine odaklanıldı.
 ## Tamamlanan İşler
 
 * **Giriş Sayfası (`login.html`):**
+
     * Kullanıcıların e-posta ve şifrelerini girerek sisteme giriş yapmalarını sağlayan temel arayüz oluşturuldu.
     * "Beni Hatırla" seçeneği eklendi.
-    * "Şifremi Unuttum" ve "Kayıt Ol" bağlantıları eklendi.
+    * "Şifremi Unuttum" bağlantısı eklendi.
+    * "Kayıt Ol" sayfasına yönlendirme bağlantısı eklendi.
     * "Misafir Olarak Devam Et" seçeneği eklendi.
+    * Giriş formu düzenlendi ve stilize edildi.
+    * "Şifremi Unuttum" bağlantısı için `forgot_password.html` sayfasına yönlendirme yapıldı.
+
 * **Kayıt Sayfası (`register.html`):**
+
     * Kullanıcıların ad, soyad, yaş, cinsiyet, e-posta ve şifre bilgilerini girebilecekleri kayıt formu oluşturuldu.
     * Şifre doğrulama alanı eklendi.
     * "Giriş Yap" sayfasına yönlendirme bağlantısı eklendi.
+    * Kayıt formu düzenlendi ve stilize edildi.
+
 * **Şifremi Unuttum Sayfası (`forgot_password.html`):**
+
     * Kullanıcıların şifre sıfırlama talebinde bulunabilecekleri sayfa oluşturuldu.
     * E-posta adresi giriş alanı ve şifre sıfırlama bağlantısı gönderme butonu eklendi.
     * "Giriş Yap" ve "Kayıt Ol" sayfalarına yönlendirme bağlantıları eklendi.
+    * Şifremi Unuttum sayfası düzenlendi ve stilize edildi.
+
 * **Ana Sayfa (`main_page.html`):**
+
     * Sol tarafta sohbet geçmişinin görüntüleneceği temel arayüz oluşturuldu.
     * Üst menüde "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına bağlantılar eklendi.
     * Mesaj gönderme alanı oluşturuldu.
+    * Ana sayfa düzeni ve stilleri (`main_page.css`) iyileştirildi.
+    * Font Awesome ikonları entegre edildi.
+
 * **Profil Sayfası (`profile.html`):**
-    * Kullanıcıların profil bilgilerini görüntüleyebileceği temel sayfa oluşturuldu (içerik henüz eklenmedi).
+
+    * Kullanıcıların profil bilgilerini görüntüleyebileceği ve düzenleyebileceği temel sayfa oluşturuldu.
+    * Profil fotoğrafı değiştirme, şifre güncelleme ve çıkış yapma bölümleri eklendi.
+    * Profil sayfası stilize edildi (`profile.css`).
+
 * **Hakkımızda Sayfası (`about_us.html`):**
+
     * Uygulama hakkında bilgilerin yer alacağı temel sayfa oluşturuldu (içerik henüz eklenmedi).
+
 * **İletişim Sayfası (`communication.html`):**
-    * Kullanıcıların iletişim bilgilerine ulaşabileceği temel sayfa oluşturuldu (içerik henüz eklenmedi).
-* **Stil Dosyaları (`style.css`, `main_page.css`):**
-    * Tüm sayfaların genel görünümünü ve düzenini sağlamak için temel CSS stilleri oluşturuldu.
-    * Ana sayfaya özel stiller (`main_page.css`) eklendi.
+
+    * Kullanıcıların iletişim bilgilerine ulaşabileceği ve mesaj gönderebileceği temel sayfa oluşturuldu.
+    * İletişim formu eklendi.
+    * İletişim sayfası stilize edildi (`communication.css`).
+
+* **Stil Dosyaları (`style.css`, `main_page.css`, `profile.css`, `communication.css`):**
+
+    * Tüm sayfaların genel görünümünü ve düzenini sağlamak için temel CSS stilleri oluşturuldu (`style.css`).
+    * Ana sayfaya özel stiller eklendi (`main_page.css`).
+    * Profil sayfasına özel stiller eklendi (`profile.css`).
+    * İletişim sayfasına özel stiller eklendi (`communication.css`).
     * Font Awesome kütüphanesi entegre edildi (ikonlar için).
+    * Genel stil iyileştirmeleri ve düzenlemeler yapıldı.
+
+Bu güncellemeler, mevcut kodunuzdaki değişiklikleri ve eklemeleri yansıtacak şekilde yapıldı. Umarım yardımcı olur!
 
 ## Karşılaşılan Zorluklar
 

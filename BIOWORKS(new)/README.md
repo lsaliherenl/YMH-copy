@@ -29,34 +29,60 @@ Proje aşağıdaki dosyaları içermektedir:
 ## Özellikler
 
 * **Giriş Sayfası:**
+
     * E-posta ve şifre alanları.
     * "Beni Hatırla" seçeneği.
-    * "Şifremi Unuttum" bağlantısı.
-    * "Kayıt Ol" sayfasına yönlendirme bağlantısı.
-    * "Misafir Olarak Devam Et" seçeneği.
+    * "Şifremi Unuttum" bağlantısı (`forgot_password.html` sayfasına yönlendirir).
+    * "Kayıt Ol" sayfasına yönlendirme bağlantısı (`register.html` sayfasına yönlendirir).
+    * "Misafir Olarak Devam Et" seçeneği (`main_page.html` sayfasına yönlendirir).
+    * Giriş formu düzeni ve stili güncellendi.
+
 * **Kayıt Sayfası:**
+
     * Ad, soyad, yaş, cinsiyet, e-posta ve şifre alanları.
     * Şifre doğrulama alanı.
-    * "Giriş Yap" sayfasına yönlendirme bağlantısı.
+    * "Giriş Yap" sayfasına yönlendirme bağlantısı (`login.html` sayfasına yönlendirir).
+    * Kayıt formu düzeni ve stili güncellendi.
+
 * **Şifremi Unuttum Sayfası:**
+
     * E-posta adresi alanı.
     * Şifre sıfırlama bağlantısı gönderme butonu.
     * "Giriş Yap" ve "Kayıt Ol" sayfalarına yönlendirme bağlantıları.
+    * Şifremi Unuttum sayfası düzeni ve stili güncellendi.
+
 * **Ana Sayfa:**
-    * Sohbet geçmişi bölümü.
+
+    * Sol tarafta sohbet geçmişi bölümü.
     * Mesaj gönderme alanı.
-    * Üst menüde "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" bağlantıları.
+    * Üst menüde "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına bağlantılar.
+    * Ana sayfa düzeni ve stilleri (`main_page.css`) iyileştirildi.
+    * Font Awesome ikonları entegre edildi.
+
 * **Hakkımızda Sayfası:**
-    * Uygulama hakkında bilgilerin yer alacağı sayfa.
+
+    * Uygulama hakkında bilgilerin yer alacağı sayfa (içerik henüz eklenmedi).
+
 * **İletişim Sayfası:**
-    * Kullanıcıların iletişim kurabileceği bilgilerin yer alacağı sayfa.
+
+    * Kullanıcıların iletişim kurabileceği bilgilerin yer alacağı ve mesaj gönderebileceği sayfa.
+    * İletişim formu eklendi.
+    * İletişim sayfası stilize edildi (`communication.css`).
+
 * **Profil Sayfası:**
+
     * Kullanıcıların profil bilgilerini görüntüleyebileceği ve düzenleyebileceği sayfa.
+    * Profil fotoğrafı değiştirme, şifre güncelleme ve çıkış yapma bölümleri eklendi.
+    * Profil sayfası stilize edildi (`profile.css`).
+
 * **Stil:**
+
     * Modern ve kullanıcı dostu tasarım.
     * Duyarlı (responsive) tasarım (farklı ekran boyutlarına uyum sağlar).
     * "BIOWORKS" marka adı ve vurgulu renkler.
     * Ana sayfada bulanıklık efektli şeffaf tasarım öğeleri.
+    * Genel stil iyileştirmeleri ve düzenlemeler yapıldı.
+    * Sayfalara özel stil dosyaları (`main_page.css`, `profile.css`, `communication.css`) kullanıldı.
 
 ---
 
@@ -100,13 +126,41 @@ Proje aşağıdaki dosyaları içermektedir:
 ## Ekran Görüntüleri
 
 * **Giriş Sayfası:**
-    ![Giriş Sayfası Ekran Görüntüsü](photos/z-site_preview/giris-yap_v1.png)
+
+    * ![Giriş Sayfası Ekran Görüntüsü](photos/z-site_preview/giris-yap_v1.png)
+    * Giriş sayfası düzeni ve formu güncellendi.
+
 * **Kayıt Sayfası:**
-    ![Kayıt Sayfası Ekran Görüntüsü](photos/z-site_preview/kayit-ol_v1.png)
+
+    * ![Kayıt Sayfası Ekran Görüntüsü](photos/z-site_preview/kayit-ol_v1.png)
+    * Kayıt formu ve alanları güncellendi.
+
 * **Şifremi Unuttum Sayfası:**
-    ![Şifremi Unuttum Sayfası Ekran Görüntüsü](photos/z-site_preview/sifremi-unuttum_v1.png)
+
+    * ![Şifremi Unuttum Sayfası Ekran Görüntüsü](photos/z-site_preview/sifremi-unuttum_v1.png)
+    * Şifremi Unuttum sayfası düzeni güncellendi.
+
 * **Ana Sayfa:**
-    ![Ana Sayfa Ekran Görüntüsü](photos/z-site_preview/ana-sayfa_v1.png)
+
+    * ![Ana Sayfa Ekran Görüntüsü](photos/z-site_preview/ana-sayfa_v1.png)
+    * Ana sayfa düzeni, üst menü ve sohbet bölümü güncellendi.
+
+* **Profil Sayfası:**
+
+    * ![Profil Sayfası Ekran Görüntüsü](photos\z-site_preview\profil_v1.png)
+    * Profil sayfası oluşturuldu ve düzenlendi.
+    * Profil fotoğrafı değiştirme, şifre güncelleme ve çıkış yapma özellikleri eklendi.
+
+* **İletişim Sayfası:**
+
+    * ![İletişim Sayfası Ekran Görüntüsü](photos/z-site_preview/iletişim_v1.png)
+    * İletişim sayfası oluşturuldu ve iletişim formu eklendi.
+    * İletişim sayfası stilize edildi.
+
+* **Hakkımızda Sayfası:**
+
+    * _(Ekran görüntüsü yakında)_
+    * Hakkımızda sayfası oluşturuldu (içerik henüz eklenmedi).
 
 
 ---
