@@ -14,9 +14,8 @@ body {
     top: 0;
     display: flex;
     flex-direction: column;
-    background: transparent; 
-    background-color: rgba(58, 58, 58, 0.3); /* Yeni eklenen kısım */
-    backdrop-filter: blur(10px); /* İsteğe bağlı bulanıklık efekti */
+    background: transparent;
+    backdrop-filter: none;
 }
 
 /* Ana İçerik Alanı */
@@ -205,7 +204,7 @@ body {
     align-items: center;
     gap: 15px;
     padding: 12px 25px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(34, 49, 36, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     text-decoration: none;
@@ -287,7 +286,7 @@ body {
 .chat-item {
     padding: 15px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(34, 49, 36, 0.7);
     cursor: pointer;
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);

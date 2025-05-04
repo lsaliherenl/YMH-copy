@@ -14,9 +14,8 @@ body {
     top: 0;
     display: flex;
     flex-direction: column;
-    background: transparent; 
-    background-color: rgba(58, 58, 58, 0.3);
-    backdrop-filter: blur(10px);
+    background: transparent;
+    backdrop-filter: none;
 }
 
 .main-area {
@@ -24,7 +23,7 @@ body {
     margin-left: 300px;
     min-height: 100vh;
     position: relative;
-    background-image: url(/photos/a-resim/grenn-grenn-black.png);
+    background-image: url(/photos/a-resim/grey-grenn_gradients.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -225,7 +224,7 @@ body {
 
 .profile-photo-label {
     margin-top: 8px;
-    color: #4CAF50;
+    color: #fff;
     font-size: 1.08em;
     text-align: center;
     font-weight: 600;
@@ -291,13 +290,12 @@ body {
     margin-bottom: 0.5rem;
 }
 .password-form h3 {
-    color: #222;
-    margin-bottom: 0.7rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.08em;
-    font-weight: 600;
+    gap: 10px;
 }
 .password-form h3 i {
     color: #4CAF50;
@@ -399,4 +397,63 @@ body {
     .profile-name {
         font-size: 1.5rem;
     }
+}
+
+.side-userbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0 20px 0;
+}
+.side-profile-photo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #4CAF50;
+    margin-bottom: 10px;
+    background: #fff;
+}
+.side-username {
+    color: #fff;
+    font-size: 1.05em;
+    text-align: center;
+    line-height: 1.3;
+}
+.side-quickmenu {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 30px;
+}
+.side-quickmenu a {
+    color: #4CAF50;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+}
+.side-quickmenu a:hover {
+    background: #4CAF50;
+    color: #fff;
+}
+.side-info {
+    background: rgba(255,255,255,0.10);
+    color: #fff;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.98em;
+    text-align: center;
+    margin: 0 18px;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.07);
+}
+.side-info i {
+    color: #4CAF50;
+    margin-right: 7px;
 } 

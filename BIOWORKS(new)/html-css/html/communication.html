@@ -18,6 +18,13 @@
                 <h1 class="company-name">BIOWORKS</h1>
             </a>
         </div>
+        <div class="side-widget">
+            <div class="side-clock-box">
+                <div class="side-clock" id="sideClock">12:00</div>
+            </div>
+            <div class="side-quote" id="sideQuote">Başarı, cesaretin çocuğudur.</div>
+        </div>
+        <canvas id="sideCanvas" width="220" height="120" style="margin:24px auto 0 auto;display:block;"></canvas>
     </aside>
 
     <!-- Ana İçerik Alanı -->
@@ -66,22 +73,7 @@
             </form>
             <div id="formMessage" class="form-message" style="max-width:800px; margin:0 auto; display:none;"></div>
         </div>
-        <script>
-        // Demo: Form gönderildiğinde başarı/hata mesajı göster
-        document.getElementById('contactForm').onsubmit = function(e) {
-            e.preventDefault();
-            var msgDiv = document.getElementById('formMessage');
-            // Demo için rastgele başarı/hata
-            if (Math.random() > 0.5) {
-                msgDiv.textContent = 'Mesajınız başarıyla gönderildi!';
-                msgDiv.className = 'form-message success';
-            } else {
-                msgDiv.textContent = 'Bir hata oluştu, lütfen tekrar deneyin.';
-                msgDiv.className = 'form-message error';
-            }
-            msgDiv.style.display = 'block';
-        };
-        </script>
+        <script src="../js/communication.js"></script>
     </main>
 </body>
 </html>
