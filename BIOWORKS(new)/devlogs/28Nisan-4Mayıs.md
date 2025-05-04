@@ -45,6 +45,7 @@ Bu hafta, BIOWORKS projesinin temel HTML ve CSS yapısı üzerine odaklanıldı.
     * Kullanıcıların profil bilgilerini görüntüleyebileceği ve düzenleyebileceği temel sayfa oluşturuldu.
     * Profil fotoğrafı değiştirme, şifre güncelleme ve çıkış yapma bölümleri eklendi.
     * Profil sayfası stilize edildi (`profile.css`).
+    * Soldaki bara kullanıcı dostu eklemeler yapıldı. (Küçük profil , küçük navigasyon tuşları)
 
 * **Hakkımızda Sayfası (`about_us.html`):**
 
@@ -55,6 +56,7 @@ Bu hafta, BIOWORKS projesinin temel HTML ve CSS yapısı üzerine odaklanıldı.
     * Kullanıcıların iletişim bilgilerine ulaşabileceği ve mesaj gönderebileceği temel sayfa oluşturuldu.
     * İletişim formu eklendi.
     * İletişim sayfası stilize edildi (`communication.css`).
+    * Soldaki bara görsel açıdan iyileştirmeler yapıldı. 
 
 * **Stil Dosyaları (`style.css`, `main_page.css`, `profile.css`, `communication.css`):**
 
@@ -64,6 +66,9 @@ Bu hafta, BIOWORKS projesinin temel HTML ve CSS yapısı üzerine odaklanıldı.
     * İletişim sayfasına özel stiller eklendi (`communication.css`).
     * Font Awesome kütüphanesi entegre edildi (ikonlar için).
     * Genel stil iyileştirmeleri ve düzenlemeler yapıldı.
+    * `communication.css` dosyası içinde iletişim sayfası başlık bloğu, form etiketleri, giriş alanları, gönder butonu ve form mesajları için stiller tanımlandı.
+    * `profile.css` dosyası içinde profil sayfası düzeni, sol panel, ana içerik alanı, navigasyon, profil kartları, formlar ve butonlar için stiller tanımlandı.
+    * Tüm stil dosyalarında renkler, yazı tipleri, boyutlar, hizalamalar ve görsel efektler düzenlendi.
 
 Bu güncellemeler, mevcut kodunuzdaki değişiklikleri ve eklemeleri yansıtacak şekilde yapıldı. Umarım yardımcı olur!
 

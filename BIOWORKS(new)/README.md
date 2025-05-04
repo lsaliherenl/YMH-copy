@@ -141,19 +141,21 @@ Proje aşağıdaki dosyaları içermektedir:
     * Şifremi Unuttum sayfası düzeni güncellendi.
 
 * **Ana Sayfa:**
-
-    * ![Ana Sayfa Ekran Görüntüsü](photos/z-site_preview/ana-sayfa_v1.png)
+    * ![Ana Sayfa Ekran Görüntüsü v1](photos/z-site_preview/ana-sayfa_v1.png)
+    * ![Ana Sayfa Ekran Görüntüsü v2](photos/z-site_preview/ana-sayfa_v2.png)
     * Ana sayfa düzeni, üst menü ve sohbet bölümü güncellendi.
 
 * **Profil Sayfası:**
 
-    * ![Profil Sayfası Ekran Görüntüsü](photos\z-site_preview\profil_v1.png)
+    * ![Profil Sayfası Ekran Görüntüsü v1](photos\z-site_preview\profil_v1.png)
+    * ![Profil Sayfası Ekran Görüntüsü v2](photos\z-site_preview\profil_v2.png)
     * Profil sayfası oluşturuldu ve düzenlendi.
     * Profil fotoğrafı değiştirme, şifre güncelleme ve çıkış yapma özellikleri eklendi.
 
 * **İletişim Sayfası:**
 
-    * ![İletişim Sayfası Ekran Görüntüsü](photos/z-site_preview/iletişim_v1.png)
+    * ![İletişim Sayfası Ekran Görüntüsü v1](photos/z-site_preview/iletisim_v1.png)
+    * ![İletişim Sayfası Ekran Görüntüsü v2](photos/z-site_preview/iletisim_v2.png)
     * İletişim sayfası oluşturuldu ve iletişim formu eklendi.
     * İletişim sayfası stilize edildi.
 
