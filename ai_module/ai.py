@@ -141,8 +141,8 @@ class AIAssistant:
             response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=messages,
-                max_tokens=1000,
-                temperature=0.2,
+                max_tokens=1500,
+                temperature=0.3,
             )
             return response.choices[0].message.content
         except Exception as e:
