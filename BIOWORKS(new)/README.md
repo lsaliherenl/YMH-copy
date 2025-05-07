@@ -125,6 +125,8 @@ Proje aşağıdaki dosyaları içermektedir:
 
 ## Ekran Görüntüleri
 
+* Ekran Görüntüleri Gözükmüyorsa "photos>>z-site_preview" Kısmından İnceleyebilirsiniz. 
+
 * **Giriş Sayfası:**
 
     * ![Giriş Sayfası Ekran Görüntüsü](photos/z-site_preview/giris-yap_v1.png)
@@ -161,8 +163,8 @@ Proje aşağıdaki dosyaları içermektedir:
 
 * **Hakkımızda Sayfası:**
 
-    * _(Ekran görüntüsü yakında)_
-    * Hakkımızda sayfası oluşturuldu (içerik henüz eklenmedi).
+    * ![Hakkımızda Sayfası Ekran Görüntüsü v1](photos/z-site_preview/hakkimizda_v1.png)
+    * Hakkımızda sayfası oluşturuldu ve düzenlendi.
 
 
 ---
