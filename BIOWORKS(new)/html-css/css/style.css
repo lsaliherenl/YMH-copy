@@ -219,6 +219,12 @@ body {
     transition: border-color 0.3s;
     box-sizing: border-box;
     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%234CAF50" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 22px 22px;
 }
 
 .form-group select:focus {
@@ -271,4 +277,53 @@ body {
 
 .guest-button:hover {
     background-color: #e0e0e0;
+}
+
+input[type="text"].password-visible {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #ddd;
+    border-radius: 30px;
+    font-size: 15px;
+    background: #fafafa;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input.form-password {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #ddd;
+    border-radius: 30px;
+    font-size: 15px;
+    background: #fafafa;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input.form-password:focus {
+    border-color: #4CAF50;
+    background: #fff;
+}
+
+.form-group input.form-rounded {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #ddd;
+    border-radius: 30px;
+    font-size: 15px;
+    background: #fafafa;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input.form-rounded:focus {
+    border-color: #4CAF50;
+    background: #fff;
 }

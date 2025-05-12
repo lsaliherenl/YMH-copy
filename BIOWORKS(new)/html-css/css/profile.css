@@ -248,7 +248,7 @@ body {
 .profile-form-wide .form-group input {
     background: rgba(255,255,255,0.7);
     border: 1.5px solid #4CAF50;
-    border-radius: 8px;
+    border-radius: 30px;
     padding: 10px 14px;
     font-size: 1em;
     color: #222;
@@ -265,7 +265,7 @@ body {
     color: #fff;
     border: none;
     padding: 0.8rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 1rem;
     display: flex;
@@ -309,7 +309,7 @@ body {
 .password-form .form-group input {
     background: rgba(255,255,255,0.7);
     border: 1.5px solid #4CAF50;
-    border-radius: 8px;
+    border-radius: 30px;
     padding: 10px 14px;
     font-size: 1em;
     color: #222;
@@ -325,7 +325,7 @@ body {
     color: #fff;
     border: none;
     padding: 0.8rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 1rem;
     display: flex;
@@ -347,7 +347,7 @@ body {
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 1rem;
     display: flex;
