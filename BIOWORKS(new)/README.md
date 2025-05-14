@@ -14,7 +14,7 @@ Bu web uygulaması, kullanıcıların hesaplarını yönetmelerine ve çeşitli 
 
 Proje aşağıdaki dosyaları içermektedir:
 
-* `index.html` (veya `login.html`): Kullanıcıların e-posta ve şifrelerini girerek sisteme giriş yapmalarını sağlayan giriş sayfası. Misafir olarak devam etme ve şifremi unuttum seçenekleri de bulunur.
+* `index.html` (veya `index.html`): Kullanıcıların e-posta ve şifrelerini girerek sisteme giriş yapmalarını sağlayan giriş sayfası. Misafir olarak devam etme ve şifremi unuttum seçenekleri de bulunur.
 * `register.html` : Kullanıcıların ad, soyad, yaş, cinsiyet, e-posta ve şifre bilgilerini girerek yeni bir hesap oluşturmalarını sağlayan kayıt sayfası.
 * `forgot_password.html` : Kullanıcıların şifrelerini sıfırlamak için e-posta adreslerini girebilecekleri şifremi unuttum sayfası.
 * `main_page.html` : Kullanıcıların giriş yaptıktan sonra yönlendirileceği ana sayfa. Sohbet geçmişi ve etkileşim alanı içerir.
@@ -41,7 +41,7 @@ Proje aşağıdaki dosyaları içermektedir:
 
     * Ad, soyad, yaş, cinsiyet, e-posta ve şifre alanları.
     * Şifre doğrulama alanı.
-    * "Giriş Yap" sayfasına yönlendirme bağlantısı (`login.html` sayfasına yönlendirir).
+    * "Giriş Yap" sayfasına yönlendirme bağlantısı (`index.html` sayfasına yönlendirir).
     * Kayıt formu düzeni ve stili güncellendi.
 
 * **Şifremi Unuttum Sayfası:**
@@ -90,14 +90,14 @@ Proje aşağıdaki dosyaları içermektedir:
 
 1.  Bu projeyi GitHub'dan klonlayın veya indirin.
 2.  Dosyaları bir web sunucusuna (örneğin, Apache, Nginx) veya yerel bir geliştirme ortamına (örneğin, XAMPP, WAMP) yerleştirin.
-3.  `index.html` veya `login.html` dosyasını bir tarayıcıda açarak uygulamayı başlatın.
+3.  `index.html` veya `index.html` dosyasını bir tarayıcıda açarak uygulamayı başlatın.
 
 ---
 
 ## Kullanım
 
 * **Giriş Yapmak İçin:**
-    1.  `index.html` veya `login.html` sayfasına gidin.
+    1.  `index.html` veya `index.html` sayfasına gidin.
     2.  E-posta adresinizi ve şifrenizi girin.
     3.  "Giriş Yap" düğmesine tıklayın.
     4.  İsterseniz "Beni Hatırla" seçeneğini işaretleyebilirsiniz.
@@ -124,6 +124,8 @@ Proje aşağıdaki dosyaları içermektedir:
 ---
 
 ## Ekran Görüntüleri
+
+* Ekran Görüntüleri Gözükmüyorsa "photos>>z-site_preview" Kısmından İnceleyebilirsiniz. 
 
 * **Giriş Sayfası:**
 
@@ -161,8 +163,8 @@ Proje aşağıdaki dosyaları içermektedir:
 
 * **Hakkımızda Sayfası:**
 
-    * _(Ekran görüntüsü yakında)_
-    * Hakkımızda sayfası oluşturuldu (içerik henüz eklenmedi).
+    * ![Hakkımızda Sayfası Ekran Görüntüsü v1](photos/z-site_preview/hakkimizda_v1.png)
+    * Hakkımızda sayfası oluşturuldu ve düzenlendi.
 
 
 ---

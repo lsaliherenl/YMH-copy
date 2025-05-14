@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Giriş Sayfası - BIOWORKS</title>
 </head>
 <body>
@@ -18,11 +19,14 @@
                 <form class="login-form">
                     <div class="form-group">
                         <label for="email">E-posta</label>
-                        <input type="email" id="email" name="email" placeholder="E-posta adresinizi giriniz" required>
+                        <input type="email" id="email" name="email" placeholder="E-posta adresinizi giriniz" required class="form-rounded">
                     </div>
                     <div class="form-group">
                         <label for="password">Şifre</label>
-                        <input type="password" id="password" name="password" placeholder="Şifrenizi giriniz" required>
+                        <div style="position:relative;">
+                            <input type="password" id="password" name="password" placeholder="Şifrenizi giriniz" required class="form-password" style="padding-right:40px;">
+                            <span class="toggle-password" toggle="#password" style="position:absolute;top:50%;right:12px;transform:translateY(-50%);cursor:pointer;"><i class="fa fa-eye"></i></span>
+                        </div>
                     </div>
                     <div class="form-group remember-me">
                         <div class="remember-forgot">
@@ -44,5 +48,6 @@
             </div>
         </div>
     </div>
+    <script src="../js/bioscript.js"></script>
 </body>
-</html>
+</html> 

@@ -8,7 +8,7 @@ Bu hafta, BIOWORKS projesinin temel HTML ve CSS yapısı üzerine odaklanıldı.
 
 ## Tamamlanan İşler
 
-* **Giriş Sayfası (`login.html`):**
+* **Giriş Sayfası (`index.html`):**
 
     * Kullanıcıların e-posta ve şifrelerini girerek sisteme giriş yapmalarını sağlayan temel arayüz oluşturuldu.
     * "Beni Hatırla" seçeneği eklendi.
