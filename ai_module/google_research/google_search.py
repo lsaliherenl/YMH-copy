@@ -25,37 +25,53 @@ class GoogleSearch:
     def create_search_queries(self, question: str, drug_name: str, num_queries: int = 3) -> List[str]:
         # İlaç adı düzeltmesi
         corrected_drug_name = self.drug_corrections.get(drug_name.lower(), drug_name)
-
+        
+        # Direkt arama yapmadan önce OpenAI ile daha iyi sorgular oluştur
         prompt = f"""
-Aşağıdaki Türkçe soruya ve '{corrected_drug_name}' ilacına odaklanarak
+Aşağıdaki ilaç ve soruya odaklanarak
 kullanılabilecek {num_queries} farklı web arama sorgusu oluşturun.
-Sorgular, arama motorlarında etkili sonuçlar verecek şekilde optimize edilmeli.
+Sorgular, arama motorlarında ilaç bilgileri için etkili sonuçlar verecek şekilde optimize edilmeli.
 TIRNAK İŞARETİ KULLANMAYIN.
 Kısa ve öz sorgular oluşturun.
+Her sorguda mutlaka ilaç adını kullanın.
 
+İlaç adı: {corrected_drug_name}
 Soru: {question}
 
 Sorgular:
 """
         for i in range(1, num_queries + 1):
             prompt += f"\n{i}. "
-
-        response = self.openai_client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=200,
-            temperature=0.3,
-        )
-
-        queries = response.choices[0].message.content.strip().split("\n")
-        return [q.strip().lstrip("0123456789. ") for q in queries if q.strip()]
+        
+        try:
+            response = self.openai_client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=200,
+                temperature=0.3,
+            )
+            
+            queries = response.choices[0].message.content.strip().split("\n")
+            return [q.strip().lstrip("0123456789. ") for q in queries if q.strip()]
+        except Exception as e:
+            print(f"Sorgu oluşturma hatası: {e}")
+            # Yedek sorgu oluşturma
+            return [
+                f"{corrected_drug_name} {question}",
+                f"{corrected_drug_name} ilaç bilgisi kullanımı",
+                f"{corrected_drug_name} prospektüs bilgileri"
+            ]
 
     def search_web(self, query: str, num_results: int = 5) -> List[Dict]:
         url = "https://www.googleapis.com/customsearch/v1"
-
+        
         # Tırnak işaretlerini kaldır
         clean_query = query.replace('"', '')
-
+        
+        # Sorgunun başına veya sonuna "ilaç" kelimesi ekle
+        if "ilaç" not in clean_query.lower():
+            clean_query += " ilaç"
+        
         params = {
             "q": clean_query,
             "cx": self.cse_id,
@@ -65,27 +81,27 @@ Sorgular:
             "gl": "tr",  # Türkiye bölgesi sonuçlarını tercih et
             "fields": "items(title,link,snippet)"
         }
-
+        
         try:
             print(f"Arama sorgusu: {clean_query}")
             response = requests.get(url, params=params, timeout=10)
             response.raise_for_status()
             data = response.json()
-
+            
             if "error" in data:
                 print(f"API Hatası: {data['error']['message']}")
                 return []
-
+            
             if "items" not in data:
                 print(f"Sonuç bulunamadı. Sorgu: '{clean_query}'")
                 return []
-
+            
             results = [
                 {"title": item["title"], "url": item["link"], "snippet": item.get("snippet", "")}
                 for item in data.get("items", [])
             ]
             return results
-
+            
         except requests.exceptions.RequestException as e:
             print(f"Google API isteği hatası: {e}")
             return []
