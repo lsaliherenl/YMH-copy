@@ -1,6 +1,48 @@
-# AI-Drug Assistant (ai_module)
+# AI Sağlık Asistanı
 
-Bu klasör, FDA verileriyle desteklenen yapay zeka modülünü içerir.
+Bu proje, ilaç bilgisi ve sağlık danışmanlığı sağlayan bir yapay zeka asistanıdır.
+
+## Güvenlik Notları
+
+- API anahtarlarınızı asla GitHub'a yüklemeyin
+- `.env` dosyasını `.gitignore`'a eklediğinizden emin olun
+- Test raporları hassas bilgiler içerebilir, bunları da yüklemeyin
+
+## Kurulum
+
+1. Gerekli paketleri yükleyin:
+```bash
+pip install -r requirements.txt
+```
+
+2. `.env.example` dosyasını `.env` olarak kopyalayın ve API anahtarlarınızı ekleyin:
+```bash
+cp .env.example .env
+```
+
+3. Uygulamayı başlatın:
+```bash
+python app.py
+```
+
+## Test
+
+Testleri çalıştırmak için:
+```bash
+python test_data/test_runner.py
+```
+
+## Katkıda Bulunma
+
+1. Bu depoyu fork edin
+2. Yeni bir branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
+4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+5. Bir Pull Request oluşturun
+
+## Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakın.
 
 ## Modül Özellikleri:
 - FDA API üzerinden ilaç verisi çekme
