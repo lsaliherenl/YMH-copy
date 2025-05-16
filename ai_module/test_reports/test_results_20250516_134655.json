@@ -1,0 +1,190 @@
+{
+  "total": 15,
+  "passed": 0,
+  "failed": 15,
+  "details": [
+    {
+      "id": "DRUG_001",
+      "status": "FAILED",
+      "description": "Temel ilaç bilgisi sorgusu",
+      "emotion_match": false,
+      "intensity_match": true,
+      "drug_match": true,
+      "content_match": false,
+      "detected_emotions": [
+        "acı"
+      ],
+      "detected_intensity": 2,
+      "response": "Yaşadığınız rahatsızlığın farkındayım ve size yardımcı olmak istiyorum. Gripin, genellikle grip ve soğuk algınlığı belirtilerini hafifletmek için kullanılan bir ilaçtır. Gripin içeriğinde genellikle ağrı kesici, ateş düşürücü ve burun tıkanıklığını giderici etken maddeler bulunabilir. Gripin hakkında daha detaylı bilgi almak ister misiniz?\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim.\n\nBu ilacı daha önce kullandınız mı?\nŞu ana kadar herhangi bir rahatsızlık hissettiniz mi?"
+    },
+    {
+      "id": "DRUG_002",
+      "status": "FAILED",
+      "description": "İlaç yan etkileri sorgusu",
+      "emotion_match": true,
+      "intensity_match": true,
+      "drug_match": true,
+      "content_match": false,
+      "detected_emotions": [
+        "endişe",
+        "acı"
+      ],
+      "detected_intensity": 3,
+      "response": "Bu konudaki endişelerinizi benimle paylaştığınız için teşekkür ederim. Gripin adlı bir ilaç bulunmamaktadır. Yan etkiler hakkında bilgi vermem maalesef mümkün değildir. Eğer başka bir ilaç hakkında bilgi almak isterseniz, lütfen ilacın tam adını belirtir misiniz? Size yardımcı olmaktan memnuniyet duyarım.\n\nBu süreci birlikte yönetebiliriz. Her zaman sorularınızı sorabilirsiniz.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    },
+    {
+      "id": "DRUG_003",
+      "status": "FAILED",
+      "description": "İlaç dozu sorgusu",
+      "emotion_match": false,
+      "intensity_match": true,
+      "drug_match": true,
+      "content_match": true,
+      "detected_emotions": [
+        "belirsizlik"
+      ],
+      "detected_intensity": 2,
+      "response": "Size yardımcı olmak istiyorum. Gripin (parasetamol) için 500mg doz hakkında endişe duyuyorsunuz, doğru mu anladım? Genellikle Gripin'in 500mg dozu yetişkinlerde tavsiye edilen standart dozdur ve genellikle güvenli kabul edilir. Ancak her ilacın yan etkileri ve dozajı kişiden kişiye farklılık gösterebilir. Bu nedenle, herhangi bir ilacın dozunu değiştirmek veya artırmak konusunda doktorunuza danışmanız önemlidir. Gripin veya herhangi bir ilaç hakkında endişeleriniz varsa, lütfen doktorunuzla konuşun. Size nasıl yardımcı olabilirim?\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    },
+    {
+      "id": "DRUG_004",
+      "status": "FAILED",
+      "description": "İlaç kullanım süresi sorgusu",
+      "emotion_match": false,
+      "intensity_match": true,
+      "drug_match": true,
+      "content_match": false,
+      "detected_emotions": [
+        "acı"
+      ],
+      "detected_intensity": 2,
+      "response": "Yaşadığınız rahatsızlığın farkındayım ve size yardımcı olmak istiyorum. Gripin adında bir ilaç bulunmamaktadır. Eğer belirttiğiniz ilacın farklı bir adı varsa lütfen tekrar belirtin, böylece size ilgili bilgileri doğru bir şekilde verebilirim. Ayrıca, grip gibi hastalıklar genellikle virüslerden kaynaklanır ve antibiyotiklerle tedavi edilmez. Bu nedenle, grip gibi viral enfeksiyonlar için genellikle semptomlara yönelik destekleyici tedaviler ve dinlenme önerilir. Size nasıl yardımcı olabileceğimi belirtirseniz memnuniyetle destek olurum.\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim.\n\nBu ilacı daha önce kullandınız mı?\nŞu ana kadar herhangi bir rahatsızlık hissettiniz mi?"
+    },
+    {
+      "id": "DRUG_005",
+      "status": "FAILED",
+      "description": "İlaç etkileşimi sorgusu",
+      "emotion_match": false,
+      "intensity_match": true,
+      "drug_match": true,
+      "content_match": true,
+      "detected_emotions": [
+        "belirsizlik"
+      ],
+      "detected_intensity": 2,
+      "response": "Size yardımcı olmak istiyorum. Gripin (parasetamol) genellikle diğer ilaçlarla etkileşime girmez ve genellikle güvenli bir şekilde kullanılır. Ancak, herhangi bir ilacı başka ilaçlarla birlikte kullanmadan önce mutlaka doktorunuza danışmanız önemlidir. Özellikle belirli kronik hastalıklarınız varsa veya düzenli olarak başka ilaçlar kullanıyorsanız, olası etkileşimlerin önüne geçmek için doktorunuzun önerilerine uymak önemlidir. Eğer Gripin dışında kullanmak istediğiniz başka ilaçlar varsa, lütfen doktorunuza danışarak güvenli bir şekilde kullanımını sağlayın. Bu sayede olası etkileşimlerin önüne geçebilir ve sağlığınızı riske atmadan ilaçlarınızı kullanabilirsiniz.\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim.\n\nBu ilacı daha önce kullandınız mı?\nŞu ana kadar herhangi bir rahatsızlık hissettiniz mi?"
+    },
+    {
+      "id": "EMO_001",
+      "status": "FAILED",
+      "description": "Temel endişe ifadesi",
+      "emotion_match": true,
+      "intensity_match": false,
+      "content_match": false,
+      "detected_emotions": [
+        "endişe",
+        "acı",
+        "umut"
+      ],
+      "detected_intensity": 5,
+      "response": "Bu durumda endişelenmek normal, ancak birlikte çözüm bulabiliriz. Anladım, ilaçların yan etkileri hakkında endişelenmek oldukça yaygın bir durumdur. Hangi ilaç hakkında endişeleniyorsunuz? Bana ilacın adını söyler misiniz? Bu sayede size ilgili ve doğru bilgiler sağlayabilirim.\n\nHer zaman yanınızdayım ve size destek olmaktan mutluluk duyuyorum.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    },
+    {
+      "id": "EMO_002",
+      "status": "FAILED",
+      "description": "Yoğun endişe ifadesi",
+      "emotion_match": false,
+      "intensity_match": false,
+      "content_match": false,
+      "detected_emotions": [
+        "endişe",
+        "acı",
+        "umut"
+      ],
+      "detected_intensity": 5,
+      "response": "Bu durumda endişelenmek normal, ancak birlikte çözüm bulabiliriz. Anladım, yan etkiler hakkında endişeli hissettiğini duyduğuma üzüldüm. Bu tür endişeler çok doğal ve anlaşılabilir. Yan etkilerle ilgili kaygılanmak oldukça yaygın bir durumdur. Hangi yan etkiler seni özellikle endişelendiriyor? Seni dinlemek ve destek olmak için buradayım.\n\nHer zaman yanınızdayım ve size destek olmaktan mutluluk duyuyorum.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    },
+    {
+      "id": "EMO_003",
+      "status": "FAILED",
+      "description": "İlaç kaynaklı endişe",
+      "emotion_match": true,
+      "intensity_match": false,
+      "content_match": false,
+      "detected_emotions": [
+        "endişe",
+        "acı",
+        "moral"
+      ],
+      "detected_intensity": 5,
+      "response": "Bu durumda endişelenmek normal, ancak birlikte çözüm bulabiliriz. Anladım, ilacın yan etkilerinden dolayı tedirgin hissetmen gayet doğal. Bu tür duyguları yaşamak oldukça yaygındır. Hangi ilaç hakkında endişeleniyorsun, ismini hatırlayabilir misin? Bu şekilde sana daha fazla bilgi sağlayabilirim. Ayrıca, ilacın yan etkileri hakkında bilgi edinmek ve endişelerini paylaşmak son derece önemlidir. Seni dinlemek ve destek olmak için buradayım.\n\nHer zaman yanınızdayım ve size destek olmaktan mutluluk duyuyorum.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    },
+    {
+      "id": "EMO_004",
+      "status": "FAILED",
+      "description": "Belirsizlik ifadesi",
+      "emotion_match": false,
+      "intensity_match": false,
+      "content_match": false,
+      "detected_emotions": [
+        "acı",
+        "umut",
+        "belirsizlik"
+      ],
+      "detected_intensity": 5,
+      "response": "Bu zorlu durumla başa çıkmaya çalışırken yanınızdayım. Anladım, ilacı kullanmaya devam etme konusunda endişelerin var. Bu çok doğal bir duygu. İlacı kullanımıyla ilgili karar verirken doktorunun önerileri ve sağlık durumun önemli. Eğer ilacı kullanırken herhangi bir yan etki ya da sorun yaşıyorsan, mutlaka doktoruna danışman önemli. Sağlık durumunla ilgili endişelerini doktorunla paylaşmak en doğru adım olacaktır. Senin için en iyisini doktorun bilir. Seni dinliyorum, endişelerinle ilgili daha fazla konuşmak ister misin?\n\nHer zaman yanınızdayım ve size destek olmaktan mutluluk duyuyorum.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    },
+    {
+      "id": "EMO_005",
+      "status": "FAILED",
+      "description": "Olumlu duygu ifadesi",
+      "emotion_match": true,
+      "intensity_match": false,
+      "content_match": true,
+      "detected_emotions": [
+        "umut",
+        "belirsizlik",
+        "moral"
+      ],
+      "detected_intensity": 4,
+      "response": "Size yardımcı olmak istiyorum. Bu harika haberleri duyduğuma sevindim! İlaçların olumlu etkilerini hissetmek gerçekten motive edici olabilir. Daha iyi hissetmeye başladığını fark etmek, tedavinin işe yaradığının bir göstergesi olabilir. Kendini güçlü ve iyi hissetmen gerçekten önemli. Bu olumlu gelişmeleri sürdürebilmek için sağlıklı alışkanlıklarını korumaya devam etmen önemli. Eğer herhangi bir sorun veya endişen varsa ben buradayım, paylaşmaktan çekinme. Sana destek olmaya devam edeceğim.\n\nSizi dinliyorum ve anlıyorum. Birlikte en iyi çözümü bulacağız.\n\nBu ilacı daha önce kullandınız mı?\nŞu ana kadar herhangi bir rahatsızlık hissettiniz mi?"
+    },
+    {
+      "id": "CTX_001",
+      "status": "FAILED",
+      "description": "Temel bağlam takibi",
+      "content_match": false,
+      "response": "Endişelerinizi anlıyorum ve size yardımcı olmak istiyorum. Hangi ilaç hakkında bilgi almak istediğinizi belirtir misiniz? Böylece ilgili yan etkiler hakkında daha detaylı bilgi verebilirim.\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    },
+    {
+      "id": "CTX_002",
+      "status": "FAILED",
+      "description": "Doz bilgisi bağlam takibi",
+      "content_match": false,
+      "response": "Size yardımcı olmak istiyorum. Hangi ilaç ve dozaj hakkında konuştuğumuzu hatırlayabilir miyim lütfen? Bu, doğru bilgiyi sağlayabilmem için önemli.\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim.\n\nBu ilacı daha önce kullandınız mı?\nŞu ana kadar herhangi bir rahatsızlık hissettiniz mi?"
+    },
+    {
+      "id": "CTX_003",
+      "status": "FAILED",
+      "description": "Duygusal bağlam takibi",
+      "content_match": false,
+      "response": "Endişelerinizi anlıyorum ve size yardımcı olmak istiyorum. Yan etkileri okuduktan sonra bile korku hissetmen çok anlaşılır. Bazen mantığımız bir şeyi anlasa bile, duygularımız farklı tepki verebilir. Bu korkunun seni nasıl etkilediğini anlatmak ister misin? Sana daha fazla bilgi vermek veya endişelerini hafifletmek için buradayım.\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    },
+    {
+      "id": "CTX_004",
+      "status": "FAILED",
+      "description": "Çoklu ilaç bağlam takibi",
+      "content_match": false,
+      "response": "Size yardımcı olmak istiyorum. Evet, kesinlikle etkileşime girerler. Hem duygusal hem de bilişsel açıdan etkileşime geçebilirler. Duygusal etkileşim, kullanıcının duygularını doğru anlayarak onlara destek olmayı ve duygularını yansıtmayı içerir. Bilişsel etkileşim ise sağlık konularında bilgi vererek kullanıcıyı bilgilendirmeyi ve yönlendirmeyi içerir. Bu şekilde, kullanıcıya hem duygusal hem de bilgi açısından destek olabiliriz. Sana nasıl yardımcı olabilirim?\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim."
+    },
+    {
+      "id": "CTX_005",
+      "status": "FAILED",
+      "description": "Zaman bazlı bağlam takibi",
+      "content_match": false,
+      "response": "Endişelerinizi anlıyorum ve size yardımcı olmak istiyorum. Anladım, ilaçların yan etkileri hakkında endişelenmek oldukça doğal bir durum. Hangi ilaç hakkında yan etkileri merak ediyorsunuz? Bana ilacın adını söylerseniz, size daha fazla bilgi verebilirim.\n\nEndişelerinizi paylaşabildiğiniz için teşekkür ederim. Size yardımcı olmaya devam edeceğim.\n\nŞu an kendinizi nasıl hissediyorsunuz?\nİlaçla ilgili spesifik bir endişeniz var mı?\n\n\nBazı pratik öneriler:\n- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir\n- İlacı tok karnına almak mide rahatsızlığı riskini düşürür\n- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir\n- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir\n- Stres yönetimi ve düzenli uyku da önemlidir"
+    }
+  ],
+  "timestamp": "2025-05-16T13:46:27.413503",
+  "test_suite": "AI Assistant Test Suite"
+}

@@ -212,17 +212,8 @@ def chat():
 def get_drug_info():
     """
     İlaç bilgisi ve soru için API endpoint'i.
-    
-    Beklenen JSON formatı:
-    {
-        "drug_name_en": "İngilizce ilaç adı",
-        "question_tr": "Türkçe soru",
-        "session_id": "Oturum ID'si (opsiyonel)",
-        "conversation_history": "Önceki konuşma geçmişi (opsiyonel)"
-    }
     """
     try:
-        # JSON verisini al
         data = request.get_json()
         
         if not data or 'drug_name_en' not in data or 'question_tr' not in data:
@@ -235,17 +226,21 @@ def get_drug_info():
         session_id = data.get('session_id', 'default')
         client_conversation_history = data.get('conversation_history', [])
 
-        # İlaç adının kısa olup olmadığını kontrol et (çok uzunsa muhtemelen ilaç adı değildir)
+        # İlaç adı kontrolü
+        if not drug_name_en:
+            return jsonify({
+                'error': 'İlaç adı boş olamaz.',
+                'web_response': 'Lütfen bir ilaç adı belirtin.'
+            }), 400
+
         if len(drug_name_en.split()) > 3:
             return jsonify({
-                'error': 'İlaç adı çok uzun. Lütfen daha kısa bir ilaç adı belirtin.',
+                'error': 'İlaç adı çok uzun.',
                 'web_response': 'İlaç adı çok uzun görünüyor. Lütfen araştırmak istediğiniz ilacın adını daha kısa ve net belirtin.'
-            })
+            }), 400
 
-        # Konuşma geçmişini al
+        # Konuşma geçmişini al ve birleştir
         server_conversation_history = get_conversation_history(session_id)
-        
-        # Konuşma geçmişini birleştir (client varsa onu öncelikle kullan)
         conversation_history = client_conversation_history if client_conversation_history else server_conversation_history
 
         # API anahtarlarını al
@@ -256,8 +251,7 @@ def get_drug_info():
         ai_assistant = AIAssistant(api_key_openai)
         google_search = GoogleSearch(api_key_google, cse_id_google)
 
-        # FDA bilgilerini al
-        drug = Drug(drug_name_en)
+        # Yanıt verilerini hazırla
         response_data = {
             'drug_name': drug_name_en,
             'question': question_tr,
@@ -266,70 +260,91 @@ def get_drug_info():
             'conversation_history': conversation_history
         }
 
-        raw_response = None
-
-        # FDA'dan ilaç bilgilerini çek
+        # FDA bilgilerini al
+        drug = Drug(drug_name_en)
         fda_success = drug.get_fda_info()
         
         if fda_success:
-            drug.clean_data()
+            try:
+                drug.clean_data()
+                drug_info = {
+                    "substance_name": drug.substance_name,
+                    "indications_and_usage": drug.indications_and_usage,
+                    "warnings": drug.warnings,
+                    "dosage_and_administration": drug.dosage_and_administration,
+                    "adverse_reactions": drug.adverse_reactions
+                }
 
-            drug_info = {
-                "substance_name": drug.substance_name if drug.substance_name is not None else "",
-                "indications_and_usage": drug.indications_and_usage if drug.indications_and_usage is not None else "",
-                "warnings": drug.warnings if drug.warnings is not None else "",
-                "dosage_and_administration": drug.dosage_and_administration if drug.dosage_and_administration is not None else "",
-                "adverse_reactions": drug.adverse_reactions if drug.adverse_reactions is not None else ""
-            }
+                # FDA yanıtını oluştur
+                prompt = AIAssistant.create_prompt(drug_info, question_tr)
+                response_fda = ai_assistant.get_response(prompt)
+                
+                if response_fda:
+                    # Duygu analizi ve empati ekle
+                    emotions, intensity = ai_assistant.detect_emotion_and_intensity(question_tr)
+                    natural_response = ai_assistant.create_empathetic_response(response_fda, emotions, intensity)
+                    response_data['fda_response'] = natural_response
+                    add_to_conversation_history(session_id, drug_name_en, question_tr, natural_response)
+                else:
+                    print("FDA yanıtı alınamadı, web aramasına geçiliyor...")
+            except Exception as e:
+                print(f"FDA yanıtı işlenirken hata: {str(e)}")
 
-            prompt = AIAssistant.create_prompt(drug_info, question_tr)
-            response_fda = ai_assistant.get_response(prompt)
-            
-            if response_fda:
-                raw_response = response_fda
-                # Daha doğal bir yanıt oluştur
-                natural_response = generate_natural_response(drug_name_en, response_fda, conversation_history, question_tr)
-                response_data['fda_response'] = natural_response
-                add_to_conversation_history(session_id, drug_name_en, question_tr, natural_response)
-            else:
-                response_data['fda_response'] = "FDA verilerinden cevap alınamadı."
-
-        # FDA'da bilgi bulunamazsa web araması yap
-        if not raw_response:
+        # Web araması yap (FDA yanıtı yoksa veya yetersizse)
+        if not response_data['fda_response']:
             try:
                 # İlaç adı ve soruyu birleştirerek ara
-                combined_query = f"{drug_name_en} {question_tr}"
-                search_queries = google_search.create_search_queries(combined_query, drug_name_en)
+                search_queries = google_search.create_search_queries(question_tr, drug_name_en)
                 all_results = []
+                
                 for query in search_queries:
                     results = google_search.search_web(query)
-                    all_results.extend(results)
+                    if results:
+                        all_results.extend(results)
+                        # Yeterli sonuç varsa döngüyü sonlandır
+                        if len(all_results) >= 5:
+                            break
 
                 if all_results:
+                    # Web yanıtını oluştur
                     answer_google = google_search.analyze_and_summarize(question_tr, all_results, drug_name_en)
                     if answer_google:
-                        raw_response = answer_google
-                        # Daha doğal bir yanıt oluştur
-                        natural_response = generate_natural_response(drug_name_en, answer_google, conversation_history, question_tr)
+                        # Duygu analizi ve empati ekle
+                        emotions, intensity = ai_assistant.detect_emotion_and_intensity(question_tr)
+                        natural_response = ai_assistant.create_empathetic_response(answer_google, emotions, intensity)
                         response_data['web_response'] = natural_response
                         add_to_conversation_history(session_id, drug_name_en, question_tr, natural_response)
                     else:
-                        response_data['web_response'] = f"Üzgünüm, {drug_name_en} hakkında bu soruya cevap bulamadım. Farklı bir ilaç adı veya soru deneyebilirsiniz."
+                        response_data['web_response'] = (
+                            f"Üzgünüm, {drug_name_en} hakkında bu soruya net bir cevap bulamadım. "
+                            "Lütfen doktorunuza veya eczacınıza danışın."
+                        )
                 else:
-                    response_data['web_response'] = f"Üzgünüm, {drug_name_en} adında bir ilaç bulamadım. İlaç adının doğru yazıldığından emin olun veya başka bir ilaç adı deneyin."
+                    response_data['web_response'] = (
+                        f"Üzgünüm, {drug_name_en} hakkında güvenilir bilgi bulamadım. "
+                        "Lütfen ilaç adının doğru yazıldığından emin olun veya bir sağlık profesyoneline danışın."
+                    )
             except Exception as e:
-                response_data['web_response'] = f"Web arama sırasında hata oluştu: {str(e)}"
+                print(f"Web araması sırasında hata: {str(e)}")
+                response_data['web_response'] = "Üzgünüm, şu anda bilgi alma konusunda teknik bir sorun yaşıyorum."
 
-        # Herhangi bir yanıt alınamadıysa, genel bir yanıt ver
+        # Hiçbir yanıt alınamadıysa
         if not response_data['fda_response'] and not response_data['web_response']:
-            response_data['web_response'] = f"Üzgünüm, {drug_name_en} hakkında bilgi bulamadım. Lütfen ilaç adının doğru yazıldığından emin olun veya başka bir ilaç sorun."
+            response_data['web_response'] = (
+                f"Üzgünüm, {drug_name_en} hakkında şu anda bilgi edinemiyorum. "
+                "Lütfen daha sonra tekrar deneyin veya bir sağlık profesyoneline danışın."
+            )
 
         return jsonify(response_data)
 
     except ValueError as ve:
         return jsonify({'error': str(ve)}), 400
     except Exception as e:
-        return jsonify({'error': f"Bilinmeyen bir hata oluştu: {str(e)}"}), 500
+        print(f"Beklenmeyen hata: {str(e)}")
+        return jsonify({
+            'error': 'Bir hata oluştu.',
+            'message': 'Lütfen daha sonra tekrar deneyin veya bir sağlık profesyoneline danışın.'
+        }), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True) 

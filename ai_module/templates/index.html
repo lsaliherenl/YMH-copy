@@ -117,6 +117,14 @@
             'mg', 'miligram', 'içerik', 'faydalı', 'zararlı', 'rahatsızlık'
         ];
 
+        // İlaç adı olmayan yaygın ifadeler
+        const commonPhrases = [
+            'merhaba', 'selam', 'nasılsın', 'teşekkürler', 'sağol', 
+            'tamam', 'evet', 'hayır', 'olur', 'olmaz', 'belki',
+            'bilgi', 'arıyorum', 'hakkında', 'korkuyorum', 'endişe',
+            'yan etki', 'kullanıyorum', 'istiyorum', 'lütfen'
+        ];
+
         function addMessage(message, isUser = false) {
             const chatContainer = document.getElementById('chatContainer');
             const messageDiv = document.createElement('div');
@@ -156,19 +164,26 @@
             }
             
             // Sağlık ile ilgili kelimeleri kontrol et
+            let healthTermCount = 0;
             for (const keyword of healthRelatedKeywords) {
                 if (lowerMessage.includes(keyword)) {
-                    return true;
+                    healthTermCount++;
                 }
             }
             
-            return false;
+            // En az iki sağlık terimi içeriyorsa ilgili kabul et
+            return healthTermCount >= 2;
         }
         
         // Daha iyi ilaç adı tanıma
         function extractPotentialDrugName(message) {
             const lowerMessage = message.toLowerCase();
             const words = message.split(' ');
+            
+            // Eğer mesaj çok uzunsa muhtemelen ilaç adı değildir
+            if (words.length > 5) {
+                return null;
+            }
             
             // Bilinen ilaç adları içinde arama yap
             for (const drug of commonDrugKeywords) {
@@ -182,35 +197,28 @@
             for (let i = 1; i < words.length; i++) {
                 const lowerWord = words[i].toLowerCase();
                 if (indicators.includes(lowerWord)) {
-                    return words[i-1];
+                    // Önceki kelime yaygın bir ifade değilse
+                    const prevWord = words[i-1].toLowerCase();
+                    if (!commonPhrases.includes(prevWord)) {
+                        return words[i-1];
+                    }
                 }
             }
             
             // "İlacın adı X" veya "X ilacı" formatını kontrol et
             if (lowerMessage.includes('ilacın adı') || lowerMessage.includes('ilaç adı')) {
                 const parts = lowerMessage.split('adı');
-                if (parts.length > 1 && parts[1].trim().length > 0) {
-                    return parts[1].trim();
+                if (parts.length > 1) {
+                    const potentialDrug = parts[1].trim().split(' ')[0];
+                    if (!commonPhrases.includes(potentialDrug)) {
+                        return potentialDrug;
+                    }
                 }
             }
             
-            // 1-3 kelimeli kısa mesajları kontrol et
-            if (words.length <= 3 && words.length > 0) {
-                // Ancak sık kullanılan günlük konuşma ifadelerini hariç tut
-                const commonPhrases = ['merhaba', 'selam', 'nasılsın', 'teşekkürler', 'sağol', 
-                                      'tamam', 'evet', 'hayır', 'olur', 'olmaz', 'belki'];
-                
-                let isPossibleDrug = true;
-                for (const word of words) {
-                    if (commonPhrases.includes(word.toLowerCase())) {
-                        isPossibleDrug = false;
-                        break;
-                    }
-                }
-                
-                if (isPossibleDrug) {
-                    return message;
-                }
+            // Tek kelimelik mesajı kontrol et
+            if (words.length === 1 && !commonPhrases.includes(lowerMessage)) {
+                return message;
             }
             
             return null;
@@ -258,7 +266,6 @@
             }
         }
 
-        // İlaç sorusu yönetimini geliştirelim
         async function handleConversation(message) {
             addMessage(message, true);
             
@@ -266,7 +273,7 @@
             const drugRelated = isDrugRelated(message);
             
             // Mevcut konuşma ilaç hakkındaysa ve bu bir takip sorusu gibi görünüyorsa
-            if (currentDrug && (message.length < 40 || message.toLowerCase().includes(currentDrug.toLowerCase()))) {
+            if (currentDrug && message.toLowerCase().includes(currentDrug.toLowerCase())) {
                 await getIlacInfo(currentDrug, message);
                 return;
             }
@@ -278,35 +285,46 @@
                     
                     if (potentialDrug) {
                         currentDrug = potentialDrug;
-                        addMessage(`${currentDrug} hakkında bilgi arıyorum...`);
+                        addMessage(`Endişelerinizi anlıyorum. ${currentDrug} hakkında size yardımcı olmak için bilgi araştırıyorum...`);
                         await getIlacInfo(currentDrug, "ne için kullanılır");
                         return;
                     } else {
                         isSearchingForDrug = true;
-                        addMessage("Hangi ilaç hakkında bilgi almak istiyorsunuz? Lütfen ilaç adını yazın.");
+                        const lowerMessage = message.toLowerCase();
+                        let response = "";
+                        
+                        // Duruma göre özelleştirilmiş yanıtlar
+                        if (lowerMessage.includes("endişe") || lowerMessage.includes("korku") || lowerMessage.includes("yan etki")) {
+                            response = "Endişelerinizi anlıyorum. Size daha iyi yardımcı olabilmem için, bahsettiğiniz ilacın adını paylaşır mısınız?";
+                        } else if (lowerMessage.includes("ağrı") || lowerMessage.includes("acı")) {
+                            response = "Yaşadığınız rahatsızlığı anlıyorum. Size doğru bilgileri verebilmem için, kullandığınız ilacın adını öğrenebilir miyim?";
+                        } else if (lowerMessage.includes("moral") || lowerMessage.includes("destek")) {
+                            response = "Size destek olmak istiyorum. Hangi ilaç hakkında bilgi almak istediğinizi benimle paylaşır mısınız?";
+                        } else {
+                            response = "Size yardımcı olmak için ilacın adını öğrenmem gerekiyor. Hangi ilaç hakkında bilgi almak istiyorsunuz?";
+                        }
+                        
+                        addMessage(response);
                         return;
                     }
                 } 
                 // İlaç adı sormuşsak ve cevap geldiyse
                 else if (isSearchingForDrug) {
-                    // Kullanıcı "ilacın adı X" formatında yanıt vermişse
                     const potentialDrug = extractPotentialDrugName(message);
-                    currentDrug = potentialDrug || message;
-                    isSearchingForDrug = false;
-                    addMessage(`${currentDrug} hakkında bilgi arıyorum...`);
-                    await getIlacInfo(currentDrug, "ne için kullanılır");
-                    return;
-                }
-                // Zaten ilaç adı varsa ve ilaçla ilgili soru soruluyorsa
-                else if (currentDrug) {
-                    await getIlacInfo(currentDrug, message);
+                    if (potentialDrug) {
+                        currentDrug = potentialDrug;
+                        isSearchingForDrug = false;
+                        addMessage(`${currentDrug} hakkında size yardımcı olmak için bilgi araştırıyorum. Özellikle merak ettiğiniz bir konu var mı?`);
+                        await getIlacInfo(currentDrug, "ne için kullanılır");
+                    } else {
+                        addMessage("Üzgünüm, tam olarak hangi ilaçtan bahsettiğinizi anlayamadım. İlacın adını tekrar yazabilir misiniz?");
+                    }
                     return;
                 }
             } 
-            else {
-                // Genel sohbet - API'yi kullan
-                await generalChat(message);
-            }
+            
+            // İlaçla ilgili değilse veya ilaç adı belirtilmemişse genel sohbete devam et
+            await generalChat(message);
         }
         
         async function getIlacInfo(drugName, question) {
