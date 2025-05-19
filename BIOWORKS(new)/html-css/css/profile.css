@@ -456,4 +456,112 @@ body {
 .side-info i {
     color: #4CAF50;
     margin-right: 7px;
+}
+
+/* Mobil Uyumluluk */
+@media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding-bottom: 20px;
+        margin-bottom: 60px;
+    }
+
+    .main-area {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .top-panel {
+        left: 0;
+        padding: 10px 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+        padding: 0 15px;
+    }
+
+    .nav-right {
+        width: 100%;
+        justify-content: space-between;
+        padding: 8px 15px;
+        background: transparent;
+    }
+
+    .nav-link {
+        padding: 6px 12px;
+        min-width: auto;
+        font-size: 14px;
+    }
+
+    .nav-link i {
+        font-size: 14px;
+    }
+
+    .content-area {
+        padding: 20px 15px;
+        margin-top: 60px;
+    }
+
+    .brand-container {
+        margin: 10px;
+        padding-bottom: 15px;
+        margin-top: 60px;
+    }
+
+    .brand-section {
+        padding: 8px 15px;
+    }
+
+    .nav-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .company-name {
+        font-size: 20px;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .profile-sidebar, .profile-content {
+        width: 100%;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-info h1 {
+        font-size: 24px;
+    }
+
+    .profile-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .stat-item {
+        width: calc(50% - 10px);
+    }
 } 

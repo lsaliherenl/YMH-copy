@@ -16,6 +16,7 @@ body {
     flex-direction: column;
     background: transparent;
     backdrop-filter: none;
+    z-index: 1000;
 }
 
 /* Ana İçerik Alanı */
@@ -334,4 +335,127 @@ body {
 
 .chat-content::-webkit-scrollbar-thumb:hover {
     background: rgba(76, 175, 80, 0.5);
+}
+
+/* Mobil Uyumluluk */
+@media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding-bottom: 20px;
+        margin-bottom: 60px;
+    }
+
+    .main-area {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .top-panel {
+        left: 0;
+        padding: 10px 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+        padding: 0 15px;
+    }
+
+    .nav-right {
+        width: 100%;
+        justify-content: space-between;
+        padding: 8px 15px;
+        background: transparent;
+    }
+
+    .nav-link {
+        padding: 6px 12px;
+        min-width: auto;
+        font-size: 14px;
+    }
+
+    .nav-link i {
+        font-size: 14px;
+    }
+
+    .content-area {
+        padding: 20px 15px;
+        margin-top: 60px;
+    }
+
+    .chat-container {
+        height: calc(100vh - 200px);
+    }
+
+    .brand-container {
+        margin: 10px;
+        padding-bottom: 15px;
+        margin-top: 60px;
+    }
+
+    .brand-section {
+        padding: 8px 15px;
+    }
+
+    .nav-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .company-name {
+        font-size: 20px;
+    }
+
+    .chat-content {
+        padding: 0 10px;
+    }
+
+    .chat-header h2 {
+        font-size: 16px;
+    }
+
+    .chat-preview h3 {
+        font-size: 14px;
+    }
+
+    .chat-preview p {
+        font-size: 12px;
+    }
+
+    .chat-time {
+        font-size: 12px;
+    }
+}
+
+/* Tablet Uyumluluk */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .left-panel {
+        width: 250px;
+    }
+
+    .main-area {
+        margin-left: 250px;
+    }
+
+    .top-panel {
+        left: 250px;
+    }
+
+    .nav-link {
+        padding: 8px 15px;
+        font-size: 15px;
+    }
+
+    .chat-container {
+        height: calc(100vh - 180px);
+    }
 } 

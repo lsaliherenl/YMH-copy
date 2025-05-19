@@ -327,3 +327,70 @@ input[type="text"].password-visible {
     border-color: #4CAF50;
     background: #fff;
 }
+
+/* Mobil Uyumluluk */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .left-content {
+        padding-right: 0;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .company-name {
+        font-size: 36px;
+    }
+
+    .login-container {
+        justify-content: center;
+    }
+
+    .login-box {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .half-width {
+        width: 100%;
+    }
+
+    .remember-forgot {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group select {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+}
+
+/* Tablet Uyumluluk */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 30px;
+    }
+
+    .login-box {
+        width: 480px;
+        padding: 40px 30px;
+    }
+
+    .company-name {
+        font-size: 42px;
+    }
+}
