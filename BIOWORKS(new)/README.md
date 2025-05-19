@@ -14,14 +14,14 @@ Bu web uygulaması, kullanıcıların hesaplarını yönetmelerine ve çeşitli 
 
 Proje aşağıdaki dosyaları içermektedir:
 
-* `index.html` (veya `index.html`): Kullanıcıların e-posta ve şifrelerini girerek sisteme giriş yapmalarını sağlayan giriş sayfası. Misafir olarak devam etme ve şifremi unuttum seçenekleri de bulunur.
-* `register.html` : Kullanıcıların ad, soyad, yaş, cinsiyet, e-posta ve şifre bilgilerini girerek yeni bir hesap oluşturmalarını sağlayan kayıt sayfası.
-* `forgot_password.html` : Kullanıcıların şifrelerini sıfırlamak için e-posta adreslerini girebilecekleri şifremi unuttum sayfası.
-* `main_page.html` : Kullanıcıların giriş yaptıktan sonra yönlendirileceği ana sayfa. Sohbet geçmişi ve etkileşim alanı içerir.
-* `about_us.html` : Uygulama hakkında bilgi veren "Hakkımızda" sayfası.
-* `communication.html` : Kullanıcıların iletişim bilgilerine ulaşabileceği "İletişim" sayfası.
-* `profile.html` : Kullanıcıların kendi profillerini görüntüleyebileceği ve düzenleyebileceği "Profil" sayfası.
-* `style.css` : Tüm sayfaların genel görünümünü ve düzenini kontrol eden CSS stil dosyası.
+* `index.html`: Kullanıcıların e-posta ve şifrelerini girerek sisteme giriş yapmalarını sağlayan giriş sayfası. Misafir olarak devam etme ve şifremi unuttum seçenekleri de bulunur.
+* `register.html`: Kullanıcıların ad, soyad, yaş, cinsiyet, e-posta ve şifre bilgilerini girerek yeni bir hesap oluşturmalarını sağlayan kayıt sayfası.
+* `forgot_password.html`: Kullanıcıların şifrelerini sıfırlamak için e-posta adreslerini girebilecekleri şifremi unuttum sayfası.
+* `main_page.html`: Kullanıcıların giriş yaptıktan sonra yönlendirileceği ana sayfa. Sohbet geçmişi ve etkileşim alanı içerir.
+* `about_us.html`: Uygulama hakkında bilgi veren "Hakkımızda" sayfası.
+* `communication.html`: Kullanıcıların iletişim bilgilerine ulaşabileceği "İletişim" sayfası.
+* `profile.html`: Kullanıcıların kendi profillerini görüntüleyebileceği ve düzenleyebileceği "Profil" sayfası.
+* `style.css`: Tüm sayfaların genel görünümünü ve düzenini kontrol eden CSS stil dosyası.
 * `main_page.css`: Ana sayfaya özel stilleri içeren CSS dosyası.
 
 ---
@@ -29,86 +29,82 @@ Proje aşağıdaki dosyaları içermektedir:
 ## Özellikler
 
 * **Giriş Sayfası:**
-
-    * E-posta ve şifre alanları.
-    * "Beni Hatırla" seçeneği.
-    * "Şifremi Unuttum" bağlantısı (`forgot_password.html` sayfasına yönlendirir).
-    * "Kayıt Ol" sayfasına yönlendirme bağlantısı (`register.html` sayfasına yönlendirir).
-    * "Misafir Olarak Devam Et" seçeneği (`main_page.html` sayfasına yönlendirir).
-    * Giriş formu düzeni ve stili güncellendi.
+    * E-posta ve şifre alanları
+    * "Beni Hatırla" seçeneği
+    * "Şifremi Unuttum" bağlantısı
+    * "Kayıt Ol" sayfasına yönlendirme bağlantısı
+    * "Misafir Olarak Devam Et" seçeneği
+    * Modern ve kullanıcı dostu form tasarımı
 
 * **Kayıt Sayfası:**
-
-    * Ad, soyad, yaş, cinsiyet, e-posta ve şifre alanları.
-    * Şifre doğrulama alanı.
-    * "Giriş Yap" sayfasına yönlendirme bağlantısı (`index.html` sayfasına yönlendirir).
-    * Kayıt formu düzeni ve stili güncellendi.
+    * Ad, soyad, yaş, cinsiyet, e-posta ve şifre alanları
+    * Şifre doğrulama alanı
+    * "Giriş Yap" sayfasına yönlendirme bağlantısı
+    * Responsive form tasarımı
 
 * **Şifremi Unuttum Sayfası:**
-
-    * E-posta adresi alanı.
-    * Şifre sıfırlama bağlantısı gönderme butonu.
-    * "Giriş Yap" ve "Kayıt Ol" sayfalarına yönlendirme bağlantıları.
-    * Şifremi Unuttum sayfası düzeni ve stili güncellendi.
+    * E-posta adresi alanı
+    * Şifre sıfırlama bağlantısı gönderme butonu
+    * "Giriş Yap" ve "Kayıt Ol" sayfalarına yönlendirme bağlantıları
 
 * **Ana Sayfa:**
-
-    * Sol tarafta sohbet geçmişi bölümü.
-    * Mesaj gönderme alanı.
-    * Üst menüde "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına bağlantılar.
-    * Ana sayfa düzeni ve stilleri (`main_page.css`) iyileştirildi.
-    * Font Awesome ikonları entegre edildi.
+    * Sol tarafta sohbet geçmişi bölümü
+    * Mesaj gönderme alanı
+    * Üst menüde "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına bağlantılar
+    * Responsive tasarım
 
 * **Hakkımızda Sayfası:**
-
-    * Uygulama hakkında bilgilerin yer alacağı sayfa (içerik henüz eklenmedi).
+    * Uygulama hakkında detaylı bilgiler
+    * Şirket vizyonu ve misyonu
+    * Responsive tasarım
 
 * **İletişim Sayfası:**
-
-    * Kullanıcıların iletişim kurabileceği bilgilerin yer alacağı ve mesaj gönderebileceği sayfa.
-    * İletişim formu eklendi.
-    * İletişim sayfası stilize edildi (`communication.css`).
+    * İletişim formu
+    * Adres ve iletişim bilgileri
+    * Harita entegrasyonu
+    * Responsive tasarım
 
 * **Profil Sayfası:**
+    * Profil bilgilerini görüntüleme ve düzenleme
+    * Profil fotoğrafı değiştirme
+    * Şifre güncelleme
+    * Responsive tasarım
 
-    * Kullanıcıların profil bilgilerini görüntüleyebileceği ve düzenleyebileceği sayfa.
-    * Profil fotoğrafı değiştirme, şifre güncelleme ve çıkış yapma bölümleri eklendi.
-    * Profil sayfası stilize edildi (`profile.css`).
+---
 
-* **Stil:**
+## Teknolojiler
 
-    * Modern ve kullanıcı dostu tasarım.
-    * Duyarlı (responsive) tasarım (farklı ekran boyutlarına uyum sağlar).
-    * "BIOWORKS" marka adı ve vurgulu renkler.
-    * Ana sayfada bulanıklık efektli şeffaf tasarım öğeleri.
-    * Genel stil iyileştirmeleri ve düzenlemeler yapıldı.
-    * Sayfalara özel stil dosyaları (`main_page.css`, `profile.css`, `communication.css`) kullanıldı.
+* HTML5
+* CSS3
+* Font Awesome (ikonlar için)
+* Responsive tasarım için medya sorguları
 
 ---
 
 ## Kurulum
 
-1.  Bu projeyi GitHub'dan klonlayın veya indirin.
-2.  Dosyaları bir web sunucusuna (örneğin, Apache, Nginx) veya yerel bir geliştirme ortamına (örneğin, XAMPP, WAMP) yerleştirin.
-3.  `index.html` veya `index.html` dosyasını bir tarayıcıda açarak uygulamayı başlatın.
+1. Projeyi GitHub'dan klonlayın veya indirin
+2. Dosyaları bir web sunucusuna yerleştirin
+3. `index.html` dosyasını bir tarayıcıda açarak uygulamayı başlatın
 
 ---
 
 ## Kullanım
 
 * **Giriş Yapmak İçin:**
-    1.  `index.html` veya `index.html` sayfasına gidin.
-    2.  E-posta adresinizi ve şifrenizi girin.
-    3.  "Giriş Yap" düğmesine tıklayın.
-    4.  İsterseniz "Beni Hatırla" seçeneğini işaretleyebilirsiniz.
-    5.  Şifrenizi unuttuysanız, "Şifremi Unuttum" bağlantısına tıklayarak şifre sıfırlama sayfasına gidebilirsiniz.
-    6.  Hesabınız yoksa, "Kayıt Ol" bağlantısına tıklayarak kayıt sayfasına gidebilirsiniz.
-    7.  Hesap oluşturmadan devam etmek isterseniz, "Misafir Olarak Devam Et" düğmesine tıklayabilirsiniz.
+    1. `index.html` sayfasına gidin
+    2. E-posta adresinizi ve şifrenizi girin
+    3. "Giriş Yap" düğmesine tıklayın
+    4. İsterseniz "Beni Hatırla" seçeneğini işaretleyebilirsiniz
+    5. Şifrenizi unuttuysanız, "Şifremi Unuttum" bağlantısına tıklayabilirsiniz
+    6. Hesabınız yoksa, "Kayıt Ol" bağlantısına tıklayabilirsiniz
+    7. Hesap oluşturmadan devam etmek isterseniz, "Misafir Olarak Devam Et" düğmesine tıklayabilirsiniz
+
 * **Kayıt Olmak İçin:**
-    1.  `register.html` sayfasına gidin.
-    2.  Gerekli tüm bilgileri (ad, soyad, yaş, cinsiyet, e-posta, şifre, şifre tekrarı) girin.
-    3.  "Kayıt Ol" düğmesine tıklayın.
-    4.  Zaten bir hesabınız varsa, "Giriş Yap" bağlantısına tıklayarak giriş sayfasına gidebilirsiniz.
+    1. `register.html` sayfasına gidin
+    2. Gerekli tüm bilgileri girin
+    3. "Kayıt Ol" düğmesine tıklayın
+
 * **Şifremi Unuttum:**
     1.  `forgot_password.html` sayfasına gidin.
     2.  E-posta adresinizi girin.
@@ -179,14 +175,14 @@ Proje aşağıdaki dosyaları içermektedir:
 
 ## Geliştirme
 
-Bu projeye katkıda bulunmak isterseniz, lütfen aşağıdaki adımları izleyin:
+Bu projeye katkıda bulunmak isterseniz:
 
-1.  Projeyi fork edin.
-2.  Yeni bir branch oluşturun (`git checkout -b yeni-ozellik`).
-3.  Değişikliklerinizi yapın.
-4.  Değişikliklerinizi commit'leyin (`git commit -m "Yeni özellik eklendi"`).
-5.  Branch'inizi push edin (`git push origin yeni-ozellik`).
-6.  Pull Request gönderin.
+1. Projeyi fork edin
+2. Yeni bir branch oluşturun (`git checkout -b yeni-ozellik`)
+3. Değişikliklerinizi yapın
+4. Değişikliklerinizi commit'leyin (`git commit -m "Yeni özellik eklendi"`)
+5. Branch'inizi push edin (`git push origin yeni-ozellik`)
+6. Pull Request gönderin
 
 ---
 
