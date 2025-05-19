@@ -26,10 +26,13 @@ const commonPhrases = [
 
 function addMessage(message, isUser = false) {
     const chatMessages = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = isUser ? 'user-message' : 'assistant-message';
-    messageDiv.innerHTML = message.replace(/\n/g, '<br>');
-    chatMessages.appendChild(messageDiv);
+    const rowDiv = document.createElement('div');
+    rowDiv.className = isUser ? 'message-row user-message' : 'message-row system-message';
+    const bubbleDiv = document.createElement('div');
+    bubbleDiv.className = 'message-bubble';
+    bubbleDiv.innerHTML = message.replace(/\n/g, '<br>');
+    rowDiv.appendChild(bubbleDiv);
+    chatMessages.appendChild(rowDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
