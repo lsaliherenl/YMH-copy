@@ -48,10 +48,19 @@ Proje aşağıdaki dosyaları içermektedir:
     * "Giriş Yap" ve "Kayıt Ol" sayfalarına yönlendirme bağlantıları
 
 * **Ana Sayfa:**
-    * Sol tarafta sohbet geçmişi bölümü
-    * Mesaj gönderme alanı
-    * Üst menüde "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına bağlantılar
-    * Responsive tasarım
+    1. Sol panelde sohbet geçmişinizi görüntüleyebilirsiniz.
+    2. Arama kutusunu kullanarak başlık veya son mesaja göre sohbetleri filtreleyebilirsiniz.
+    3. Her sohbet kutusunun sağ üstündeki üç nokta menüsünden:
+        - Sohbeti sabitleyebilir/sabit kaldırabilirsiniz.
+        - Sohbetin ismini düzenleyebilirsiniz.
+        - Sohbeti silebilirsiniz.
+    4. Sohbet arama kutusunun sağındaki çöp kutusu butonuyla tüm sohbetleri topluca silebilirsiniz.
+    5. "+ Yeni Sohbet" butonuyla yeni bir sohbet başlatabilirsiniz.
+    6. Aktif sohbet kutusu yeşil çerçeveyle vurgulanır.
+    7. Sohbet kutusuna tıklayınca o sohbete ait mesajlar yüklenir.
+    8. Mesaj gönderme alanı sadece aktif sohbet seçiliyse çalışır.
+    9. Sohbet silme, yeni sohbet oluşturma veya toplu silme işlemlerinde sağ alt köşede otomatik toast/snackbar bildirimleri gösterilir.
+    10. Üst menüden "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına erişebilirsiniz.
 
 * **Hakkımızda Sayfası:**
     * Uygulama hakkında detaylı bilgiler
@@ -91,6 +100,8 @@ Proje aşağıdaki dosyaları içermektedir:
 
 ## Kullanım
 
+* **Site Linki:** [BIOWORKS Web Uygulaması](https://alrainn.github.io/YMH/)
+
 * **Giriş Yapmak İçin:**
     1. `index.html` sayfasına gidin
     2. E-posta adresinizi ve şifrenizi girin
@@ -112,8 +123,18 @@ Proje aşağıdaki dosyaları içermektedir:
     4.  Giriş yapmak için "Giriş Yap" veya kayıt olmak için "Kayıt Ol" bağlantılarını kullanabilirsiniz.
 * **Ana Sayfa:**
     1.  Sol tarafta sohbet geçmişinizi görüntüleyebilirsiniz.
-    2.  Alt kısımdaki metin alanına mesajınızı yazıp gönderebilirsiniz.
-    3.  Üst menüden "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına erişebilirsiniz.
+    2.  Arama kutusunu kullanarak başlık veya son mesaja göre sohbetleri filtreleyebilirsiniz.
+    3.  Her sohbet kutusunun sağ üstündeki üç nokta menüsünden:
+        - Sohbeti sabitleyebilir/sabit kaldırabilirsiniz.
+        - Sohbetin ismini düzenleyebilirsiniz.
+        - Sohbeti silebilirsiniz.
+    4.  Sohbet arama kutusunun sağındaki çöp kutusu butonuyla tüm sohbetleri topluca silebilirsiniz.
+    5.  "+ Yeni Sohbet" butonuyla yeni bir sohbet başlatabilirsiniz.
+    6.  Aktif sohbet kutusu yeşil çerçeveyle vurgulanır.
+    7.  Sohbet kutusuna tıklayınca o sohbete ait mesajlar yüklenir.
+    8.  Mesaj gönderme alanı sadece aktif sohbet seçiliyse çalışır.
+    9.  Sohbet silme, yeni sohbet oluşturma veya toplu silme işlemlerinde sağ alt köşede otomatik toast/snackbar bildirimleri gösterilir.
+    10. Üst menüden "Ana Sayfa", "Hakkımızda", "İletişim" ve "Profil" sayfalarına erişebilirsiniz.
 * **Diğer Sayfalar:**
     * "Hakkımızda", "İletişim" ve "Profil" sayfalarını ilgili menü bağlantılarından ziyaret edebilirsiniz.
 
@@ -141,6 +162,7 @@ Proje aşağıdaki dosyaları içermektedir:
 * **Ana Sayfa:**
     * ![Ana Sayfa Ekran Görüntüsü v1](photos/z-site_preview/ana-sayfa_v1.png)
     * ![Ana Sayfa Ekran Görüntüsü v2](photos/z-site_preview/ana-sayfa_v2.png)
+    * ![Ana Sayfa Ekran Görüntüsü v3](photos/z-site_preview/ana-sayfa_v3.png)
     * Ana sayfa düzeni, üst menü ve sohbet bölümü güncellendi.
 
 * **Profil Sayfası:**
