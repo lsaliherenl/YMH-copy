@@ -1,9 +1,10 @@
-// main_page.html chatbox için ai_module mantığıyla
+// Chatbox için temel değişkenler
 let conversationHistory = [];
 let currentDrug = null;
 let isSearchingForDrug = false;
 let sessionId = 'web-session-' + Date.now();
 
+// İlaç ve sağlık ile ilgili anahtar kelimeler
 const commonDrugKeywords = [
     'aspirin', 'paracetamol', 'ibuprofen', 'antibiyotik', 'enalapril',
     'vitamin', 'ağrı kesici', 'ateş düşürücü', 'tansiyon', 'kolesterol',
@@ -12,11 +13,13 @@ const commonDrugKeywords = [
     'dolven', 'arveles', 'nexium', 'augmentin', 'cipro', 'lipitor',
     'coumadin', 'concor', 'nurofen', 'ventolin', 'minoset', 'apranax'
 ];
+
 const healthRelatedKeywords = [
     'ilaç', 'tablet', 'kapsül', 'etken madde', 'doz', 'dozaj', 'yan etki',
     'kullanım', 'tedavi', 'hastalık', 'semptom', 'reçete', 'eczane',
     'mg', 'miligram', 'içerik', 'faydalı', 'zararlı', 'rahatsızlık'
 ];
+
 const commonPhrases = [
     'merhaba', 'selam', 'nasılsın', 'teşekkürler', 'sağol', 
     'tamam', 'evet', 'hayır', 'olur', 'olmaz', 'belki',
@@ -24,6 +27,7 @@ const commonPhrases = [
     'yan etki', 'kullanıyorum', 'istiyorum', 'lütfen'
 ];
 
+// Mesaj ekleme fonksiyonu (aktif sohbetin mesajlarına kaydeder)
 function addMessage(message, isUser = false) {
     const chatMessages = document.getElementById('chatMessages');
     const rowDiv = document.createElement('div');
@@ -34,8 +38,30 @@ function addMessage(message, isUser = false) {
     rowDiv.appendChild(bubbleDiv);
     chatMessages.appendChild(rowDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Aktif sohbetin mesajlarını kaydet
+    if (activeChatId) {
+        const key = 'chatMessages_' + activeChatId;
+        const messages = JSON.parse(localStorage.getItem(key) || '[]');
+        messages.push({ message, isUser, timestamp: new Date().toISOString() });
+        localStorage.setItem(key, JSON.stringify(messages));
+        // Son mesajı ve zamanı sohbet listesinde güncelle
+        updateChatListLastMessage(activeChatId, message);
+    }
 }
 
+// Mesajı geçmişe kaydetme
+function saveMessageToHistory(message, isUser) {
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+    chatHistory.push({
+        message,
+        isUser,
+        timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+}
+
+// İlaç ile ilgili mesaj kontrolü
 function isDrugRelated(message) {
     const lowerMessage = message.toLowerCase();
     if (currentDrug) {
@@ -64,6 +90,7 @@ function isDrugRelated(message) {
     return healthTermCount >= 2;
 }
 
+// İlaç adı çıkarma
 function extractPotentialDrugName(message) {
     const lowerMessage = message.toLowerCase();
     const words = message.split(' ');
@@ -100,6 +127,7 @@ function extractPotentialDrugName(message) {
     return null;
 }
 
+// Genel sohbet işlevi
 async function generalChat(message) {
     showLoading(true);
     try {
@@ -125,13 +153,16 @@ async function generalChat(message) {
     }
 }
 
+// Konuşma yönetimi
 async function handleConversation(message) {
     addMessage(message, true);
     const drugRelated = isDrugRelated(message);
+    
     if (currentDrug && message.toLowerCase().includes(currentDrug.toLowerCase())) {
         await getIlacInfo(currentDrug, message);
         return;
     }
+    
     if (drugRelated) {
         if (!currentDrug && !isSearchingForDrug) {
             const potentialDrug = extractPotentialDrugName(message);
@@ -172,6 +203,7 @@ async function handleConversation(message) {
     await generalChat(message);
 }
 
+// İlaç bilgisi alma
 async function getIlacInfo(drugName, question) {
     showLoading(true);
     try {
@@ -204,6 +236,7 @@ async function getIlacInfo(drugName, question) {
     }
 }
 
+// Yükleme göstergesi
 function showLoading(show) {
     let loading = document.getElementById('chatbox-loading');
     if (!loading) {
@@ -216,18 +249,48 @@ function showLoading(show) {
     if (!show) loading.remove();
 }
 
-document.querySelector('.send-button').addEventListener('click', async function() {
-    const input = document.getElementById('messageInput');
-    const message = input.value.trim();
-    if (message) {
-        await handleConversation(message);
-        input.value = '';
+// Sohbet kutusunda son mesajı ve zamanı güncelle
+function updateChatListLastMessage(chatId, lastMessage) {
+    let chatHistory = JSON.parse(localStorage.getItem('chatHistoryList') || '[]');
+    chatHistory = chatHistory.map(chat => {
+        if (chat.id === chatId) {
+            return {
+                ...chat,
+                lastMessage: lastMessage.length > 30 ? lastMessage.slice(0, 30) + '...' : lastMessage,
+                timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            };
+        }
+        return chat;
+    });
+    localStorage.setItem('chatHistoryList', JSON.stringify(chatHistory));
+    // Sohbet listesini güncelle (ana sayfa fonksiyonu varsa tetiklenir)
+    if (typeof renderChatHistory === 'function') {
+        renderChatHistory(chatHistory);
     }
-});
+}
 
-document.getElementById('messageInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        document.querySelector('.send-button').click();
-    }
+// Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Mesaj gönderme butonu
+    document.querySelector('.send-button').addEventListener('click', async function() {
+        const input = document.getElementById('messageInput');
+        const message = input.value.trim();
+        console.log('activeChatId:', activeChatId, 'message:', message);
+        if (!activeChatId) {
+            alert('Lütfen önce bir sohbet seçin veya yeni bir sohbet başlatın.');
+            return;
+        }
+        if (message) {
+            await handleConversation(message);
+            input.value = '';
+        }
+    });
+
+    // Enter tuşu ile mesaj gönderme
+    document.getElementById('messageInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            document.querySelector('.send-button').click();
+        }
+    });
 }); 

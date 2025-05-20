@@ -19,24 +19,22 @@
             </a>
         </div>
         <div class="chat-content">
-            <div class="chat-header">
-                <h2><i class="fa-solid fa-clock-rotate-left"></i> Sohbet Geçmişi</h2>
+            <div class="chat-actions-col">
+                <div class="chat-actions-row">
+                    <div class="chat-search-box">
+                        <i class="fa fa-search"></i>
+                        <input type="text" id="chatSearchInput" placeholder="Sohbetlerde ara...">
+                    </div>
+                    <button class="delete-all-chats-btn" title="Tüm Sohbetleri Sil">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+                <button class="new-chat-button">
+                    <i class="fa-solid fa-plus"></i> Yeni Sohbet
+                </button>
             </div>
             <div class="chat-list">
-                <div class="chat-item">
-                    <div class="chat-preview">
-                        <h3>Sohbet 1</h3>
-                        <p>Son mesaj önizlemesi...</p>
-                    </div>
-                    <span class="chat-time">14:30</span>
-                </div>
-                <div class="chat-item">
-                    <div class="chat-preview">
-                        <h3>Sohbet 2</h3>
-                        <p>Son mesaj önizlemesi...</p>
-                    </div>
-                    <span class="chat-time">13:45</span>
-                </div>
+                <!-- Sohbet geçmişi buraya dinamik olarak yüklenecek -->
             </div>
         </div>
     </aside>
@@ -71,10 +69,13 @@
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </div>
-
             </div>
         </div>
     </main>
+
+    <!-- JavaScript dosyaları -->
+    <script src="../js/main_page.js"></script>
     <script src="../js/main_page_chatbox.js"></script>
+    <div id="toast-notification"></div>
 </body>
 </html>
