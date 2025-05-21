@@ -4,6 +4,8 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .left-panel {
@@ -16,6 +18,7 @@ body {
     flex-direction: column;
     background: transparent;
     backdrop-filter: none;
+    z-index: 1000;
 }
 
 .main-area {
@@ -468,23 +471,18 @@ body {
         width: 100%;
         height: auto;
         position: relative;
-        padding-bottom: 20px;
-        margin-bottom: 60px;
+        padding: 10px;
     }
 
     .main-area {
         margin-left: 0;
-        width: 100%;
+        padding-top: 20px;
     }
 
     .top-panel {
+        position: relative;
         left: 0;
         padding: 10px 0;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(10px);
     }
 
     .nav-container {
@@ -493,30 +491,21 @@ body {
 
     .nav-right {
         width: 100%;
-        justify-content: space-between;
-        padding: 8px 15px;
-        background: transparent;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
     }
 
     .nav-link {
-        padding: 6px 12px;
+        font-size: 14px;
+        padding: 6px 15px;
         min-width: auto;
-        font-size: 14px;
-    }
-
-    .nav-link i {
-        font-size: 14px;
-    }
-
-    .content-area {
-        padding: 20px 15px;
-        margin-top: 60px;
     }
 
     .brand-container {
         margin: 10px;
         padding-bottom: 15px;
-        margin-top: 60px;
+        margin-bottom: 20px;
     }
 
     .brand-section {
@@ -532,36 +521,113 @@ body {
         font-size: 20px;
     }
 
-    .profile-container {
+    .profile-blocks-area {
+        margin-top: 20px;
+        padding: 0 15px;
+    }
+
+    .profile-block {
+        padding: 1.5rem;
+    }
+
+    .profile-main-row {
         flex-direction: column;
-        gap: 20px;
+        gap: 1.5rem;
     }
 
-    .profile-sidebar, .profile-content {
-        width: 100%;
+    .profile-photo-wrapper-wide {
+        min-width: auto;
     }
 
-    .profile-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-
-    .profile-avatar {
+    .profile-photo-wide {
         width: 120px;
         height: 120px;
     }
 
-    .profile-info h1 {
-        font-size: 24px;
+    .profile-form-wide {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .left-panel {
+        padding: 5px;
     }
 
-    .profile-stats {
+    .nav-link {
+        font-size: 13px;
+        padding: 5px 12px;
+    }
+
+    .brand-section {
+        padding: 6px 12px;
+    }
+
+    .nav-logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .company-name {
+        font-size: 18px;
+    }
+
+    .profile-block {
+        padding: 1rem;
+    }
+
+    .profile-photo-wide {
+        width: 100px;
+        height: 100px;
+    }
+
+    .change-photo-btn-wide {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .profile-photo-label {
+        font-size: 0.9em;
+    }
+
+    .profile-form-wide .form-group label {
+        font-size: 0.9em;
+    }
+}
+
+/* Yeni eklenen mobil menü düzenlemeleri */
+@media screen and (max-width: 768px) {
+    .side-userbox {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .side-profile-photo {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+    }
+
+    .side-username {
+        font-size: 14px;
+    }
+
+    .side-quickmenu {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 10px;
     }
 
-    .stat-item {
-        width: calc(50% - 10px);
+    .side-quickmenu a {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .side-info {
+        font-size: 12px;
+        padding: 8px;
     }
 } 
