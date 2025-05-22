@@ -78,6 +78,15 @@ Proje aşağıdaki dosyaları içermektedir:
     * Profil fotoğrafı değiştirme
     * Şifre güncelleme
     * Responsive tasarım
+    * Profil fotoğrafı kırpma ve önizleme (Cropper.js ile)
+    * Profil fotoğrafı ve kullanıcı adı, localStorage ile kalıcı ve tüm sayfalarda otomatik güncellenir
+    * Bilgiler (ad soyad, e-posta) localStorage ile kalıcı
+    * Sağ altta modern toast/snackbar bildirimleri ile kullanıcıya anlık geri bildirim verilir
+    * Tema seçimi ve profil düzeni kaldırıldı
+
+### Hakkımızda ve Sol Panel
+- Sol paneldeki küçük profil fotoğrafı ve kullanıcı adı, profil sayfasında yapılan değişikliklerle otomatik güncellenir
+- Hakkımızda sayfasında da aynı şekilde güncel bilgiler gösterilir
 
 ---
 

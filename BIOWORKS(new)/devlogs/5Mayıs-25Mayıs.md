@@ -105,7 +105,7 @@ Proje dosyaları aşağıdaki gibi yapılandırılmıştır:
 -   **Yeni:** Projenin genelinde modern tasarım trendlerine uygun iyileştirmeler yapılmış ve kullanıcı deneyimi artırılmıştır.
 -   **Yeni:** Site statik olarak yayınlanmıştır.
 
-## 20 Mayıs 2024 - Ana Sayfa ve Sohbet Sistemi Geliştirmeleri
+## 20 Mayıs 2025 - Ana Sayfa ve Sohbet Sistemi Geliştirmeleri
 
 ### 1. Dosya ve Kod Yapısının Modülerleştirilmesi
 - Her sayfa için ayrı JS dosyası yapısına geçildi (`main_page.js`, `main_page_chatbox.js`).
@@ -149,3 +149,30 @@ Proje dosyaları aşağıdaki gibi yapılandırılmıştır:
 - `activeChatId` değişkeninin global olarak paylaşılması sağlandı.
 - Event listener çakışmaları ve tanım hataları giderildi.
 - Sohbet kutusu ve sohbet geçmişi arasında tam entegrasyon sağlandı.
+
+## 22 Mayıs 2024 - Profil ve Kullanıcı Deneyimi Geliştirmeleri
+
+### 1. Profil Fotoğrafı Kırpma ve Kalıcı Saklama
+- Kullanıcı profil fotoğrafı seçtiğinde Cropper.js ile kırpma ve önizleme özelliği eklendi.
+- Kırpılan fotoğraf, localStorage'a base64 olarak kaydediliyor ve sayfa yenilense bile kaybolmuyor.
+- Sol paneldeki küçük profil fotoğrafı da otomatik olarak güncelleniyor.
+- Hakkımızda sayfasında da sol panelde aynı şekilde güncel profil fotoğrafı gösteriliyor.
+
+### 2. Profil Bilgilerinin Kalıcı Saklanması
+- Kullanıcı Ad Soyad ve E-posta bilgilerini güncellediğinde, bu bilgiler de localStorage'a kaydediliyor.
+- Sayfa her yüklendiğinde localStorage'daki bilgiler otomatik olarak inputlara yükleniyor.
+- Sol paneldeki "Hoş geldiniz, ..." kısmı da güncel kullanıcı adı ile otomatik değişiyor.
+- Hakkımızda sayfasında da aynı şekilde güncel kullanıcı adı gösteriliyor.
+
+### 3. Toast Bildirim Sistemi
+- Profil ve şifre güncelleme işlemlerinde, ana sayfadaki gibi sağ altta modern toast/snackbar bildirimleri eklendi.
+- Başarı için yeşil, hata için kırmızı arka plan ve animasyonlu geçişler kullanıldı.
+
+### 4. Kullanıcı Deneyimi ve Kod İyileştirmeleri
+- Tüm profil sayfası JS kodları, DOM yüklendikten sonra çalışacak şekilde düzenlendi (DOMContentLoaded).
+- Script dosyaları ve modal yapısı, HTML'in en sonunda olacak şekilde taşındı.
+- Kodlar sadeleştirildi ve tekrar eden işlemler fonksiyonel hale getirildi.
+
+### 5. Tema Seçimi ve Profil Düzeni Özelliklerinin Kaldırılması
+- Tema seçimi ve profil düzeni ile ilgili tüm butonlar, JS ve CSS kodları kaldırıldı.
+- Arka plan görselleri ve gradyanlar kullanıldığı için tema seçimi gereksiz bulundu ve sadeleştirme yapıldı.
