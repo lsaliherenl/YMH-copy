@@ -268,11 +268,11 @@ body {
     border-color: #388e3c;
     box-shadow: 0 0 0 2px rgba(76,175,80,0.13);
 }
-.profile-form-wide .save-btn {
+.profile-form-wide .save-btn, .password-form .save-btn {
     background: #4CAF50;
     color: #fff;
     border: none;
-    padding: 0.8rem 1.5rem;
+    padding: 0.6rem 1.3rem;
     border-radius: 30px;
     cursor: pointer;
     font-size: 1rem;
@@ -282,10 +282,13 @@ body {
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(76,175,80,0.10);
     transition: all 0.3s;
-    justify-content: center;
+    justify-content: flex-end;
     margin-top: 0.5rem;
+    width: auto;
+    min-width: 180px;
+    align-self: flex-end;
 }
-.profile-form-wide .save-btn:hover {
+.profile-form-wide .save-btn:hover, .password-form .save-btn:hover {
     background: #388e3c;
     transform: translateY(-2px);
 }
@@ -327,27 +330,6 @@ body {
     outline: none;
     border-color: #388e3c;
     box-shadow: 0 0 0 2px rgba(76,175,80,0.13);
-}
-.password-form .save-btn {
-    background: #4CAF50;
-    color: #fff;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(76,175,80,0.10);
-    transition: all 0.3s;
-    justify-content: center;
-    margin-top: 0.5rem;
-}
-.password-form .save-btn:hover {
-    background: #388e3c;
-    transform: translateY(-2px);
 }
 
 .logout-btn {
@@ -691,4 +673,57 @@ body {
         padding: 8px 15px;
         font-size: 14px;
     }
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .theme-options,
+    .layout-options {
+        flex-direction: column;
+    }
+
+    .theme-btn,
+    .layout-btn {
+        width: 100%;
+    }
+
+    .cover-photo-wrapper {
+        height: 150px;
+    }
+}
+
+#toast-notification {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    min-width: 220px;
+    max-width: 320px;
+    background: #222;
+    color: #fff;
+    padding: 16px 28px 16px 18px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    font-size: 1.08em;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(30px);
+}
+#toast-notification.toast-show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+#toast-notification.toast-success {
+    background: #2e7d32;
+    color: #fff;
+}
+#toast-notification.toast-error {
+    background: #c62828;
+    color: #fff;
 } 
