@@ -1,0 +1,10 @@
+com\melihawci\springrestapi\controller\AIController.class
+com\melihawci\springrestapi\model\QuestionAnswer.class
+com\melihawci\springrestapi\service\AIService.class
+com\melihawci\springrestapi\controller\UserController.class
+com\melihawci\springrestapi\repository\QuestionAnswerRepository.class
+com\melihawci\springrestapi\SpringRestApiApplication.class
+com\melihawci\springrestapi\repository\UserRepository.class
+com\melihawci\springrestapi\service\PythonAIService.class
+com\melihawci\springrestapi\service\UserService.class
+com\melihawci\springrestapi\model\User.class

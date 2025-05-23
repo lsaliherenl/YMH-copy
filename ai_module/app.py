@@ -362,5 +362,27 @@ def get_drug_info():
             'traceback': tb if os.environ.get('DEBUG') == '1' else None
         }), 500
 
+@app.route('/ask', methods=['POST'])
+def ask_question():
+    """
+    Spring Boot uygulaması için basit soru-cevap endpoint'i.
+    """
+    try:
+        question = request.get_data(as_text=True)
+        if not question:
+            return jsonify({
+                'error': 'Soru boş olamaz.'
+            }), 400
+
+        # Basit sohbet yanıtı oluştur
+        chat_response = simple_chat_response(question, [])
+        
+        return jsonify({
+            'answer': chat_response
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f"Bilinmeyen bir hata oluştu: {str(e)}"}), 500
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True) 

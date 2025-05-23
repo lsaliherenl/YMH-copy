@@ -104,3 +104,75 @@ Proje dosyaları aşağıdaki gibi yapılandırılmıştır:
 -   Her sayfa, kendi özel stil dosyası ile (örneğin, `main_page.css`, `profile.css`) ek olarak stilize edilmiştir.
 -   **Yeni:** Projenin genelinde modern tasarım trendlerine uygun iyileştirmeler yapılmış ve kullanıcı deneyimi artırılmıştır.
 -   **Yeni:** Site statik olarak yayınlanmıştır.
+
+## 20 Mayıs 2025 - Ana Sayfa ve Sohbet Sistemi Geliştirmeleri
+
+### 1. Dosya ve Kod Yapısının Modülerleştirilmesi
+- Her sayfa için ayrı JS dosyası yapısına geçildi (`main_page.js`, `main_page_chatbox.js`).
+- Sohbet geçmişi, sohbet kutusu ve diğer işlevler ayrıştırıldı.
+
+### 2. Sohbet Geçmişi ve Chatbox Entegrasyonu
+- Sohbet kutusuna tıklanınca o sohbete ait mesajların yüklenmesi sağlandı.
+- Her sohbetin mesajları ayrı ayrı localStorage'da saklanacak şekilde düzenlendi.
+- Aktif sohbet vurgulaması (yeşil çerçeve ve arka plan) eklendi.
+
+### 3. Sohbet Arama Özelliği
+- Sol panelde sohbet arama kutusu eklendi.
+- Arama kutusuna yazdıkça başlık veya son mesaja göre sohbetler filtreleniyor.
+
+### 4. Sohbet Sabitleme/Favori
+- Üç nokta menüsüne "Sohbeti Sabitle / Sabit Kaldır" seçeneği eklendi.
+- Sabitlenen sohbetler listenin en üstünde ve sarı çerçeve + yıldız ile vurgulanıyor.
+- Menüde ikonlar (pushpin, ban, pen, trash) ile modern görünüm sağlandı.
+
+### 5. Sohbet Silme ve İsmi Düzenleme
+- Üç nokta menüsünde "İsmi Düzenle" ve "Sohbeti Sil" seçenekleri eklendi.
+- Silme ve isim değiştirme işlemleri localStorage ve arayüzde anında güncelleniyor.
+
+### 6. Tüm Sohbetleri Toplu Silme
+- "Tüm Sohbetleri Sil" için modern bir çöp kutusu butonu eklendi.
+- Buton, sohbet arama kutusunun sağında, küçük ve modern bir şekilde konumlandırıldı.
+- Tıklanınca onay alınıyor ve tüm sohbetler ile mesajlar siliniyor.
+
+### 7. Toast Bildirim Sistemi
+- Sağ alt köşede, modern ve yuvarlatılmış bir toast/snackbar bildirimi eklendi.
+- Sohbet silindiğinde, yeni sohbet oluşturulduğunda veya tüm sohbetler silindiğinde otomatik olarak bildirim çıkıyor.
+- Başarı için yeşil, hata için kırmızı ikon ve arka plan kullanıldı.
+
+### 8. Görsel ve UX İyileştirmeleri
+- Sohbet kutuları, butonlar ve menülerde modern ve sade bir görünüm sağlandı.
+- Responsive (mobil uyumlu) CSS düzenlemeleri yapıldı.
+- Üç nokta menüsünde ikonlar ve renkli vurgular eklendi.
+- Arama kutusu ve toplu silme butonu yan yana, uyumlu şekilde hizalandı.
+
+### 9. Kod Temizliği ve Hata Giderme
+- `activeChatId` değişkeninin global olarak paylaşılması sağlandı.
+- Event listener çakışmaları ve tanım hataları giderildi.
+- Sohbet kutusu ve sohbet geçmişi arasında tam entegrasyon sağlandı.
+
+## 22 Mayıs 2024 - Profil ve Kullanıcı Deneyimi Geliştirmeleri
+
+### 1. Profil Fotoğrafı Kırpma ve Kalıcı Saklama
+- Kullanıcı profil fotoğrafı seçtiğinde Cropper.js ile kırpma ve önizleme özelliği eklendi.
+- Kırpılan fotoğraf, localStorage'a base64 olarak kaydediliyor ve sayfa yenilense bile kaybolmuyor.
+- Sol paneldeki küçük profil fotoğrafı da otomatik olarak güncelleniyor.
+- Hakkımızda sayfasında da sol panelde aynı şekilde güncel profil fotoğrafı gösteriliyor.
+
+### 2. Profil Bilgilerinin Kalıcı Saklanması
+- Kullanıcı Ad Soyad ve E-posta bilgilerini güncellediğinde, bu bilgiler de localStorage'a kaydediliyor.
+- Sayfa her yüklendiğinde localStorage'daki bilgiler otomatik olarak inputlara yükleniyor.
+- Sol paneldeki "Hoş geldiniz, ..." kısmı da güncel kullanıcı adı ile otomatik değişiyor.
+- Hakkımızda sayfasında da aynı şekilde güncel kullanıcı adı gösteriliyor.
+
+### 3. Toast Bildirim Sistemi
+- Profil ve şifre güncelleme işlemlerinde, ana sayfadaki gibi sağ altta modern toast/snackbar bildirimleri eklendi.
+- Başarı için yeşil, hata için kırmızı arka plan ve animasyonlu geçişler kullanıldı.
+
+### 4. Kullanıcı Deneyimi ve Kod İyileştirmeleri
+- Tüm profil sayfası JS kodları, DOM yüklendikten sonra çalışacak şekilde düzenlendi (DOMContentLoaded).
+- Script dosyaları ve modal yapısı, HTML'in en sonunda olacak şekilde taşındı.
+- Kodlar sadeleştirildi ve tekrar eden işlemler fonksiyonel hale getirildi.
+
+### 5. Tema Seçimi ve Profil Düzeni Özelliklerinin Kaldırılması
+- Tema seçimi ve profil düzeni ile ilgili tüm butonlar, JS ve CSS kodları kaldırıldı.
+- Arka plan görselleri ve gradyanlar kullanıldığı için tema seçimi gereksiz bulundu ve sadeleştirme yapıldı.

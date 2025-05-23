@@ -40,16 +40,69 @@
             bilgileri analiz ederek size yardımcı olabilir. Sorularınızı sorun ve olası hastalıklar hakkında bilgi
             edinin. Unutmayın, bu bir başlangıç noktasıdır ve her zaman bir doktora danışmanız en iyisidir.</p>
         
-        
-            <div class="model-container"><!--BURAYA YAPAY ZEKA MODELİNİN GÖRÜNÜMÜ GELECEK-->
-
-            BURAYA YAPAY ZEKA MODELİNİN GÖRÜNÜMÜ GELECEK
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Mesajlar buraya gelecek -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Sorunuzu yazın...">
+                <button onclick="sendMessage()">Gönder</button>
+            </div>
         </div>
     </section>
 
     <footer>
         <p>&copy; 2025 BIOWORKS AI</p>
     </footer>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const chatMessages = document.getElementById('chatMessages');
+            const question = userInput.value.trim();
+            
+            if (!question) return;
+
+            // Kullanıcı mesajını ekle
+            appendMessage('user', question);
+            userInput.value = '';
+
+            try {
+                // Backend'e istek gönder
+                const response = await fetch('http://localhost:8080/api/ai/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    body: question
+                });
+
+                const data = await response.json();
+                
+                // AI cevabını ekle
+                appendMessage('ai', data.answer);
+            } catch (error) {
+                console.error('Error:', error);
+                appendMessage('error', 'Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.');
+            }
+        }
+
+        function appendMessage(type, message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}-message`;
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Enter tuşu ile mesaj gönderme
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
 </body>
 
 </html>
