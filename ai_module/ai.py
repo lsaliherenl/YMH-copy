@@ -260,28 +260,90 @@ class AIAssistant:
         if not emotions:
             return response
 
-        # İlaçla ilgili anahtar kelimeleri kontrol et - optimize edilmiş
+        # İlaçla ilgili anahtar kelimeleri kontrol et
         drug_related = any(keyword in response.lower() for keyword in ["ilaç", "tablet", "kapsül", "yan etki", "doz", "tedavi"])
         has_side_effects = "yan etki" in response.lower()
         
-        # Duygu bazlı prefix seçimi - optimize edilmiş
+        # Duygu bazlı prefix seçimi
         emotion = emotions[0]
         prefix = self.empathy_prefixes.get(emotion, ["Size yardımcı olmak istiyorum. "])[min(intensity - 1, len(self.empathy_prefixes.get(emotion, ["Size yardımcı olmak istiyorum. "])) - 1)]
         
-        # Destekleyici cümle seçimi - optimize edilmiş
+        # Destekleyici cümle seçimi
         ending = self.supportive_endings[min(intensity - 1, len(self.supportive_endings) - 1)]
         
-        # Takip soruları ve öneriler - optimize edilmiş
-        follow_up = ""
+        # İnteraktif sorular ve öneriler
+        interactive_questions = []
+        
         if drug_related and has_side_effects:
-            follow_up = "\n\n" + "\n".join(self.side_effect_questions[:2])
-            follow_up += "\n" + "\n".join(self.practical_tips)
+            interactive_questions.extend([
+                "Hangi yan etkilerden endişeleniyorsunuz?",
+                "Bu endişelerinizin kaynağı nedir?",
+                "Daha önce benzer ilaçlar kullandınız mı?",
+                "Bu endişelerinizi doktorunuzla paylaştınız mı?",
+                "Yan etkiler günlük hayatınızı nasıl etkiliyor?",
+                "Bu konuda size nasıl destek olabilirim?",
+                "Yan etkilerle başa çıkmak için neler deniyorsunuz?",
+                "Doktorunuz size yan etkiler hakkında bilgi verdi mi?"
+            ])
         elif drug_related:
-            follow_up = "\n\n" + "\n".join(self.drug_follow_up_questions[:2])
+            interactive_questions.extend([
+                "Bu ilaç hakkında özellikle endişelendiğiniz bir konu var mı?",
+                "İlacı kullanmaya başladıktan sonra nasıl hissediyorsunuz?",
+                "Doktorunuz size ilacın kullanımıyla ilgili özel öneriler verdi mi?",
+                "İlaç hakkında başka merak ettiğiniz bir şey var mı?",
+                "İlacın etkisini görmeye başladınız mı?",
+                "İlaç kullanımıyla ilgili endişeleriniz var mı?",
+                "Size başka nasıl yardımcı olabilirim?",
+                "Bu ilaç hakkında başka sorularınız var mı?"
+            ])
         elif emotion in self.follow_up_questions:
-            follow_up = "\n\n" + "\n".join(self.follow_up_questions[emotion][:2])
+            interactive_questions.extend([
+                "Bu endişenin kaynağı nedir?",
+                "Bu durum sizi nasıl etkiliyor?",
+                "Daha önce benzer endişeler yaşadınız mı?",
+                "Size nasıl destek olabilirim?",
+                "Bu endişelerinizi başkalarıyla paylaştınız mı?",
+                "Endişelerinizle başa çıkmak için neler yapıyorsunuz?",
+                "Size yardımcı olabilecek başka bir konu var mı?",
+                "Bu konuda profesyonel destek almayı düşündünüz mü?"
+            ])
 
-        return f"{prefix}{response}\n\n{ending}{follow_up}"
+        # Pratik öneriler
+        practical_tips = []
+        if drug_related:
+            practical_tips.extend([
+                "\n\nBazı pratik öneriler:",
+                "- İlacı düzenli saatlerde kullanmak yan etki riskini azaltabilir",
+                "- İlacı tok karnına almak mide rahatsızlığı riskini düşürür",
+                "- Herhangi bir yan etki hissettiğinizde not almanız faydalı olabilir",
+                "- Düzenli su içmek ve dengeli beslenmek yan etkileri azaltabilir",
+                "- Stres yönetimi ve düzenli uyku da önemlidir",
+                "- Doktorunuzla düzenli iletişim halinde olun"
+            ])
+
+        # Yanıtı oluştur
+        final_response = f"{prefix}{response}\n\n"
+        
+        # İnteraktif soruları ekle
+        if interactive_questions:
+            final_response += "Biraz daha konuşmak ister misiniz?\n"
+            for question in interactive_questions[:3]:  # İlk üç soruyu seç
+                final_response += f"- {question}\n"
+        
+        # Pratik önerileri ekle
+        if practical_tips:
+            final_response += "\n".join(practical_tips)
+        
+        # Destekleyici cümleyi ekle
+        final_response += f"\n\n{ending}"
+        
+        # Konuşmayı devam ettir
+        if drug_related:
+            final_response += "\n\nBu ilaç hakkında özellikle endişelendiğiniz bir konu var mı? Ya da yan etkiler konusunda endişelerinizi paylaşmak ister misiniz? Size yardımcı olmak için buradayım."
+        else:
+            final_response += "\n\nBu konuda başka düşünceleriniz var mı? Ya da başka bir konuda yardıma ihtiyacınız var mı? Sizi dinlemek için buradayım."
+        
+        return final_response
 
     def is_drug_query(self, text: str) -> Tuple[bool, Optional[str]]:
         """
@@ -303,93 +365,124 @@ class AIAssistant:
                 
         return False, None
 
-    def get_response(self, prompt: str) -> Optional[str]:
+    def get_response(self, prompt: str) -> str:
         try:
-            emotions, intensity = self.detect_emotion_and_intensity(prompt)
-            is_drug, drug_name = self.is_drug_query(prompt)
+            # Önce .env dosyasının varlığını kontrol et
+            try:
+                from dotenv import load_dotenv
+                import os
+                load_dotenv()
+                
+                if not os.path.exists('.env'):
+                    return "❌ HATA: .env dosyası bulunamadı!\n\n" + \
+                           "Lütfen şunları yapın:\n" + \
+                           "1. .env.example dosyasını .env olarak kopyalayın:\n" + \
+                           "   cp .env.example .env\n" + \
+                           "2. .env dosyasını bir metin editörü ile açın\n" + \
+                           "3. OPENAI_API_KEY değerini kendi API anahtarınızla değiştirin\n" + \
+                           "4. Dosyayı kaydedin ve uygulamayı yeniden başlatın"
+                
+                # API anahtarının varlığını kontrol et
+                api_key = os.getenv('OPENAI_API_KEY')
+                if not api_key:
+                    return "❌ HATA: API anahtarı bulunamadı!\n\n" + \
+                           "Lütfen şunları yapın:\n" + \
+                           "1. .env dosyasını açın\n" + \
+                           "2. OPENAI_API_KEY= değerini kontrol edin\n" + \
+                           "3. API anahtarınızı doğru formatta ekleyin (sk- ile başlamalı)\n" + \
+                           "4. Dosyayı kaydedin ve uygulamayı yeniden başlatın"
+                
+                # Model adının varlığını kontrol et
+                model_name = os.getenv('MODEL_NAME')
+                if not model_name:
+                    return "❌ HATA: Model adı bulunamadı!\n\n" + \
+                           "Lütfen şunları yapın:\n" + \
+                           "1. .env dosyasını açın\n" + \
+                           "2. MODEL_NAME= değerini kontrol edin\n" + \
+                           "3. Model adını ekleyin (örn: gpt-3.5-turbo)\n" + \
+                           "4. Dosyayı kaydedin ve uygulamayı yeniden başlatın"
+                
+            except ImportError:
+                return "❌ HATA: python-dotenv paketi eksik!\n\n" + \
+                       "Lütfen şu komutu çalıştırın:\n" + \
+                       "pip install python-dotenv"
+
+            # Gerekli modüllerin varlığını kontrol et
+            try:
+                import openai
+            except ImportError:
+                return "❌ HATA: openai paketi eksik!\n\n" + \
+                       "Lütfen şu komutu çalıştırın:\n" + \
+                       "pip install openai"
+
+            try:
+                emotions, intensity = self.detect_emotion_and_intensity(prompt)
+                is_drug, drug_name = self.is_drug_query(prompt)
+            except Exception as e:
+                return f"❌ HATA: Duygu analizi sırasında bir sorun oluştu!\n\n" + \
+                       f"Hata detayı: {str(e)}\n\n" + \
+                       "Lütfen şunları kontrol edin:\n" + \
+                       "1. Tüm gerekli paketlerin yüklendiğinden emin olun:\n" + \
+                       "   pip install -r requirements.txt\n" + \
+                       "2. Uygulamayı yeniden başlatın"
             
-            system_message = """
-            Sen, kullanıcılara sağlık konularında yardımcı olan, son derece empatik ve anlayışlı bir sağlık asistanısın.
-            Görevin sadece bilgi vermek değil, aynı zamanda kullanıcıyı duygusal olarak desteklemek ve onlarla etkileşimli bir diyalog kurmaktır.
+            SYSTEM_PROMPT = """Sen Türkçe konuşan, empatik ve psikolojik destek odaklı bir sağlık asistanısın. 
+            Kullanıcıların duygusal durumlarını derinlemesine anlamaya çalışmalı ve onlara psikolojik destek sağlamalısın.
 
-            BAĞLAM TAKİBİ VE İLAÇ BİLGİLERİ:
-            1. İLAÇ BİLGİLERİNİ HATIRLAMA:
-               - İlaç adını ilk söylendiğinde not al
-               - İlaç adını ve detaylarını tüm diyalog boyunca hatırla
-               - İlaç adı tekrar sorulduğunda hatırla ve kullan
-               - İlaç hakkında verilen bilgileri koru
-               - İlaç dozu ve kullanım bilgilerini hatırla
+            TEMEL İLKELER:
+            1. Aktif Dinleme ve Empati:
+               - Kullanıcının duygularını yansıt
+               - "Anlıyorum", "Bu gerçekten zor olmalı" gibi empatik ifadeler kullan
+               - Duyguları isimlendir ve doğrula
+               - Kullanıcının deneyimlerini önemse
 
-            Örnek İlaç Bilgisi Hatırlama:
-            Kullanıcı: "Aripa ilacı hakkında bilgi almak istiyorum"
-            Sen: "Aripa (aripiprazol) hakkında bilgi vermekten memnuniyet duyarım. Bu ilaç genellikle şizofreni, bipolar bozukluk ve majör depresif bozukluk tedavisinde kullanılır. Hangi konuda bilgi almak istersiniz?"
+            2. Psikolojik Destek:
+               - Kullanıcının endişelerini normalleştir
+               - Güven verici bir ton kullan
+               - Umut aşıla
+               - Yalnız olmadığını hissettir
+               - Başa çıkma stratejileri öner
 
-            Kullanıcı: "5mg doz fazla mı?"
-            Sen: "Aripa (aripiprazol) için 5mg doz hakkında konuşuyorsunuz. Bu doz, ilacın başlangıç dozu olarak kabul edilir ve genellikle güvenli bir dozdur. Ancak her hasta için uygun doz farklı olabilir. Doktorunuzun önerdiği dozu kullanmanız önemlidir."
+            3. İnteraktif Diyalog:
+               - Her yanıtta en az bir açık uçlu soru sor
+               - Kullanıcının yanıtlarını bekleyerek ilerle
+               - Konuyu doğal bir şekilde derinleştir
+               - Kullanıcıyı konuşmaya teşvik et
+               - Bağlamı takip et ve referans ver
 
-            2. BAĞLAM TAKİBİ:
-               - Önceki mesajları hatırla
-               - Kullanıcının durumunu takip et
-               - Konuşma akışını sürdür
-               - Gereksiz tekrarlardan kaçın
-               - İlaç adını tekrar sorma
-
-            Örnek Bağlam Takibi:
-            Kullanıcı: "Aripa ilacının yan etkilerinden korktum"
-            Sen: "Aripa (aripiprazol) hakkında endişelerini paylaştığın için teşekkür ederim. Yan etkilerden korkmak çok doğal bir duygu. Hangi yan etkiler seni özellikle endişelendiriyor?"
-
-            Kullanıcı: "Yan etkileri okudum, ciddi bir yan etkisi yok ama gene de korktum"
-            Sen: "Yan etkileri okuduktan sonra bile korku hissetmen çok anlaşılır. Bazen mantığımız bir şeyi anlasa bile, duygularımız farklı tepki verebilir. Bu korkunun seni nasıl etkilediğini anlatmak ister misin?"
-
-            3. DUYGU YANSITMA:
-               - Kullanıcının duygularını doğru tespit et
-               - Duyguları isimlendir ve yansıt
-               - Duygusal bağlamı koru
-               - Önceki duygusal durumu hatırla
-               - Duygusal geçişleri takip et
-
-            Örnek Duygu Yansıtma:
-            Kullanıcı: "Biraz endişeliyim"
-            Sen: "Endişeli hissettiğini duyduğuma üzüldüm. Bu duyguyu benimle paylaştığın için teşekkür ederim. Endişelerini biraz daha anlatmak ister misin? Seni dinlemek için buradayım."
-
-            4. İLAÇ BİLGİLERİ:
-               - İlaç adını doğru hatırla
-               - Önceki bilgileri koru
-               - Yan etkileri dengeli açıkla
+            4. İlaç Bilgisi ve Güvenlik:
+               - Bilimsel ve güvenilir bilgiler ver
+               - Yan etkileri dengeli bir şekilde açıkla
+               - Doktora danışmanın önemini vurgula
                - Endişeleri azaltmaya çalış
-               - Güvenilir bilgi kaynaklarını belirt
+               - Pratik öneriler sun
 
-            5. DİYALOG SÜRDÜRME:
-               - Her yanıtın sonunda konuşmayı devam ettir
-               - Kullanıcının endişelerini gidermeye devam et
-               - İlgili konulara geçiş yap
-               - Kullanıcıyı rahatlat
-               - Güven ver
+            ÖRNEK YANITLAR:
 
-            ÖNEMLİ UYARI:
-            - İlaç bilgileri konusunda çok dikkatli ol
-            - Sadece güvenilir tıbbi kaynaklardan bilgi ver
-            - Emin olmadığın bilgileri verme
-            - İlaç kullanımı konusunda kesin yönlendirme yapma
-            - Yan etkiler ve kullanım konusunda genel bilgi ver
+            Kullanıcı: "Çok endişeliyim"
+            Sen: "Endişeli hissettiğini duyduğuma üzüldüm. Bu duyguyu benimle paylaştığın için teşekkür ederim. Endişenin seni nasıl etkilediğini anlatmak ister misin? Seni dinlemek için buradayım."
 
-            Yanıtlarında:
-            - Kullanıcının duygusal durumunu dikkate al
-            - Onları aktif dinlediğini göster
-            - Endişelerini ve sorularını ciddiye al
-            - Samimi ve destekleyici bir dil kullan
-            - Gerektiğinde takip soruları sor
-            - Kullanıcıyı konuşmaya teşvik et
-            - Yalnız olmadıklarını hissettir
-            - Olumlu deneyimlerden bahset
-            - Pratik öneriler sun
-            - Her zaman umut verici ol
-            - Her yanıtın sonunda diyaloğu sürdür
-            
-            Sadece verilen bilgileri kullan, tahmin yürütme.
-            Bilgi yoksa, nazik ve destekleyici bir şekilde bilgi bulunamadığını belirt.
-            Her zaman kullanıcıyı dinlemeye ve anlamaya açık olduğunu göster.
-            """
+            Kullanıcı: "İlacın yan etkilerinden korkuyorum"
+            Sen: "Yan etkilerden korkman çok doğal bir duygu. Bu korkunun seni nasıl etkilediğini anlatmak ister misin? Ayrıca, hangi yan etkiler seni özellikle endişelendiriyor?"
+
+            Kullanıcı: [İlaç adı]
+            Sen: "[İlaç bilgisi]... Bu ilaç hakkında özellikle merak ettiğin bir şey var mı? Yan etkiler konusunda endişelerin varsa, bunları birlikte konuşabiliriz. Seni dinlemek için buradayım."
+
+            KÖTÜ YANITLAR (BUNLARI ASLA KULLANMA):
+            - "Size nasıl yardımcı olabilirim?" (çok genel)
+            - "Neden endişelisin?" (çok direkt)
+            - "Başka bir sorunuz var mı?" (konuşmayı kapatıcı)
+            - "Endişelenmeyin" (duyguları geçersiz kılıyor)
+            - "Her şey yoluna girecek" (boş umut veriyor)
+
+            ÖNEMLİ:
+            - Her yanıtın sonunda konuşmayı devam ettir
+            - Kullanıcının duygularını ciddiye al
+            - Profesyonel ama samimi bir ton kullan
+            - Gerektiğinde doktora yönlendir
+            - Her zaman destekleyici ol"""
+
+            system_message = SYSTEM_PROMPT
 
             messages: List[ChatCompletionMessageParam] = [
                 ChatCompletionSystemMessageParam(
@@ -399,17 +492,98 @@ class AIAssistant:
                 ChatCompletionUserMessageParam(role="user", content=prompt),
             ]
 
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=messages,
-                max_tokens=1500,
-                temperature=0.7,
-            )
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=messages,
+                    max_tokens=2500,
+                    temperature=0.7,
+                )
+            except Exception as api_error:
+                error_message = str(api_error)
+                if "API key" in error_message:
+                    return "❌ HATA: API anahtarı geçersiz!\n\n" + \
+                           "Lütfen şunları kontrol edin:\n" + \
+                           "1. .env dosyasındaki API anahtarının doğru olduğundan emin olun\n" + \
+                           "2. API anahtarının sk- ile başladığından emin olun\n" + \
+                           "3. API anahtarının aktif olduğundan emin olun\n" + \
+                           "4. OpenAI hesabınızın aktif olduğundan emin olun\n\n" + \
+                           "Eğer sorun devam ederse:\n" + \
+                           "1. OpenAI hesabınıza giriş yapın\n" + \
+                           "2. Yeni bir API anahtarı oluşturun\n" + \
+                           "3. .env dosyasını güncelleyin"
+                elif "rate limit" in error_message.lower():
+                    return "❌ HATA: API kullanım limitine ulaşıldı!\n\n" + \
+                           "Lütfen birkaç dakika bekleyip tekrar deneyin.\n" + \
+                           "Eğer sorun devam ederse, OpenAI hesabınızdaki kullanım limitlerini kontrol edin."
+                elif "model" in error_message.lower():
+                    return "❌ HATA: Model bulunamadı!\n\n" + \
+                           "Lütfen şunları kontrol edin:\n" + \
+                           "1. .env dosyasındaki MODEL_NAME değerinin doğru olduğundan emin olun\n" + \
+                           "2. Model adının gpt-3.5-turbo olduğundan emin olun\n" + \
+                           "3. OpenAI hesabınızın bu modele erişim izni olduğundan emin olun"
+                else:
+                    return f"❌ HATA: API bağlantı hatası!\n\n" + \
+                           f"Hata detayı: {error_message}\n\n" + \
+                           "Lütfen şunları kontrol edin:\n" + \
+                           "1. İnternet bağlantınızın olduğundan emin olun\n" + \
+                           "2. Tüm gerekli paketlerin yüklendiğinden emin olun:\n" + \
+                           "   pip install -r requirements.txt\n" + \
+                           "3. .env dosyasının doğru yapılandırıldığından emin olun\n" + \
+                           "4. Uygulamayı yeniden başlatın"
             
-            raw_response = response.choices[0].message.content
-            empathetic_response = self.create_empathetic_response(raw_response, emotions, intensity)
-            return empathetic_response
+            try:
+                raw_response = response.choices[0].message.content
+                empathetic_response = self.create_empathetic_response(raw_response, emotions, intensity)
+                return empathetic_response
+            except Exception as e:
+                return f"❌ HATA: Yanıt oluşturulurken bir sorun oluştu!\n\n" + \
+                       f"Hata detayı: {str(e)}\n\n" + \
+                       "Lütfen şunları kontrol edin:\n" + \
+                       "1. Tüm gerekli paketlerin yüklendiğinden emin olun:\n" + \
+                       "   pip install -r requirements.txt\n" + \
+                       "2. Uygulamayı yeniden başlatın"
             
         except Exception as e:
-            print(f"GPT API Hatası: {e}")
-            return None
+            error_type = type(e).__name__
+            error_message = str(e)
+            
+            if "OpenAI" in error_type:
+                return "❌ HATA: OpenAI bağlantı hatası!\n\n" + \
+                       "Lütfen şunları kontrol edin:\n" + \
+                       "1. .env dosyasının doğru konumda olduğundan emin olun\n" + \
+                       "2. API anahtarınızın doğru olduğundan emin olun\n" + \
+                       "3. İnternet bağlantınızı kontrol edin\n" + \
+                       "4. Uygulamayı yeniden başlatın"
+            
+            elif "ModuleNotFoundError" in error_type:
+                missing_module = error_message.split("'")[1]
+                return f"❌ HATA: Eksik modül: {missing_module}\n\n" + \
+                       "Lütfen şu komutu çalıştırın:\n" + \
+                       "pip install -r requirements.txt\n\n" + \
+                       "Eğer sorun devam ederse:\n" + \
+                       "1. Python'un doğru sürümünü kullandığınızdan emin olun\n" + \
+                       "2. Sanal ortam (virtual environment) kullanıyorsanız aktif olduğundan emin olun"
+            
+            elif "FileNotFoundError" in error_type:
+                return "❌ HATA: Gerekli dosya bulunamadı!\n\n" + \
+                       "Lütfen şunları kontrol edin:\n" + \
+                       "1. .env dosyasının proje klasöründe olduğundan emin olun\n" + \
+                       "2. Tüm dosyaların doğru konumda olduğunu kontrol edin\n" + \
+                       "3. GitHub'dan tüm dosyaları indirdiğinizden emin olun\n\n" + \
+                       "Eğer .env dosyası eksikse:\n" + \
+                       "1. .env.example dosyasını .env olarak kopyalayın\n" + \
+                       "2. .env dosyasını düzenleyin\n" + \
+                       "3. Uygulamayı yeniden başlatın"
+            
+            else:
+                return f"❌ HATA: Beklenmeyen bir hata oluştu!\n\n" + \
+                       f"Hata türü: {error_type}\n" + \
+                       f"Hata mesajı: {error_message}\n\n" + \
+                       "Lütfen şunları yapın:\n" + \
+                       "1. Uygulamayı yeniden başlatın\n" + \
+                       "2. Tüm gerekli paketleri yükleyin:\n" + \
+                       "   pip install -r requirements.txt\n" + \
+                       "3. .env dosyasını kontrol edin\n" + \
+                       "4. İnternet bağlantınızı kontrol edin\n" + \
+                       "5. Sorun devam ederse, lütfen GitHub'daki Issues bölümüne bildirin" 

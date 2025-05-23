@@ -206,7 +206,17 @@ def chat():
         })
         
     except Exception as e:
-        return jsonify({'error': f"Bilinmeyen bir hata oluştu: {str(e)}"}), 500
+        import traceback
+        error_type = type(e).__name__
+        error_message = str(e)
+        tb = traceback.format_exc()
+        print(f"[HATA] {error_type}: {error_message}\n{tb}")
+        return jsonify({
+            'error': 'Bir hata oluştu.',
+            'error_type': error_type,
+            'error_message': error_message,
+            'traceback': tb if os.environ.get('DEBUG') == '1' else None
+        }), 500
 
 @app.route('/api/drug-info', methods=['POST'])
 def get_drug_info():
@@ -340,10 +350,16 @@ def get_drug_info():
     except ValueError as ve:
         return jsonify({'error': str(ve)}), 400
     except Exception as e:
-        print(f"Beklenmeyen hata: {str(e)}")
+        import traceback
+        error_type = type(e).__name__
+        error_message = str(e)
+        tb = traceback.format_exc()
+        print(f"[HATA] {error_type}: {error_message}\n{tb}")
         return jsonify({
             'error': 'Bir hata oluştu.',
-            'message': 'Lütfen daha sonra tekrar deneyin veya bir sağlık profesyoneline danışın.'
+            'error_type': error_type,
+            'error_message': error_message,
+            'traceback': tb if os.environ.get('DEBUG') == '1' else None
         }), 500
 
 if __name__ == '__main__':

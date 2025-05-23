@@ -80,7 +80,7 @@ class GoogleSearch:
         """
         # İlaç adı düzeltmesi
         corrected_drug_name = self.drug_corrections.get(drug_name.lower(), drug_name)
-        
+
         # Soru türünü belirle
         question_lower = question.lower()
         query_type = None
@@ -127,14 +127,14 @@ class GoogleSearch:
         Geliştirilmiş web arama fonksiyonu.
         """
         url = "https://www.googleapis.com/customsearch/v1"
-        
+
         # Sorguyu temizle ve optimize et
         clean_query = query.replace('"', '').strip()
         
         # Site kısıtlaması ekle
         site_restriction = " OR ".join(f"site:{domain}" for domain in self.trusted_domains)
         final_query = f"({clean_query}) ({site_restriction})"
-        
+
         params = {
             "q": final_query,
             "cx": self.cse_id,
@@ -144,21 +144,21 @@ class GoogleSearch:
             "gl": "tr",
             "fields": "items(title,link,snippet)"
         }
-        
+
         try:
             print(f"Arama sorgusu: {final_query}")
             response = requests.get(url, params=params, timeout=10)
             response.raise_for_status()
             data = response.json()
-            
+
             if "error" in data:
                 print(f"API Hatası: {data['error']['message']}")
                 return []
-            
+
             if "items" not in data:
                 print(f"Sonuç bulunamadı. Sorgu: '{final_query}'")
                 return []
-            
+
             # Sonuçları filtrele ve sırala
             results = []
             for item in data.get("items", []):
@@ -176,7 +176,7 @@ class GoogleSearch:
                         if x["domain"] in self.trusted_domains else len(self.trusted_domains))
             
             return results[:num_results]
-            
+
         except requests.exceptions.RequestException as e:
             print(f"Google API isteği hatası: {e}")
             return []
