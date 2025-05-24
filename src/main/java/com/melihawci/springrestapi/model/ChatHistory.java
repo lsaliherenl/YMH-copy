@@ -1,10 +1,8 @@
 package com.melihawci.springrestapi.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import java.time.LocalDateTime;
 
-@Data
 @Entity
 @Table(name = "chat_history")
 public class ChatHistory {
@@ -24,4 +22,35 @@ public class ChatHistory {
 
     @Column(nullable = false)
     private LocalDateTime timestamp;
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public String getUserMessage() {
+        return userMessage;
+    }
+    public void setUserMessage(String userMessage) {
+        this.userMessage = userMessage;
+    }
+    public String getAiResponse() {
+        return aiResponse;
+    }
+    public void setAiResponse(String aiResponse) {
+        this.aiResponse = aiResponse;
+    }
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 } 
