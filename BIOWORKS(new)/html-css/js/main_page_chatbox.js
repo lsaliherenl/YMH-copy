@@ -131,22 +131,26 @@ function extractPotentialDrugName(message) {
 async function generalChat(message) {
     showLoading(true);
     try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch('http://localhost:8080/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 message: message,
-                session_id: sessionId,
-                conversation_history: conversationHistory
+                userId: null // Misafir kullanıcı için null
             })
         });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
         const data = await response.json();
-        addMessage(data.response);
+        addMessage(data.aiResponse);
         conversationHistory.push({ role: "user", content: message });
-        conversationHistory.push({ role: "assistant", content: data.response });
+        conversationHistory.push({ role: "assistant", content: data.aiResponse });
     } catch (error) {
+        console.error('Error:', error);
         addMessage("Bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
         showLoading(false);
