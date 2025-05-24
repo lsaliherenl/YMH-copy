@@ -1,11 +1,14 @@
 package com.melihawci.springrestapi.service;
 
+import com.melihawci.springrestapi.dto.ChatResponse;
 import com.melihawci.springrestapi.model.ChatHistory;
 import com.melihawci.springrestapi.model.User;
 import com.melihawci.springrestapi.repository.ChatHistoryRepository;
 import com.melihawci.springrestapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,24 +22,46 @@ public class ChatService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AIService aiService;
+    @Value("${ai.service.url}")
+    private String aiServiceUrl;
 
-    public ChatHistory processMessage(String message, Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
+    private final RestTemplate restTemplate = new RestTemplate();
 
-        // Yapay zekadan yanıt al
-        String aiResponse = aiService.getAIResponse(message);
+    public ChatResponse processMessage(String message, Long userId) {
+        try {
+            // AI servisine istek gönder
+            String aiResponse = restTemplate.postForObject(
+                aiServiceUrl + "/chat",
+                message,
+                String.class
+            );
 
-        // Sohbet geçmişini kaydet
-        ChatHistory chatHistory = new ChatHistory();
-        chatHistory.setUser(user);
-        chatHistory.setUserMessage(message);
-        chatHistory.setAiResponse(aiResponse);
-        chatHistory.setTimestamp(LocalDateTime.now());
+            // Kullanıcıyı bul (misafir ise null)
+            User user = userId != null ? userRepository.findById(userId).orElse(null) : null;
 
-        return chatHistoryRepository.save(chatHistory);
+            // Sohbet geçmişini kaydet
+            ChatHistory chatHistory = new ChatHistory();
+            chatHistory.setUser(user);
+            chatHistory.setUserMessage(message);
+            chatHistory.setAiResponse(aiResponse);
+            chatHistory.setTimestamp(LocalDateTime.now());
+            chatHistoryRepository.save(chatHistory);
+
+            // Yanıtı hazırla
+            ChatResponse response = new ChatResponse();
+            response.setId(chatHistory.getId());
+            response.setUserMessage(message);
+            response.setAiResponse(aiResponse);
+            response.setTimestamp(chatHistory.getTimestamp());
+            response.setStatus("success");
+
+            return response;
+        } catch (Exception e) {
+            ChatResponse errorResponse = new ChatResponse();
+            errorResponse.setStatus("error");
+            errorResponse.setError("AI servisi ile iletişim kurulamadı: " + e.getMessage());
+            return errorResponse;
+        }
     }
 
     public List<ChatHistory> getUserChatHistory(Long userId) {
