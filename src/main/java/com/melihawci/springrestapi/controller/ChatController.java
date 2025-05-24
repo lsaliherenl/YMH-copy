@@ -12,31 +12,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/chat")
-@CrossOrigin(origins = "http://localhost:5500")
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ChatController {
 
     @Autowired
     private ChatService chatService;
 
-    @PostMapping("/send")
-    public ResponseEntity<ChatResponse> sendMessage(@RequestBody ChatRequest request) {
+    @PostMapping("/chat")
+    public ResponseEntity<ChatResponse> chat(@RequestBody ChatRequest request) {
         try {
-            ChatHistory chatHistory = chatService.processMessage(request.getMessage(), request.getUserId());
-            
-            ChatResponse response = new ChatResponse();
-            response.setId(chatHistory.getId());
-            response.setUserMessage(chatHistory.getUserMessage());
-            response.setAiResponse(chatHistory.getAiResponse());
-            response.setTimestamp(chatHistory.getTimestamp());
-            response.setStatus("success");
-            
+            ChatResponse response = chatService.processMessage(request.getMessage(), request.getUserId());
             return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            ChatResponse response = new ChatResponse();
-            response.setStatus("error");
-            response.setError(e.getMessage());
-            return ResponseEntity.badRequest().body(response);
+        } catch (Exception e) {
+            ChatResponse errorResponse = new ChatResponse();
+            errorResponse.setStatus("error");
+            errorResponse.setError("Bir hata oluştu: " + e.getMessage());
+            return ResponseEntity.internalServerError().body(errorResponse);
         }
     }
 
