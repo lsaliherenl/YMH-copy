@@ -105,9 +105,4 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
 5. Pull Request açın
 
-## 📞 İletişim
-
-Berkay Hasar - [@berkayhsrt](https://github.com/berkayhsrt)
-
-Proje Linki: [https://github.com/berkayhsrt/ymh-ai-assistant](https://github.com/berkayhsrt/ymh-ai-assistant)
 
