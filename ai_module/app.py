@@ -7,11 +7,32 @@ from typing import Dict, Optional, List
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from openai import OpenAI
+from flask_cors import CORS
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from functools import wraps
 
 # .env dosyasını yükle
 load_dotenv()
 
 app = Flask(__name__)
+
+# CORS ayarları - Tüm originlere izin ver (geçici olarak)
+CORS(app)
+
+# Rate limiting ayarları
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
+
+# API key doğrulama decorator'ı - geçici olarak devre dışı
+def require_api_key(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        return f(*args, **kwargs)
+    return decorated
 
 # Konuşma geçmişini saklamak için basit bir bellek
 conversation_memory = {}
@@ -152,6 +173,8 @@ def index():
     return render_template('index.html')
 
 @app.route('/api/chat', methods=['POST'])
+@limiter.limit("10 per minute")
+@require_api_key
 def chat():
     """
     Genel sohbet için API endpoint'i.
@@ -219,6 +242,8 @@ def chat():
         }), 500
 
 @app.route('/api/drug-info', methods=['POST'])
+@limiter.limit("10 per minute")
+@require_api_key
 def get_drug_info():
     """
     İlaç bilgisi ve soru için API endpoint'i.
@@ -363,6 +388,8 @@ def get_drug_info():
         }), 500
 
 @app.route('/ask', methods=['POST'])
+@limiter.limit("10 per minute")
+@require_api_key
 def ask_question():
     """
     Spring Boot uygulaması için basit soru-cevap endpoint'i.

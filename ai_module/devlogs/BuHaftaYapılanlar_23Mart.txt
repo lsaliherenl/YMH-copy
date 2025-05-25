@@ -1,15 +1,53 @@
-Bu Hafta Yapılanlar 23 Mart:
-Bu hafta, projemizin yapay zeka bileşeninin temelini oluşturan çalışmaları tamamladım. Amacımız, kullanıcının girdiği İngilizce ilaç adı ve Türkçe sorusuna, FDA (Amerikan Gıda ve İlaç Dairesi) kaynaklarından elde edilen bilgilerle Türkçe olarak cevap verebilen bir AI asistanı geliştirmek.
+# YMH AI Asistan - Geliştirme Günlüğü
+Tarih: 23 Mart 2024
 
-Bu doğrultuda aşağıdaki adımları gerçekleştirdim:
+## 🎯 Tamamlanan Özellikler
 
-OpenAI Entegrasyonu (ai.py): OpenAI'nin gpt-3.5-turbo modelini kullanarak doğal dil işleme yeteneklerini projeye dahil ettim. Bu kapsamda, FDA ilaç bilgilerini ve kullanıcının Türkçe sorusunu alıp, modeli en iyi şekilde yönlendirecek İngilizce bir prompt oluşturan bir mekanizma geliştirdim. Ayrıca, modelden dönen cevabı alıp kullanıcıya sunacak fonksiyonları yazdım. API hatalarını da ele alacak temel bir yapı oluşturdum.
+### 1. Temel Altyapı
+- Flask web uygulaması kurulumu
+- OpenAI GPT-3.5 entegrasyonu
+- Google Search API entegrasyonu
+- FDA veri çekme sistemi
 
-FDA Veri Çekme ve İşleme (Bilac.py / ilac.py): Kullanıcının girdiği İngilizce ilaç adına göre FDA web sitesinden ilgili bilgileri çekebilecek ve bu bilgileri işleyerek (temizleyerek) AI modelinin anlayabileceği bir formata dönüştürebilecek bir modül oluşturdum. Bu modül, requests, BeautifulSoup ve re gibi kütüphaneleri kullanarak web scraping ve veri ayıklama işlemlerini gerçekleştiriyor.
+### 2. API Endpoint'leri
+- `/api/chat` - Genel sohbet
+- `/api/drug-info` - İlaç bilgisi sorgulama
+- `/ask` - Basit soru-cevap
 
-Ana Uygulama (main.py): Kullanıcının ilaç adını ve sorusunu etkileşimli bir şekilde alıp, bu bilgileri kullanarak ilaç verilerini çeken, prompt oluşturan ve AI modelinden cevap alan ana iş akışını yöneten bir script yazdım. Ayrıca, OpenAI API anahtarının güvenli bir şekilde ortam değişkenlerinden alınmasını sağladım ve temel hata durumları için bilgilendirme mesajları ekledim.
+### 3. Web Arayüzü
+- Ana sayfa tasarımı
+- İlaç arama formu
+- Sohbet arayüzü
 
-Özetle, bu hafta AI asistanımızın temel işlevlerini yerine getirebilmesi için gerekli olan altyapıyı ve ana modülleri başarıyla geliştirdim. Kullanıcı artık İngilizce bir ilaç adı girip Türkçe bir soru sorarak, FDA kaynaklarına dayalı cevaplar alabiliyor. Bu, projenin yapay zeka odaklı kısımlarının ilk ve önemli bir adımıdır
+### 4. Güvenlik ve Performans
+- CORS yapılandırması
+- Rate limiting
+- Hata yönetimi
+- Docker desteği
+
+## 🔄 Devam Eden Çalışmalar
+
+### 1. İyileştirmeler
+- Daha doğal dil işleme
+- Daha hızlı yanıt süreleri
+- Daha iyi hata mesajları
+
+### 2. Dokümantasyon
+- README güncellemesi
+- API dokümantasyonu
+- Kurulum kılavuzu
+
+## 📝 Notlar
+- Uygulama şu anda stabil çalışıyor
+- Temel özellikler tamamlandı
+- Docker desteği eklendi
+- Güvenlik önlemleri alındı
+
+## 🎯 Gelecek Hedefler
+1. Daha fazla ilaç veritabanı entegrasyonu
+2. Daha gelişmiş duygu analizi
+3. Çoklu dil desteği genişletme
+4. Mobil uygulama desteği
 
 
 
