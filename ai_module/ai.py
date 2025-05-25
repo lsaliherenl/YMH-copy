@@ -6,6 +6,11 @@ from openai.types.chat import (
 )
 from typing import Optional, Dict, List, Tuple
 import re
+from dotenv import load_dotenv
+import os
+
+# .env dosyasını yükle
+load_dotenv()
 
 class AIAssistant:
     """
@@ -13,17 +18,17 @@ class AIAssistant:
     Gelişmiş duygusal zeka ve empati yetenekleri eklenmiştir.
     """
 
-    def __init__(self, api_key: str, model_name: str = "gpt-3.5-turbo"):
+    def __init__(self, api_key: str = None, model_name: str = "gpt-3.5-turbo"):
         """
         AIAssistant sınıfının yapıcısı.
         Optimize edilmiş versiyon.
 
         Args:
-            api_key (str): OpenAI API anahtarı.
+            api_key (str, optional): OpenAI API anahtarı. Belirtilmezse .env dosyasından okunur.
             model_name (str, optional): Kullanılacak OpenAI modeli.
                 Varsayılan: "gpt-3.5-turbo".
         """
-        self.client: OpenAI = OpenAI(api_key=api_key)
+        self.client: OpenAI = OpenAI(api_key=api_key or os.getenv("OPENAI_API_KEY"))
         self.model_name: str = model_name
         
         # İlaç arama optimizasyonu için sabitler
