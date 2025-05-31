@@ -63,6 +63,18 @@
         .send-button {
             border-radius: 30px;
         }
+        .model-selector {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .model-badge {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            background-color: #e9ecef;
+            color: #495057;
+            margin-left: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -70,6 +82,19 @@
         <div class="app-header">
             <h1 class="app-title">İlaç Bilgi Asistanı</h1>
             <p class="text-muted">Sağlık hakkında merak ettiğiniz konuları sorabilirsiniz</p>
+        </div>
+        
+        <div class="model-selector">
+            <div class="btn-group" role="group">
+                <input type="radio" class="btn-check" name="modelSelect" id="model35" value="gpt-3.5-turbo" checked>
+                <label class="btn btn-outline-primary" for="model35">GPT-3.5 Turbo</label>
+                
+                <input type="radio" class="btn-check" name="modelSelect" id="model35ft" value="gpt-3.5-turbo-ft">
+                <label class="btn btn-outline-primary" for="model35ft">GPT-3.5 Turbo (Fine-tuned)</label>
+                
+                <input type="radio" class="btn-check" name="modelSelect" id="model4" value="gpt-4">
+                <label class="btn btn-outline-primary" for="model4">GPT-4</label>
+            </div>
         </div>
         
         <div class="chat-container" id="chatContainer">
@@ -92,6 +117,10 @@
                 <button type="submit" class="btn btn-primary send-button">Gönder</button>
             </div>
         </form>
+
+        <div class="disclaimer mt-3 text-center text-muted small">
+            <p>Bu asistan sadece genel bilgi amaçlıdır. Sağlıkla ilgili kararlarınızı vermeden önce mutlaka bir sağlık profesyoneline danışın.</p>
+        </div>
     </div>
 
     <script>
@@ -99,6 +128,15 @@
         let currentDrug = null;
         let isSearchingForDrug = false;
         let sessionId = 'web-session-' + Date.now();  // Oturum için tekil ID
+        let currentModel = 'gpt-3.5-turbo';  // Varsayılan model
+        
+        // Model seçimi değiştiğinde
+        document.querySelectorAll('input[name="modelSelect"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                currentModel = this.value;
+                addMessage(`Model değiştirildi: ${this.value === 'gpt-4o' ? 'GPT-4o (Fine-tuned)' : 'GPT-3.5 Turbo'}`, false);
+            });
+        });
         
         // İlaç adı listesini genişletelim
         const commonDrugKeywords = [
@@ -140,21 +178,6 @@
         // Gelen mesajın ilaçla ilgili olup olmadığını kontrol et
         function isDrugRelated(message) {
             const lowerMessage = message.toLowerCase();
-            
-            // Önceki ilaç sorgusu varsa ve ilaç adı ile ilgili anahtar kelimeler içeriyorsa
-            if (currentDrug) {
-                const drugTerms = [
-                    'ne için', 'nedir', 'yan etki', 'kullanılır', 'nasıl', 'doz', 'dozaj',
-                    'etken', 'madde', 'tehlikeli', 'bebek', 'hamile', 'çocuk', 'kullanan',
-                    'kullanım', 'uyarı', 'dikkat'
-                ];
-                
-                for (const term of drugTerms) {
-                    if (lowerMessage.includes(term)) {
-                        return true;
-                    }
-                }
-            }
             
             // Yaygın ilaç adlarını kontrol et
             for (const drug of commonDrugKeywords) {
@@ -239,28 +262,30 @@
                     body: JSON.stringify({
                         message: message,
                         session_id: sessionId,
-                        conversation_history: conversationHistory
+                        conversation_history: conversationHistory,
+                        model: currentModel
                     })
                 });
 
                 const data = await response.json();
                 
-                addMessage(data.response);
+                if (data.error) {
+                    addMessage('Üzgünüm, bir hata oluştu: ' + data.error, false);
+                    return;
+                }
+
+                addMessage(data.response, false);
+                conversationHistory = data.conversation_history;
                 
-                // Konuşma geçmişini güncelle
-                conversationHistory.push({
-                    role: "user",
-                    content: message
-                });
-                
-                conversationHistory.push({
-                    role: "assistant",
-                    content: data.response
-                });
+                // Model bilgisini göster
+                const modelBadge = document.createElement('span');
+                modelBadge.className = 'model-badge';
+                modelBadge.textContent = data.model_used === 'gpt-4o' ? 'GPT-4o' : 'GPT-3.5';
+                document.querySelector('.message:last-child').appendChild(modelBadge);
                 
             } catch (error) {
-                console.error('Error:', error);
-                addMessage("Bir hata oluştu. Lütfen tekrar deneyin.");
+                console.error('Hata:', error);
+                addMessage('Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.', false);
             } finally {
                 loading.style.display = 'none';
             }
@@ -280,46 +305,14 @@
             
             if (drugRelated) {
                 // İlaç adı henüz belirlenmemişse
-                if (!currentDrug && !isSearchingForDrug) {
+                if (!currentDrug) {
                     const potentialDrug = extractPotentialDrugName(message);
                     
                     if (potentialDrug) {
                         currentDrug = potentialDrug;
-                        addMessage(`Endişelerinizi anlıyorum. ${currentDrug} hakkında size yardımcı olmak için bilgi araştırıyorum...`);
-                        await getIlacInfo(currentDrug, "ne için kullanılır");
-                        return;
-                    } else {
-                        isSearchingForDrug = true;
-                        const lowerMessage = message.toLowerCase();
-                        let response = "";
-                        
-                        // Duruma göre özelleştirilmiş yanıtlar
-                        if (lowerMessage.includes("endişe") || lowerMessage.includes("korku") || lowerMessage.includes("yan etki")) {
-                            response = "Endişelerinizi anlıyorum. Size daha iyi yardımcı olabilmem için, bahsettiğiniz ilacın adını paylaşır mısınız?";
-                        } else if (lowerMessage.includes("ağrı") || lowerMessage.includes("acı")) {
-                            response = "Yaşadığınız rahatsızlığı anlıyorum. Size doğru bilgileri verebilmem için, kullandığınız ilacın adını öğrenebilir miyim?";
-                        } else if (lowerMessage.includes("moral") || lowerMessage.includes("destek")) {
-                            response = "Size destek olmak istiyorum. Hangi ilaç hakkında bilgi almak istediğinizi benimle paylaşır mısınız?";
-                        } else {
-                            response = "Size yardımcı olmak için ilacın adını öğrenmem gerekiyor. Hangi ilaç hakkında bilgi almak istiyorsunuz?";
-                        }
-                        
-                        addMessage(response);
+                        await getIlacInfo(currentDrug, message);
                         return;
                     }
-                } 
-                // İlaç adı sormuşsak ve cevap geldiyse
-                else if (isSearchingForDrug) {
-                    const potentialDrug = extractPotentialDrugName(message);
-                    if (potentialDrug) {
-                        currentDrug = potentialDrug;
-                        isSearchingForDrug = false;
-                        addMessage(`${currentDrug} hakkında size yardımcı olmak için bilgi araştırıyorum. Özellikle merak ettiğiniz bir konu var mı?`);
-                        await getIlacInfo(currentDrug, "ne için kullanılır");
-                    } else {
-                        addMessage("Üzgünüm, tam olarak hangi ilaçtan bahsettiğinizi anlayamadım. İlacın adını tekrar yazabilir misiniz?");
-                    }
-                    return;
                 }
             } 
             
@@ -342,7 +335,8 @@
                         drug_name_en: drugName,
                         question_tr: question,
                         session_id: sessionId,
-                        conversation_history: conversationHistory
+                        conversation_history: conversationHistory,
+                        model: currentModel
                     })
                 });
 

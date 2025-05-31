@@ -1,108 +1,97 @@
-# YMH AI İlaç Asistanı
+# AI Sağlık Asistanı 🤖
 
-Bu proje, ilaçlar hakkında bilgi veren yapay zeka destekli bir asistan uygulamasıdır. OpenAI GPT-3.5 ve Google Search API'lerini kullanarak ilaçlar hakkında güvenilir bilgiler sunar.
+Bu proje, ilaç bilgisi ve sağlık danışmanlığı sağlayan, empatik ve interaktif bir yapay zeka asistanıdır.
 
-## 🚀 Özellikler
+## 🌟 Özellikler
 
-- İlaç bilgilerini FDA veritabanından çekme
-- Google araması ile güncel bilgileri bulma
-- Doğal dil işleme ile samimi yanıtlar
-- Web arayüzü ve API desteği
-- Çoklu dil desteği (Türkçe/İngilizce)
+- **Empatik İletişim**: Kullanıcıların duygusal durumlarını anlayan ve psikolojik destek sağlayan yapay zeka
+- **İlaç Bilgisi**: FDA verilerine dayalı güvenilir ilaç bilgileri
+- **Duygu Analizi**: Kullanıcıların duygusal durumlarını tespit eden ve uygun yanıtlar veren sistem
+- **İnteraktif Diyalog**: Doğal ve akıcı konuşma akışı
+- **Psikolojik Destek**: Endişe ve korkuları anlayan, destekleyici yanıtlar
 
-## 📋 Gereksinimler
+## 🚀 Kurulum
 
-- Python 3.10+
-- Conda veya pip
-- OpenAI API anahtarı
-- Google Search API anahtarı
-
-## 🛠️ Kurulum
-
-1. Repoyu klonlayın:
-```bash
-git clone https://github.com/yourusername/ymh-ai-assistant.git
-cd ymh-ai-assistant
-```
-
-2. Conda ortamını oluşturun:
-```bash
-conda env create -f environment.yml
-conda activate YMH_Projesi
-```
-
-3. `.env` dosyasını oluşturun:
-```env
-OPENAI_API_KEY=your-openai-api-key
-GOOGLE_API_KEY=your-google-api-key
-GOOGLE_CSE_ID=your-google-cse-id
-```
-
-4. Gerekli paketleri yükleyin:
+1. Gerekli paketleri yükleyin:
 ```bash
 pip install -r requirements.txt
 ```
 
-## 🚀 Kullanım
+2. `.env.example` dosyasını `.env` olarak kopyalayın ve API anahtarlarınızı ekleyin:
+```bash
+cp .env.example .env
+```
 
-1. Uygulamayı başlatın:
+3. Uygulamayı başlatın:
 ```bash
 python app.py
 ```
 
-2. Web arayüzüne erişin:
-```
-http://localhost:5000
-```
+## 💡 Kullanım
 
-3. API kullanımı:
+Asistan şu konularda yardımcı olabilir:
+- İlaç bilgisi ve yan etkileri
+- Sağlık danışmanlığı
+- Duygusal destek
+- Pratik sağlık önerileri
+
+## 🧪 Test
+
+Testleri çalıştırmak için:
 ```bash
-# İlaç bilgisi sorgulama
-curl -X POST http://localhost:5000/api/drug-info \
-  -H "Content-Type: application/json" \
-  -d '{"drug_name_en": "aspirin", "question_tr": "Yan etkileri nelerdir?"}'
-
-# Genel sohbet
-curl -X POST http://localhost:5000/api/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Merhaba, nasılsın?"}'
+python test_data/test_runner.py
 ```
+
+Test raporları `test_reports` klasöründe oluşturulur:
+- JSON formatında detaylı sonuçlar
+- HTML formatında görsel raporlar
 
 ## 📁 Proje Yapısı
 
 ```
-ymh-ai-assistant/
-├── app.py              # Ana uygulama
-├── ai.py              # AI asistan sınıfı
-├── Ilac.py            # İlaç bilgisi sınıfı
-├── google_research/   # Google arama fonksiyonları
-├── templates/         # Web arayüzü şablonları
-├── requirements.txt   # Python bağımlılıkları
-└── environment.yml    # Conda ortam yapılandırması
+ai_module/
+├── ai.py                 # Ana AI sınıfı ve prompt sistemi
+├── Ilac.py              # FDA veri çekme ve temizleme
+├── main.py              # Ana çalışma akışı
+├── requirements.txt     # Gerekli kütüphaneler
+├── test_data/          # Test senaryoları
+│   ├── drug_queries.json
+│   ├── emotion_scenarios.json
+│   └── context_tracking.json
+└── test_reports/       # Test raporları
 ```
 
-## 🔧 Geliştirme
+## 🔧 Teknik Detaylar
 
-1. Yeni özellik eklemek için:
-   - Yeni bir branch oluşturun
-   - Değişikliklerinizi yapın
-   - Test edin
-   - Pull request açın
-
-2. Hata ayıklama:
-   - `DEBUG=1` environment variable'ı ile detaylı hata mesajları
-   - Log dosyalarını kontrol edin
-
-## 📝 Lisans
-
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+- **AI Modeli**: OpenAI GPT-3.5 Turbo
+- **Duygu Analizi**: Özel geliştirilmiş duygu tespit sistemi
+- **Veri Kaynağı**: FDA API ve güvenilir tıbbi kaynaklar
+- **Dil Desteği**: Türkçe
 
 ## 🤝 Katkıda Bulunma
 
-1. Fork'layın
-2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'feat: Add amazing feature'`)
+1. Bu depoyu fork edin
+2. Yeni bir branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
 4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
-5. Pull Request açın
+5. Bir Pull Request oluşturun
 
+## ⚠️ Güvenlik Notları
+
+- API anahtarlarınızı asla GitHub'a yüklemeyin
+- `.env` dosyasını `.gitignore`'a eklediğinizden emin olun
+- Test raporları hassas bilgiler içerebilir, bunları da yüklemeyin
+
+## 📝 Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakın.
+
+## 👨‍💻 Geliştirici
+
+Bu modül, projenin **Yapay Zeka** bileşeninden sorumlu [@berkayhsrt](https://github.com/berkay123001) tarafından geliştirilmiştir.
+
+## 📅 Geliştirme Günlüğü
+
+• [Bu Hafta Yapılanlar - 23 Mart](devlogs/BuHaftaYapılanlar_23Mart.txt)  
+• [Gelecek Geliştirme Alanları](devlogs/GelecekGelistirmeAlanlari.txt)
 

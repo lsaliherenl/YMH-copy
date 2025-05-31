@@ -88,12 +88,20 @@ def add_to_conversation_history(session_id: str, drug_name: str, question: str, 
         'response': response
     })
 
-def generate_natural_response(drug_name: str, raw_response: str, conversation_history: List[Dict], question: str) -> str:
+def generate_natural_response(drug_name: str, raw_response: str, conversation_history: List[Dict], question: str, model_name: str = "gpt-3.5-turbo") -> str:
     """
     FDA veya Google'dan gelen ham yanıtı alıp daha doğal, sohbet tarzında bir yanıt oluşturur.
     """
     api_key: str = get_openai_api_key()
     client = OpenAI(api_key=api_key)
+    
+    # Model seçimi
+    if model_name == "gpt-4":
+        model = "gpt-4"
+    elif model_name == "gpt-3.5-turbo-ft":
+        model = os.getenv("FINE_TUNED_MODEL", "ft:gpt-3.5-turbo-1106:personal:bioworks-gpt3-empati-004:Bcd1AELh")
+    else:
+        model = model_name
     
     # Konuşma geçmişini OpenAI formatına dönüştür
     messages = [
@@ -104,6 +112,12 @@ def generate_natural_response(drug_name: str, raw_response: str, conversation_hi
         İlaç bilgilerini sunarken fazla teknik terimleri açıkla ve kullanıcının endişelerini dinle.
         Bilgi kaynağının FDA veya web aramaları olduğunu belirtmene gerek yok.
         Cevaplarında kısa ve öz ol, ancak önemli bilgileri atlamadan ve samimi bir dilde yanıtla.
+        
+        Doktor yönlendirmesi yaparken:
+        - Her yanıtın sonunda otomatik olarak doktora yönlendirme yapma
+        - Sadece gerçekten ciddi durumlarda (acil, hayati risk, şiddetli yan etki gibi) doktora yönlendir
+        - Yönlendirme yaparken doğal bir sohbet akışı içinde yap, "doktorunuza danışın" gibi resmi ifadeler kullanma
+        - Kullanıcının endişelerini önce dinle ve anla, sonra gerekirse yönlendirme yap
         
         Şu anda kullanıcı seninle {drug_name} ilacı hakkında konuşuyor.
         """}
@@ -121,30 +135,47 @@ def generate_natural_response(drug_name: str, raw_response: str, conversation_hi
     messages.append({"role": "system", "content": f"Aşağıdaki ham bilgiler mevcut soru için bulundu, bunu kullanıcıya samimi şekilde ilet: {raw_response}"})
     
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=model,
         messages=messages,
-        max_tokens=1500,
+        max_tokens=3000,
         temperature=0.7,
     )
     
     return response.choices[0].message.content
 
-def simple_chat_response(message: str, conversation_history: List[Dict]) -> str:
+def simple_chat_response(message: str, conversation_history: List[Dict], model_name: str = "gpt-3.5-turbo") -> str:
     """
     İlaç araması yapmadan basit sohbet yanıtları üretir.
     """
     api_key: str = get_openai_api_key()
     client = OpenAI(api_key=api_key)
     
+    # Model seçimi
+    if model_name == "gpt-4":
+        model = "gpt-4"
+    elif model_name == "gpt-3.5-turbo-ft":
+        model = os.getenv("FINE_TUNED_MODEL", "ft:gpt-3.5-turbo-1106:personal:bioworks-gpt3-empati-004:Bcd1AELh")
+    else:
+        model = model_name
+    
     messages = [
         {"role": "system", "content": """
         Sen samimi ve yardımsever bir sağlık asistanısın. Sağlık ve ilaçlar konusunda genel bilgiler verebilirsin,
         ancak spesifik ilaç tavsiyeleri yapmamalısın. Kullanıcıyla doğal bir sohbet akışı içinde
-        konuşmalısın. Eğer kullanıcı belirli bir ilaç hakkında bilgi isterse, ona yardımcı olmak istediğini
-        ama önce ilaç adını açıkça belirtmesi gerektiğini söyle.
+        konuşmalısın.
         
-        Yanıtlarını kısa ve anlaşılır tut, tıbbi terimleri kullanmaktan kaçın. Kullanıcıya
-        bir doktor veya eczacıya danışması gerektiğini hatırlatabilirsin.
+        Eğer kullanıcı sadece bir ilaç adı yazarsa:
+        - İlaç hakkında genel bir bilgi ver
+        - İlacı internetten araştırmak isteyip istemediğini sor
+        - Örnek: "Bu ilaç hakkında daha detaylı bilgi almak ister misiniz? İnternetten araştırabilirim."
+        
+        Yanıtlarını kısa ve anlaşılır tut, tıbbi terimleri kullanmaktan kaçın.
+        
+        Doktor yönlendirmesi yaparken:
+        - Her yanıtın sonunda otomatik olarak doktora yönlendirme yapma
+        - Sadece gerçekten ciddi durumlarda (acil, hayati risk, şiddetli yan etki gibi) doktora yönlendir
+        - Yönlendirme yaparken doğal bir sohbet akışı içinde yap, "doktorunuza danışın" gibi resmi ifadeler kullanma
+        - Kullanıcının endişelerini önce dinle ve anla, sonra gerekirse yönlendirme yap
         """}
     ]
     
@@ -157,9 +188,9 @@ def simple_chat_response(message: str, conversation_history: List[Dict]) -> str:
     messages.append({"role": "user", "content": message})
     
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=model,
         messages=messages,
-        max_tokens=500,
+        max_tokens=3000,
         temperature=0.7,
     )
     
@@ -183,7 +214,8 @@ def chat():
     {
         "message": "Kullanıcı mesajı",
         "session_id": "Oturum ID'si (opsiyonel)",
-        "conversation_history": "Önceki konuşma geçmişi (opsiyonel)"
+        "conversation_history": "Önceki konuşma geçmişi (opsiyonel)",
+        "model": "Model adı (opsiyonel, varsayılan: gpt-3.5-turbo)"
     }
     """
     try:
@@ -197,6 +229,7 @@ def chat():
         message = data['message']
         session_id = data.get('session_id', 'default')
         client_conversation_history = data.get('conversation_history', [])
+        model_name = data.get('model', 'gpt-3.5-turbo')  # Varsayılan model
         
         # Konuşma geçmişini al
         server_conversation_history = get_conversation_history(session_id)
@@ -205,7 +238,7 @@ def chat():
         conversation_history = client_conversation_history if client_conversation_history else server_conversation_history
         
         # Basit sohbet yanıtı oluştur
-        chat_response = simple_chat_response(message, conversation_history)
+        chat_response = simple_chat_response(message, conversation_history, model_name)
         
         # Konuşma geçmişini güncelle
         if session_id not in conversation_memory:
@@ -225,7 +258,8 @@ def chat():
         
         return jsonify({
             'response': chat_response,
-            'conversation_history': conversation_history
+            'conversation_history': conversation_history,
+            'model_used': model_name
         })
         
     except Exception as e:
@@ -260,6 +294,7 @@ def get_drug_info():
         question_tr = data['question_tr'].strip()
         session_id = data.get('session_id', 'default')
         client_conversation_history = data.get('conversation_history', [])
+        model_name = data.get('model', 'gpt-3.5-turbo')  # Varsayılan model
 
         # İlaç adı kontrolü
         if not drug_name_en:
@@ -290,43 +325,15 @@ def get_drug_info():
         response_data = {
             'drug_name': drug_name_en,
             'question': question_tr,
-            'fda_response': None,
             'web_response': None,
             'conversation_history': conversation_history
         }
 
-        # FDA bilgilerini al
-        drug = Drug(drug_name_en)
-        fda_success = drug.get_fda_info()
-        
-        if fda_success:
-            try:
-                drug.clean_data()
-                drug_info = {
-                    "substance_name": drug.substance_name,
-                    "indications_and_usage": drug.indications_and_usage,
-                    "warnings": drug.warnings,
-                    "dosage_and_administration": drug.dosage_and_administration,
-                    "adverse_reactions": drug.adverse_reactions
-                }
+        # Web araması isteği var mı kontrol et
+        should_search_web = any(keyword in question_tr.lower() for keyword in ['internet', 'araştır', 'web', 'online', 'bul', 'sitesi', 'site', 'kaynak', 'fda', 'google'])
 
-                # FDA yanıtını oluştur
-                prompt = AIAssistant.create_prompt(drug_info, question_tr)
-                response_fda = ai_assistant.get_response(prompt)
-                
-                if response_fda:
-                    # Duygu analizi ve empati ekle
-                    emotions, intensity = ai_assistant.detect_emotion_and_intensity(question_tr)
-                    natural_response = ai_assistant.create_empathetic_response(response_fda, emotions, intensity)
-                    response_data['fda_response'] = natural_response
-                    add_to_conversation_history(session_id, drug_name_en, question_tr, natural_response)
-                else:
-                    print("FDA yanıtı alınamadı, web aramasına geçiliyor...")
-            except Exception as e:
-                print(f"FDA yanıtı işlenirken hata: {str(e)}")
-
-        # Web araması yap (FDA yanıtı yoksa veya yetersizse)
-        if not response_data['fda_response']:
+        # Sadece web araması isteniyorsa Google araması yap
+        if should_search_web:
             try:
                 # İlaç adı ve soruyu birleştirerek ara
                 search_queries = google_search.create_search_queries(question_tr, drug_name_en)
@@ -346,31 +353,34 @@ def get_drug_info():
                     if answer_google:
                         # Duygu analizi ve empati ekle
                         emotions, intensity = ai_assistant.detect_emotion_and_intensity(question_tr)
-                        natural_response = ai_assistant.create_empathetic_response(answer_google, emotions, intensity)
+                        natural_response = generate_natural_response(drug_name_en, answer_google, conversation_history, question_tr, model_name)
                         response_data['web_response'] = natural_response
                         add_to_conversation_history(session_id, drug_name_en, question_tr, natural_response)
                     else:
                         response_data['web_response'] = (
                             f"Üzgünüm, {drug_name_en} hakkında bu soruya net bir cevap bulamadım. "
-                            "Lütfen doktorunuza veya eczacınıza danışın."
+                            "Lütfen sorunuzu daha spesifik hale getirir misiniz?"
                         )
                 else:
                     response_data['web_response'] = (
                         f"Üzgünüm, {drug_name_en} hakkında güvenilir bilgi bulamadım. "
-                        "Lütfen ilaç adının doğru yazıldığından emin olun veya bir sağlık profesyoneline danışın."
+                        "Lütfen ilaç adının doğru yazıldığından emin olun."
                     )
             except Exception as e:
                 print(f"Web araması sırasında hata: {str(e)}")
                 response_data['web_response'] = "Üzgünüm, şu anda bilgi alma konusunda teknik bir sorun yaşıyorum."
 
         # Hiçbir yanıt alınamadıysa
-        if not response_data['fda_response'] and not response_data['web_response']:
+        if not response_data['web_response']:
             response_data['web_response'] = (
                 f"Üzgünüm, {drug_name_en} hakkında şu anda bilgi edinemiyorum. "
-                "Lütfen daha sonra tekrar deneyin veya bir sağlık profesyoneline danışın."
+                "Eğer ilaç hakkında bilgi almak istiyorsanız, lütfen 'araştır' veya 'internet' gibi kelimeler kullanarak sorunuzu tekrar sorun."
             )
 
-        return jsonify(response_data)
+        return jsonify({
+            **response_data,
+            'model_used': model_name
+        })
 
     except ValueError as ve:
         return jsonify({'error': str(ve)}), 400
@@ -395,17 +405,21 @@ def ask_question():
     Spring Boot uygulaması için basit soru-cevap endpoint'i.
     """
     try:
-        question = request.get_data(as_text=True)
-        if not question:
+        data = request.get_json()
+        if not data or 'question' not in data:
             return jsonify({
-                'error': 'Soru boş olamaz.'
+                'error': 'Geçersiz istek formatı. question alanı gerekli.'
             }), 400
 
+        question = data['question']
+        model_name = data.get('model', 'gpt-3.5-turbo')  # Varsayılan model
+
         # Basit sohbet yanıtı oluştur
-        chat_response = simple_chat_response(question, [])
+        chat_response = simple_chat_response(question, [], model_name)
         
         return jsonify({
-            'answer': chat_response
+            'answer': chat_response,
+            'model_used': model_name
         })
         
     except Exception as e:
