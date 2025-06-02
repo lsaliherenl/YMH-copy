@@ -7,11 +7,16 @@ import com.melihawci.springrestapi.repository.ChatHistoryRepository;
 import com.melihawci.springrestapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ChatService {
@@ -30,9 +35,18 @@ public class ChatService {
     public ChatResponse processMessage(String message, Long userId) {
         try {
             // AI servisine istek gönder
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("message", message);
+            requestBody.put("session_id", "web-session-" + System.currentTimeMillis());
+
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+
             String aiResponse = restTemplate.postForObject(
                 aiServiceUrl + "/chat",
-                message,
+                request,
                 String.class
             );
 

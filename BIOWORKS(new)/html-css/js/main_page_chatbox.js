@@ -139,13 +139,16 @@ async function generalChat(message) {
             },
             body: JSON.stringify({
                 message: message,
-                userId: null // Misafir kullanıcı için null
+                userId: getCurrentUserId() // Kullanıcı ID'sini al
             })
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        if (data.status === 'error') {
+            throw new Error(data.error);
+        }
         addMessage(data.aiResponse);
         conversationHistory.push({ role: "user", content: message });
         conversationHistory.push({ role: "assistant", content: data.aiResponse });
@@ -211,10 +214,11 @@ async function handleConversation(message) {
 async function getIlacInfo(drugName, question) {
     showLoading(true);
     try {
-        const response = await fetch('/api/drug-info', {
+        const response = await fetch('http://localhost:8080/api/drug-info', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 drug_name_en: drugName,
@@ -223,18 +227,19 @@ async function getIlacInfo(drugName, question) {
                 conversation_history: conversationHistory
             })
         });
-        const data = await response.json();
-        let answer = "Üzgünüm, bu konuda bilgi bulamadım.";
-        if (data.fda_response) {
-            answer = data.fda_response;
-        } else if (data.web_response) {
-            answer = data.web_response;
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-        addMessage(answer);
+        const data = await response.json();
+        if (data.status === 'error') {
+            throw new Error(data.error);
+        }
+        addMessage(data.response);
         conversationHistory.push({ role: "user", content: question });
-        conversationHistory.push({ role: "assistant", content: answer });
+        conversationHistory.push({ role: "assistant", content: data.response });
     } catch (error) {
-        addMessage("Bir hata oluştu. Lütfen tekrar deneyin.");
+        console.error('Error:', error);
+        addMessage("İlaç bilgisi alınırken bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
         showLoading(false);
     }
@@ -271,6 +276,12 @@ function updateChatListLastMessage(chatId, lastMessage) {
     if (typeof renderChatHistory === 'function') {
         renderChatHistory(chatHistory);
     }
+}
+
+// Kullanıcı ID'sini alma fonksiyonu
+function getCurrentUserId() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user ? user.id : null;
 }
 
 // Event Listeners
