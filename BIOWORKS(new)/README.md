@@ -2,6 +2,8 @@
 
 Bu proje, kullanıcıların etkileşimde bulunabileceği çeşitli web sayfalarını içermektedir. Giriş, kayıt, şifremi unuttum gibi temel kullanıcı kimlik doğrulama işlemlerinin yanı sıra, ana sayfa, profil, hakkında ve iletişim sayfalarını da içermektedir.
 
+* **Site Linki:** [BIOWORKS Web Uygulaması](https://alrainn.github.io/YMH/)
+
 ---
 
 ## Proje Açıklaması
@@ -23,6 +25,27 @@ Proje aşağıdaki dosyaları içermektedir:
 * `profile.html`: Kullanıcıların kendi profillerini görüntüleyebileceği ve düzenleyebileceği "Profil" sayfası.
 * `style.css`: Tüm sayfaların genel görünümünü ve düzenini kontrol eden CSS stil dosyası.
 * `main_page.css`: Ana sayfaya özel stilleri içeren CSS dosyası.
+
+## Dosya Yapısı
+
+```
+BIOWORKS(new)/
+├── photos/                    # Proje görselleri
+│   └── z-site_preview/       # Site önizleme görselleri
+├── html-css/                 # Frontend kaynak kodları
+│   ├── index.html           # Giriş sayfası
+│   ├── register.html        # Kayıt sayfası
+│   ├── forgot_password.html # Şifremi unuttum sayfası
+│   ├── main_page.html      # Ana sayfa
+│   ├── about_us.html       # Hakkımızda sayfası
+│   ├── communication.html  # İletişim sayfası
+│   ├── profile.html        # Profil sayfası
+│   ├── style.css          # Genel stil dosyası
+│   └── main_page.css      # Ana sayfa stil dosyası
+├── devlogs/                # Geliştirme günlükleri
+├── package-lock.json      # NPM bağımlılık kilidi
+└── README.md             # Proje dokümantasyonu
+```
 
 ---
 
@@ -109,7 +132,6 @@ Proje aşağıdaki dosyaları içermektedir:
 
 ## Kullanım
 
-* **Site Linki:** [BIOWORKS Web Uygulaması](https://alrainn.github.io/YMH/)
 
 * **Giriş Yapmak İçin:**
     1. `index.html` sayfasına gidin
@@ -214,6 +236,22 @@ Bu projeye katkıda bulunmak isterseniz:
 4. Değişikliklerinizi commit'leyin (`git commit -m "Yeni özellik eklendi"`)
 5. Branch'inizi push edin (`git push origin yeni-ozellik`)
 6. Pull Request gönderin
+
+## Geliştirme Günlüğü
+
+Projenin geliştirme sürecindeki önemli değişiklikler ve güncellemeler aşağıdaki günlüklerde detaylı olarak belgelenmiştir:
+
+- [28 Nisan - 4 Mayıs Geliştirme Günlüğü](devlogs/28Nisan-4Mayıs.md)
+  - Frontend geliştirmeleri
+  - Kullanıcı arayüzü güncellemeleri
+  - Hata düzeltmeleri
+
+- [5 Mayıs - 25 Mayıs Geliştirme Günlüğü](devlogs/5Mayıs-25Mayıs.md)
+  - Yeni özellikler
+  - Performans iyileştirmeleri
+  - Güvenlik güncellemeleri
+
+Her günlük dosyası, ilgili dönemde yapılan değişiklikleri, eklenen özellikleri ve çözülen sorunları detaylı olarak içermektedir.
 
 ---
 

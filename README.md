@@ -43,4 +43,4 @@ Katkıda bulunmak isterseniz, bir fork oluşturup değişikliklerinizi pull requ
 
 ## 📄 Lisans
 
-Bu proje için henüz bir lisans dosyası belirtilmemiştir. Kullanım koşulları için proje geliştiricilerine ulaşabilirsiniz.
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakınız.
